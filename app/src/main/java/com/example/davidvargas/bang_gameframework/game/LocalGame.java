@@ -1,22 +1,23 @@
 package com.example.davidvargas.bang_gameframework.game;
 
-import edu.up.cs301.game.actionMsg.GameAction;
-import edu.up.cs301.game.actionMsg.GameOverAckAction;
-import edu.up.cs301.game.actionMsg.MyNameIsAction;
-import edu.up.cs301.game.actionMsg.ReadyAction;
-import edu.up.cs301.game.actionMsg.TimerAction;
-import edu.up.cs301.game.infoMsg.BindGameInfo;
-import edu.up.cs301.game.infoMsg.GameOverInfo;
-import edu.up.cs301.game.infoMsg.IllegalMoveInfo;
-import edu.up.cs301.game.infoMsg.NotYourTurnInfo;
-import edu.up.cs301.game.infoMsg.StartGameInfo;
-import edu.up.cs301.game.util.GameTimer;
-import edu.up.cs301.game.util.Tickable;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+
+import com.example.davidvargas.bang_gameframework.game.actionMsg.GameAction;
+import com.example.davidvargas.bang_gameframework.game.actionMsg.GameOverAckAction;
+import com.example.davidvargas.bang_gameframework.game.actionMsg.MyNameIsAction;
+import com.example.davidvargas.bang_gameframework.game.actionMsg.ReadyAction;
+import com.example.davidvargas.bang_gameframework.game.actionMsg.TimerAction;
+import com.example.davidvargas.bang_gameframework.game.infoMsg.BindGameInfo;
+import com.example.davidvargas.bang_gameframework.game.infoMsg.GameOverInfo;
+import com.example.davidvargas.bang_gameframework.game.infoMsg.IllegalMoveInfo;
+import com.example.davidvargas.bang_gameframework.game.infoMsg.NotYourTurnInfo;
+import com.example.davidvargas.bang_gameframework.game.infoMsg.StartGameInfo;
+import com.example.davidvargas.bang_gameframework.game.util.GameTimer;
+import com.example.davidvargas.bang_gameframework.game.util.Tickable;
 
 /**
  * A class that knows how to play the game. The data in this class represent the

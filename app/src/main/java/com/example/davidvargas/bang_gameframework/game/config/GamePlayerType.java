@@ -1,6 +1,7 @@
 package com.example.davidvargas.bang_gameframework.game.config;
 
-import edu.up.cs301.game.GamePlayer;
+
+import com.example.davidvargas.bang_gameframework.game.GamePlayer;
 
 /**
  * class GamePlayerType

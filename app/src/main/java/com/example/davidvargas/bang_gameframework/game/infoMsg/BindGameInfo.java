@@ -1,6 +1,7 @@
 package com.example.davidvargas.bang_gameframework.game.infoMsg;
 
-import edu.up.cs301.game.Game;
+
+import com.example.davidvargas.bang_gameframework.game.Game;
 
 /**
  * A message from the game to a player that tells the player:

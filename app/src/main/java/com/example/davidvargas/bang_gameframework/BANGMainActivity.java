@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.example.davidvargas.bang_gameframework.game.GameConfig;
 import com.example.davidvargas.bang_gameframework.game.GameMainActivity;
 import com.example.davidvargas.bang_gameframework.game.GamePlayer;
+import com.example.davidvargas.bang_gameframework.game.LocalGame;
 import com.example.davidvargas.bang_gameframework.game.config.GamePlayerType;
 
 import java.util.ArrayList;

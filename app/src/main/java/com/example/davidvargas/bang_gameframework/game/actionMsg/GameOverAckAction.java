@@ -1,6 +1,6 @@
 package com.example.davidvargas.bang_gameframework.game.actionMsg;
 
-import edu.up.cs301.game.GamePlayer;
+import com.example.davidvargas.bang_gameframework.game.GamePlayer;
 
 /**
  * An action by which the player acknowledges that the game is over.

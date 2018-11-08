@@ -1,10 +1,11 @@
 package com.example.davidvargas.bang_gameframework.game;
 
-import edu.up.cs301.game.actionMsg.GameAction;
-import edu.up.cs301.game.infoMsg.BindGameInfo;
-import edu.up.cs301.game.infoMsg.GameInfo;
-import edu.up.cs301.game.util.NetworkObjectPasser;
 import android.util.Log;
+
+import com.example.davidvargas.bang_gameframework.game.actionMsg.GameAction;
+import com.example.davidvargas.bang_gameframework.game.infoMsg.BindGameInfo;
+import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
+import com.example.davidvargas.bang_gameframework.game.util.NetworkObjectPasser;
 
 /**
  * A Player object that is used as a proxy for the real player that is on another

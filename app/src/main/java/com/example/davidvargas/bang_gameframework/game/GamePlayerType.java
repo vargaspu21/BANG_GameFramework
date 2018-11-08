@@ -1,7 +1,5 @@
 package com.example.davidvargas.bang_gameframework.game;
 
-import edu.up.cs301.game.GamePlayer;
-import edu.up.cs301.game.config.*;
 
 /**
  * class GamePlayerType
@@ -12,7 +10,7 @@ import edu.up.cs301.game.config.*;
  * 
  * @author Andrew Nuxoll
  * @version July 2012
- * @see edu.up.cs301.game.config.GameConfig
+ * @see //edu.up.cs301.game.config.GameConfig
  */
 
 public abstract class GamePlayerType implements Cloneable /*, Serializable*/ {

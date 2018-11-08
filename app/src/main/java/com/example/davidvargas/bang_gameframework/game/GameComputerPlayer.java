@@ -1,19 +1,21 @@
 package com.example.davidvargas.bang_gameframework.game;
 
-import edu.up.cs301.game.actionMsg.GameOverAckAction;
-import edu.up.cs301.game.actionMsg.MyNameIsAction;
-import edu.up.cs301.game.actionMsg.ReadyAction;
-import edu.up.cs301.game.infoMsg.BindGameInfo;
-import edu.up.cs301.game.infoMsg.GameInfo;
-import edu.up.cs301.game.infoMsg.GameOverInfo;
-import edu.up.cs301.game.infoMsg.StartGameInfo;
-import edu.up.cs301.game.infoMsg.TimerInfo;
-import edu.up.cs301.game.util.GameTimer;
-import edu.up.cs301.game.util.MessageBox;
-import edu.up.cs301.game.util.Tickable;
+
 
 import android.os.Handler;
 import android.os.Looper;
+
+import com.example.davidvargas.bang_gameframework.game.actionMsg.GameOverAckAction;
+import com.example.davidvargas.bang_gameframework.game.actionMsg.MyNameIsAction;
+import com.example.davidvargas.bang_gameframework.game.actionMsg.ReadyAction;
+import com.example.davidvargas.bang_gameframework.game.infoMsg.BindGameInfo;
+import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
+import com.example.davidvargas.bang_gameframework.game.infoMsg.GameOverInfo;
+import com.example.davidvargas.bang_gameframework.game.infoMsg.StartGameInfo;
+import com.example.davidvargas.bang_gameframework.game.infoMsg.TimerInfo;
+import com.example.davidvargas.bang_gameframework.game.util.GameTimer;
+import com.example.davidvargas.bang_gameframework.game.util.MessageBox;
+import com.example.davidvargas.bang_gameframework.game.util.Tickable;
 
 /**
  * An abstract computerized game player player. This is an abstract class, that

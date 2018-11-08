@@ -1,8 +1,9 @@
 package com.example.davidvargas.bang_gameframework.game.infoMsg;
 
+import com.example.davidvargas.bang_gameframework.game.Game;
+
 import java.io.Serializable;
 
-import edu.up.cs301.game.Game;
 
 /**
  * An informational message that is sent from the game to a player.  The

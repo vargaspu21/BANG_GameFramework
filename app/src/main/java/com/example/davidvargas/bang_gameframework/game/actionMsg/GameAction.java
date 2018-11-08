@@ -1,8 +1,9 @@
 package com.example.davidvargas.bang_gameframework.game.actionMsg;
 
+import com.example.davidvargas.bang_gameframework.game.GamePlayer;
+
 import java.io.Serializable;
 
-import edu.up.cs301.game.GamePlayer;
 
 /**
  * An action for a generic game.  A game action is something that a player
