@@ -13,7 +13,7 @@ import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.IllegalMoveInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.NotYourTurnInfo;
 
-public class BANGHumanPlayer1 extends GameHumanPlayer {
+public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
     // the current activity
     private Activity myActivity;
 
@@ -31,7 +31,7 @@ public class BANGHumanPlayer1 extends GameHumanPlayer {
      * @param layoutId
      *      the id of the layout to use
      */
-    public BANGHumanPlayer1(String name, int layoutId) {
+    public BANGHumanPlayer(String name, int layoutId) {
         super(name);
         this.layoutId = layoutId;
     }
@@ -73,9 +73,9 @@ public class BANGHumanPlayer1 extends GameHumanPlayer {
         activity.setContentView(layoutId);
 
         // set the surfaceView instance variable
-        surfaceView = (BANGSurfaceView)myActivity.findViewById(R.id.surfaceView);
-        Log.i("set listener","OnTouch");
-        surfaceView.setOnTouchListener(this);
+       // surfaceView = (BANGSurfaceView)myActivity.findViewById(R.id.surfaceView);
+        //Log.i("set listener","OnTouch");
+        //surfaceView.setOnTouchListener(this);
     }
 
     /**
@@ -86,7 +86,7 @@ public class BANGHumanPlayer1 extends GameHumanPlayer {
      */
     @Override
     public View getTopView() {
-        return myActivity.findViewById(R.id.top_gui_layout);
+        return null;//myActivity.findViewById(R.id.top_gui_layout);
     }
 
     /**
@@ -94,7 +94,7 @@ public class BANGHumanPlayer1 extends GameHumanPlayer {
      * knows what their game-position and opponents' names are.
      */
     protected void initAfterReady() {
-        myActivity.setTitle("Tic-Tac-Toe: "+allPlayerNames[0]+" vs. "+allPlayerNames[1]);
+        myActivity.setTitle("BANG: "+allPlayerNames[0]+" vs. "+allPlayerNames[1]);
     }
 
     /**
@@ -111,7 +111,7 @@ public class BANGHumanPlayer1 extends GameHumanPlayer {
         // get the x and y coordinates of the touch-location;
         // convert them to square coordinates (where both
         // values are in the range 0..2)
-        int x = (int) event.getX();
+        /*int x = (int) event.getX();
         int y = (int) event.getY();
         Point p = surfaceView.mapPixelToSquare(x, y);
 
@@ -121,13 +121,13 @@ public class BANGHumanPlayer1 extends GameHumanPlayer {
         if (p == null) {
             surfaceView.flash(Color.RED, 50);
         } else {
-            TTTMoveAction action = new TTTMoveAction(this, p.y, p.x);
+            BANGMoveAction action = new BANGMoveAction();
             Log.i("onTouch", "Human player sending TTTMA ...");
             game.sendAction(action);
             surfaceView.invalidate();
         }
 
-        // register that we have handled the event
+        // register that we have handled the event*/
         return true;
 
     }
