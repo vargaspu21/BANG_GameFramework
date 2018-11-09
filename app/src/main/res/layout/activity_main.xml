@@ -32,6 +32,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/p3row"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_weight="1"
@@ -43,24 +44,22 @@
                 android:orientation="vertical"></LinearLayout>
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
         <LinearLayout
             android:id="@+id/mainThreeH"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_gravity="center"
-            android:layout_weight="0"
+            android:layout_weight="4"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3" />
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="75dp"
@@ -108,25 +107,42 @@
                     android:text="Quit Game" />
             </LinearLayout>
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3" />
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="vertical"></LinearLayout>
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
         <LinearLayout
+            android:id="@+id/p1row"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/p1c1"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/bang_card" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/nameAndHealth1"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -137,12 +153,49 @@
 
                 <TextView
                     android:id="@+id/playerName"
-                    android:layout_width="match_parent"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
                     android:gravity="bottom|right"
                     android:text="Player 1"
-                    android:textSize="20sp" />
+                    android:textSize="25sp" />
+
+                <ImageView
+                    android:id="@+id/p1h1"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/bullet" />
+
+                <ImageView
+                    android:id="@+id/p1h2"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/bullet" />
+
+                <ImageView
+                    android:id="@+id/p1h3"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/bullet" />
+
+                <ImageView
+                    android:id="@+id/p1h4"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/bullet" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
             </LinearLayout>
         </LinearLayout>
 

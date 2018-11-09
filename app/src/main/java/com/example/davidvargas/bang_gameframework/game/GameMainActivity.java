@@ -27,6 +27,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 
 import com.example.davidvargas.bang_gameframework.R;
+import com.example.davidvargas.bang_gameframework.game.util.IPCoder;
 import com.example.davidvargas.bang_gameframework.game.util.MessageBox;
 
 /**
@@ -452,7 +453,6 @@ View.OnClickListener {
 		v.setOnClickListener(this);
 		v = findViewById(R.id.playGameButton);
 		v.setOnClickListener(this);
-
 
 		String ipCode = IPCoder.encodeLocalIP();
 		String ipAddress = IPCoder.getLocalIpAddress();

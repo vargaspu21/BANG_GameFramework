@@ -7,12 +7,13 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.davidvargas.bang_gameframework.game.GameHumanPlayer;
 import com.example.davidvargas.bang_gameframework.game.GameMainActivity;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.IllegalMoveInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.NotYourTurnInfo;
 
-public class BANGHumanPlayer1 {
+public class BANGHumanPlayer1 extends GameHumanPlayer {
     // the current activity
     private Activity myActivity;
 
