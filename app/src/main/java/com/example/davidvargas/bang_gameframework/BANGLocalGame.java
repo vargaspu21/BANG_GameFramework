@@ -66,11 +66,34 @@ public class BANGLocalGame extends LocalGame{
      */
     @Override
     protected boolean makeMove(GameAction action) {
+        //check that it is the correct player turn
+        GamePlayer p = action.getPlayer(); //gets the player that sent the action
+        int player = 0; //initialize player #
+        for(int i = 0 ; i < players.length; i++){
+            if(players[i] == p){
+                player = i; //the player # is the index of the array where the player is positioned
+            }
+        }
+
+        if(player != state.playerTurn) return false; //if it is not the player turn, return
 
 
+        //if game state doesnt check, checj if move is valid
+        //finally, actually make action by changing game state
 
-        // return true, indicating the it was a legal move
-        return true;
+
+        if(action instanceof BANGEndTurn){ //if action is End Turn,
+            state.endTurn(player); //call endTurn action
+            return true;
+        }
+
+        else if(action instanceof BANGQuitGame){ //if action is quit game,
+            state.quitGame(); //call quit game action
+            return true;
+        }
+
+        // false, not valid
+        return false;
     }
 
 }

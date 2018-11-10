@@ -13,12 +13,11 @@ import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.IllegalMoveInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.NotYourTurnInfo;
 
-public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
+public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener {
     // the current activity
     private Activity myActivity;
 
-    // the surface view
-    private BANGSurfaceView surfaceView;
+
 
     // the ID for the layout to use
     private int layoutId;
@@ -45,7 +44,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     @Override
     public void receiveInfo(GameInfo info) {
 
-        if (surfaceView == null) return;
+        /*if (surfaceView == null) return;
 
         if (info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
             // if the move was out of turn or otherwise illegal, flash the screen
@@ -58,7 +57,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             surfaceView.setState((BANGState)info);
             surfaceView.invalidate();
             Log.i("human player", "receiving");
-        }
+        }*/
     }
 
     /**
@@ -86,7 +85,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
      */
     @Override
     public View getTopView() {
-        return null;//myActivity.findViewById(R.id.top_gui_layout);
+        return myActivity.findViewById(R.id.mainLayout);
     }
 
     /**
@@ -94,7 +93,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
      * knows what their game-position and opponents' names are.
      */
     protected void initAfterReady() {
-        myActivity.setTitle("BANG: "+allPlayerNames[0]+" vs. "+allPlayerNames[1]);
+        myActivity.setTitle("BANG: "+allPlayerNames[0]+" vs. "+allPlayerNames[1]+" vs. "+allPlayerNames[3]+" vs. "+allPlayerNames[4]);
     }
 
     /**
@@ -106,6 +105,10 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
      * 		the motion event that was detected
      */
     public boolean onTouch(View v, MotionEvent event) {
+
+        //linked to all image views
+
+        //on click functions for buttons
         // ignore if not an "up" event
         if (event.getAction() != MotionEvent.ACTION_UP) return true;
         // get the x and y coordinates of the touch-location;
@@ -132,4 +135,13 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     }
 
+    @Override
+    public void onClick(View v){
+        if(v.getId() == R.id.endTurn){
+            game.sendAction(new BANGEndTurn(this) );
+        }
+        else if(v.getId() == R.id.quit){
+            game.sendAction(new BANGQuitGame(this));
+        }
+    }
 }

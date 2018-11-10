@@ -173,7 +173,7 @@ public class BANGState extends GameState{
         Collections.shuffle(drawPile, rand);//makes use of collections object to shuffle arraylist
     }
 
-    public boolean discardCard(PlayableCard card,int player)
+    public boolean discardCard(PlayableCard card, int player)
     {
         if (players[player].getCardsInHand().contains(card))
         {
@@ -273,7 +273,7 @@ public class BANGState extends GameState{
         checkVultureSam(player); //checks for Vulture Sam
         for(PlayableCard p : players[player].getActiveCards())
         {
-            if(p.getCardNum() == JAIL)
+            /*if(p.getCardNum() == JAIL)
             {
                 if(!drawExclamation(player, SPADES)) {
                     players[player].getActiveCards().remove(p);
@@ -304,7 +304,7 @@ public class BANGState extends GameState{
                     else if(player == 3)
                         players[0].setActiveCards(new PlayableCard(true, DYNAMITE));
                 }
-            }
+            }*/
         }
         if(players[player].getCharacter().getCardNum()==JESSEJONES) //if player is Jesse Jones, first card drawn is from a random player
         {
@@ -320,7 +320,7 @@ public class BANGState extends GameState{
 
 
             draw(player);
-            if(drawExclamation(player, HEARTS) || drawExclamation(player, DIAMONDS)){
+           /* if(drawExclamation(player, HEARTS) || drawExclamation(player, DIAMONDS)){
                 draw(player);
                 draw(player);
                 return true;
@@ -328,7 +328,7 @@ public class BANGState extends GameState{
             else {
                 draw(player);
                 return true;
-            }
+            }*/
 
         }
         else
@@ -337,6 +337,7 @@ public class BANGState extends GameState{
             draw(player);
             return true;
         }
+        return false;
     }
 
     //method to determine the distance between players:
@@ -598,14 +599,14 @@ public class BANGState extends GameState{
                     for (PlayableCard r : players[target].getActiveCards()) //searches through targets blue cards for barrel
                     {
                         if (r.getCardNum() == BARREL) { //if they have a barrel try for miss
-                            if (drawExclamation(target, SPADES)) //CHANGE TO HEARTS WHEN SUIT IS FULLY IMPLEMENTED
+                            //if (drawExclamation(target, SPADES)) //CHANGE TO HEARTS WHEN SUIT IS FULLY IMPLEMENTED
                             {
                                 return true; //if the draw! is successful then it exits without the target taking damage
                             }
                         }
                         if(players[target].getCharacter().getCardNum() == JOURDONNAIS)
                         {
-                            if(drawExclamation(target, SPADES)) //CHANGE TO HEARTS WHEN SUIT IS FULLY IMPLEMENTED
+                            //if(drawExclamation(target, SPADES)) //CHANGE TO HEARTS WHEN SUIT IS FULLY IMPLEMENTED
                             {
                                 return true;
                             }
@@ -633,14 +634,14 @@ public class BANGState extends GameState{
                 for(PlayableCard r : players[target].getActiveCards()) //searches through targets blue cards for barrel
                 {
                     if(r.getCardNum() == BARREL) { //if
-                        if(drawExclamation(target, SPADES)) //this should actually check for hearts but the default suit is hearts so i made it spades
+                       // if(drawExclamation(target, SPADES)) //this should actually check for hearts but the default suit is hearts so i made it spades
                         {
                             return true; //if the draw! is successful then it exits without the target taking damage
                         }
                     }
                     if(players[target].getCharacter().getCardNum() == JOURDONNAIS)
                     {
-                        if(drawExclamation(target, SPADES)) //CHANGE TO HEARTS WHEN SUIT IS FULLY IMPLEMENTED
+                        //if(drawExclamation(target, SPADES)) //CHANGE TO HEARTS WHEN SUIT IS FULLY IMPLEMENTED
                         {
                             return true;
                         }
@@ -888,6 +889,14 @@ public class BANGState extends GameState{
                     return false;
             }
         }
+    }
+
+    //function to endTurn
+    public boolean endTurn(int player)//ends the turn, determines next player
+    {
+        if(playerTurn != 4) playerTurn ++;
+        else playerTurn = 1;
+        return true;
     }
 
     //method to examine card(name and description):
