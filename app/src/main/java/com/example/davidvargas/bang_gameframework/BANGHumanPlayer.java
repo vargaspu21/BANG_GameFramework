@@ -3,6 +3,7 @@ package com.example.davidvargas.bang_gameframework;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.media.Image;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 
 import com.example.davidvargas.bang_gameframework.game.GameHumanPlayer;
 import com.example.davidvargas.bang_gameframework.game.GameMainActivity;
+import com.example.davidvargas.bang_gameframework.game.actionMsg.GameAction;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.IllegalMoveInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.NotYourTurnInfo;
@@ -21,7 +23,20 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     private Button quitGame = null;
     private Button endTurn = null;
-    private ImageView cardImage = null;
+    private ImageView card1 = null;
+    private ImageView card2 = null;
+    private ImageView card3 = null;
+    private ImageView card4 = null;
+    private ImageView card5 = null;
+    private ImageView active1 = null;
+    private ImageView active2 = null;
+    private ImageView active3 = null;
+    private ImageView active4 = null;
+    private ImageView active5 = null;
+
+
+
+
 
 
     // the ID for the layout to use
@@ -49,7 +64,9 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     @Override
     public void receiveInfo(GameInfo info) {
 
-        
+        if(info instanceof BANGState){
+
+        }
 
         /*if (surfaceView == null) return;
 
@@ -67,6 +84,21 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         }*/
     }
 
+    @Override
+    public void onClick(View v){
+        GameAction gameAction; //intialize instance variable
+        if(v == null) return;
+
+        if(v.getId() == endTurn.getId()){ //if end turn button is clicked
+            gameAction = new BANGEndTurn(this);
+            game.sendAction(gameAction); //sends the EndTurn action
+        }
+        else if(v.getId() == quitGame.getId()){ //else if quit game button is clicked
+            gameAction = new BANGQuitGame(this);
+            game.sendAction(gameAction); //sends the quitGame action
+        }
+    }
+
     /**
      * sets the current player as the activity's GUI
      */
@@ -78,10 +110,38 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         // Load the layout resource for the new configuration
         activity.setContentView(layoutId);
 
-        // set the surfaceView instance variable
-       // surfaceView = (BANGSurfaceView)myActivity.findViewById(R.id.surfaceView);
-        //Log.i("set listener","OnTouch");
-        //surfaceView.setOnTouchListener(this);
+        //Initialize the widget reference member variables
+        this.quitGame = (Button) activity.findViewById(R.id.quit);
+        this.endTurn = (Button) activity.findViewById(R.id.endTurn);
+        this.card1 = (ImageView) activity.findViewById(R.id.p1c1);
+        this.card2 = (ImageView) activity.findViewById(R.id.p1c2);
+        this.card3 = (ImageView) activity.findViewById(R.id.p1c3);
+        this.card4 = (ImageView) activity.findViewById(R.id.p1c4);
+        this.card5 = (ImageView) activity.findViewById(R.id.p1c5);
+
+        this.active1 = (ImageView) activity.findViewById(R.id.p1a1);
+        this.active2 = (ImageView) activity.findViewById(R.id.p1a2);
+        this.active3 = (ImageView) activity.findViewById(R.id.p1a3);
+        this.active4 = (ImageView) activity.findViewById(R.id.p1a4);
+        this.active5 = (ImageView) activity.findViewById(R.id.p1a5);
+
+        //Listen for button presses
+        quitGame.setOnClickListener(this);
+        endTurn.setOnClickListener(this);
+
+        //Listen for image presses
+        card1.setOnTouchListener(this);
+        card2.setOnTouchListener(this);
+        card3.setOnTouchListener(this);
+        card4.setOnTouchListener(this);
+        card5.setOnTouchListener(this);
+        active1.setOnTouchListener(this);
+        active2.setOnTouchListener(this);
+        active3.setOnTouchListener(this);
+        active4.setOnTouchListener(this);
+        active5.setOnTouchListener(this);
+
+
     }
 
     /**
@@ -142,13 +202,5 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
     }
 
-    @Override
-    public void onClick(View v){
-        if(v.getId() == R.id.endTurn){
-            game.sendAction(new BANGEndTurn(this) );
-        }
-        else if(v.getId() == R.id.quit){
-            game.sendAction(new BANGQuitGame(this));
-        }
-    }
+
 }
