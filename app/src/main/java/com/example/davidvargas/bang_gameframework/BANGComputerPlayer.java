@@ -40,16 +40,19 @@ public class BANGComputerPlayer extends GameComputerPlayer {
                     player = i; //the player # is the index of the array where the player is positioned
                 }
             }
+            int cardNum = 0;
             int number = state.players[player].getCardsInHand().size(); //gets size of players hand
-            int random = (int )(Math.random() * number ); //randomizes number between 0 and size of players hand
-            int cardNum = state.players[player].getCardsInHand().get(random).getCardNum(); //gets the random card num
+            int random = (int )(Math.random() * number); //randomizes number between 0 and size of players hand
+            if(number != 0){
+                cardNum = state.players[player].getCardsInHand().get(random).getCardNum(); //gets the random card num
+            }
 
             if(game instanceof BANGLocalGame){ //if the game is instance of the local game
                 sleep(1000); //delay for a second to make opponent think we're thinking
                 game.sendAction(new BANGMoveAction(this, cardNum)); //sends game action
             }
 
-            //getcard num of index of size
+
         }
 
         //randomly choose from current hand and play card here
