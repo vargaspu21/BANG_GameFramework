@@ -19,6 +19,7 @@ public class BANGSurfaceView extends FlashSurfaceView {
         init();
     }
 
+    //
     public BANGSurfaceView(Context context, AttributeSet atrrs){
         super(context, atrrs);
         init();
