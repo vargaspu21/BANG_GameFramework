@@ -6,6 +6,8 @@ import android.graphics.Point;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.davidvargas.bang_gameframework.game.GameHumanPlayer;
 import com.example.davidvargas.bang_gameframework.game.GameMainActivity;
@@ -17,6 +19,9 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     // the current activity
     private Activity myActivity;
 
+    private Button quitGame = null;
+    private Button endTurn = null;
+    private ImageView cardImage = null;
 
 
     // the ID for the layout to use
@@ -43,6 +48,8 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
      */
     @Override
     public void receiveInfo(GameInfo info) {
+
+        
 
         /*if (surfaceView == null) return;
 
