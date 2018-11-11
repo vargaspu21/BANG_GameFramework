@@ -93,7 +93,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
      * knows what their game-position and opponents' names are.
      */
     protected void initAfterReady() {
-        myActivity.setTitle("BANG: "+allPlayerNames[0]+" vs. "+allPlayerNames[1]+" vs. "+allPlayerNames[3]+" vs. "+allPlayerNames[4]);
+        myActivity.setTitle("BANG: "+allPlayerNames[0]+" vs. "+allPlayerNames[1]);
     }
 
     /**
