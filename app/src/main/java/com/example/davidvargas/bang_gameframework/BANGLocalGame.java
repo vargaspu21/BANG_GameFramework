@@ -7,7 +7,7 @@ import com.example.davidvargas.bang_gameframework.game.infoMsg.IllegalMoveInfo;
 
 public class BANGLocalGame extends LocalGame{
 
-    protected BANGState state; //the game state
+    public BANGState state; //the game state
 
 
     public BANGLocalGame(){
@@ -83,7 +83,7 @@ public class BANGLocalGame extends LocalGame{
 
 
         if(action instanceof BANGEndTurn){ //if action is End Turn,
-            state.endTurn(player); //call endTurn action
+            state.endTurn(); //call endTurn action
             return true;
         }
 

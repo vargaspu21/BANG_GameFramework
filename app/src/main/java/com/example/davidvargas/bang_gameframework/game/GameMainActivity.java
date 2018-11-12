@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -172,6 +173,8 @@ View.OnClickListener {
 				MessageBox.popUpMessage(msg, this);
 			}
 		}
+
+
 
 	}// onCreate
 
@@ -524,7 +527,6 @@ View.OnClickListener {
 			}
 
 		}
-
 	}// onClick
 
 	private String startGame() {

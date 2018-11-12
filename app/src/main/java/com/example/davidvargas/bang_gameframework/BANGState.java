@@ -892,10 +892,10 @@ public class BANGState extends GameState{
     }
 
     //function to endTurn
-    public boolean endTurn(int player)//ends the turn, determines next player
+    public boolean endTurn()//ends the turn, determines next player
     {
-        if(playerTurn != 4) playerTurn ++;
-        else playerTurn = 1;
+        if(playerTurn != 3) playerTurn ++;
+        else playerTurn = 0;
         return true;
     }
 

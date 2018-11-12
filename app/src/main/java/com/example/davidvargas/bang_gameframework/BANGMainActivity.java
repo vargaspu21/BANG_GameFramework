@@ -72,7 +72,8 @@ public class BANGMainActivity extends GameMainActivity {
      *         class.
      */
     @Override
-    public LocalGame createLocalGame() {
+    public LocalGame createLocalGame()
+    {
         return new BANGLocalGame();
     }
 }

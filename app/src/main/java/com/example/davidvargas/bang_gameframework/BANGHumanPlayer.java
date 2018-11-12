@@ -90,12 +90,19 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         if(v == null) return;
 
         if(v.getId() == endTurn.getId()){ //if end turn button is clicked
-            gameAction = new BANGEndTurn(this);
-            game.sendAction(gameAction); //sends the EndTurn action
+            Log.i("ButtonInfo","Ending turn");
+            BANGLocalGame convert = (BANGLocalGame)game;
+            convert.state.endTurn();
+            Log.i("ButtonInfo","It is now Player " + convert.state.playerTurn + "'s turn");
+            //gameAction = new BANGEndTurn(this);
+            //game.sendAction(gameAction); //sends the EndTurn action
         }
         else if(v.getId() == quitGame.getId()){ //else if quit game button is clicked
-            gameAction = new BANGQuitGame(this);
-            game.sendAction(gameAction); //sends the quitGame action
+            //this can work for now; there currently only exists one human player, and the only one who can quit the game
+            Log.i("ButtonInfo","Quitting game");
+            System.exit(0);
+            //gameAction = new BANGQuitGame(this);
+            //game.sendAction(gameAction); //sends the quitGame action
         }
     }
 
