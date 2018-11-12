@@ -21,18 +21,22 @@
         android:id="@+id/mainThreeV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"><![CDATA[>
-
-        ]]>
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/testText"
+            android:id="@+id/topText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="350dp"
+            android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="TextView"
-            android:textSize="30sp" />
+            android:text="Test"
+            android:textSize="40sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
 
         <LinearLayout
             android:id="@+id/p3row"
@@ -41,51 +45,58 @@
             android:layout_weight="3"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/p3CardImageView"
+            <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/card_flippedupside" />
+                android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/p4CardAmount2"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/computer2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="Player 3"
+                    android:textSize="25sp" />
+
+                <ImageView
+                    android:id="@+id/p3h1"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/bullet" />
+
+                <ImageView
+                    android:id="@+id/p3h2"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/bullet" />
+
+                <ImageView
+                    android:id="@+id/p3h3"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/bullet" />
+
+                <ImageView
+                    android:id="@+id/p3h4"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/bullet" />
+            </LinearLayout>
+
+            <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="NUMBER"
-                android:textAlignment="center"
-                android:textSize="40sp" />
-
-            <ImageView
-                android:id="@+id/p3A1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/beer_card" />
-
-            <ImageView
-                android:id="@+id/p3A2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/beer_card" />
-
-            <ImageView
-                android:id="@+id/p3A3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/beer_card" />
-
-            <ImageView
-                android:id="@+id/p3A4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/beer_card" />
-
+                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
@@ -104,123 +115,57 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/p4TopHorizLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:orientation="horizontal">
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-                    <ImageView
-                        android:id="@+id/p4CardImageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/card_flippedleft" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/p4CardAmount"
+                        android:id="@+id/computer3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:text="NUMBER"
-                        android:textAlignment="center"
-                        android:textSize="40sp" />
-                </LinearLayout>
+                        android:text="Player 4"
+                        android:textSize="25sp" />
 
-                <LinearLayout
-                    android:id="@+id/p4MidHorizLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/p4VertLayout1"
+                    <ImageView
+                        android:id="@+id/p4h1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_height="50dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/bullet" />
 
-                        <ImageView
-                            android:id="@+id/p4A1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/beer_card" />
-
-                        <ImageView
-                            android:id="@+id/p4A2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/beer_card" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/p4VertLayout2"
+                    <ImageView
+                        android:id="@+id/p4h2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_height="50dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/bullet" />
 
-                        <ImageView
-                            android:id="@+id/p4A3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/beer_card" />
+                    <ImageView
+                        android:id="@+id/p4h3"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/bullet" />
 
-                        <ImageView
-                            android:id="@+id/p4A4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/beer_card" />
-                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/p4h4"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/bullet" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/p4BottomHorizLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/p4H1"
-                        android:layout_width="75dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bullet" />
-
-                    <ImageView
-                        android:id="@+id/p1H2"
-                        android:layout_width="75dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bullet" />
-
-                    <ImageView
-                        android:id="@+id/p1H3"
-                        android:layout_width="75dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bullet" />
-
-                    <ImageView
-                        android:id="@+id/p1H4"
-                        android:layout_width="75dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bullet" />
-                </LinearLayout>
-
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <LinearLayout
@@ -237,7 +182,8 @@
                     android:layout_height="250dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/card_flipped" />
+                    android:src="@drawable/card_flipped"
+                    android:visibility="visible" />
 
                 <Button
                     android:id="@+id/endTurn"
@@ -261,7 +207,8 @@
                     android:layout_height="250dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/bang_card" />
+                    android:visibility="visible"
+                    android:src="@drawable/bang_card" />
 
                 <Button
                     android:id="@+id/quit"
@@ -279,123 +226,57 @@
                 android:gravity="right"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/p2TopHorizLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:orientation="horizontal">
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-                    <ImageView
-                        android:id="@+id/p2CardImageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/card_flippedleft" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/p2CardAmount"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/computer1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:text="NUMBER"
-                        android:textAlignment="center"
-                        android:textSize="40sp" />
+                        android:text="Player 2"
+                        android:textSize="25sp" />
+
+                    <ImageView
+                        android:id="@+id/p2h1"
+                        android:layout_width="75dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/bullet" />
+
+                    <ImageView
+                        android:id="@+id/p2h2"
+                        android:layout_width="75dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/bullet" />
+
+                    <ImageView
+                        android:id="@+id/p2h3"
+                        android:layout_width="75dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/bullet" />
+
+                    <ImageView
+                        android:id="@+id/p2h4"
+                        android:layout_width="75dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/bullet" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/p2MidHorizLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/p2VertLayout1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/p2A1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/beer_card" />
-
-                        <ImageView
-                            android:id="@+id/p2A2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/beer_card" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/p2VertLayout2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/p2A3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/beer_card" />
-
-                        <ImageView
-                            android:id="@+id/p2A4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/beer_card" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/p2BottomHorizLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/p2H1"
-                        android:layout_width="75dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bullet" />
-
-                    <ImageView
-                        android:id="@+id/p2H2"
-                        android:layout_width="75dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bullet" />
-
-                    <ImageView
-                        android:id="@+id/p2H3"
-                        android:layout_width="75dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bullet" />
-
-                    <ImageView
-                        android:id="@+id/p2H4"
-                        android:layout_width="75dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bullet" />
-                </LinearLayout>
-
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
             </LinearLayout>
 
 
@@ -420,123 +301,48 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <ImageView
-                        android:id="@+id/p1a1"
-                        android:layout_width="100dp"
-                        android:layout_height="200dp"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bang_card" />
-
-                    <ImageView
-                        android:id="@+id/p1a2"
-                        android:layout_width="100dp"
-                        android:layout_height="200dp"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bang_card" />
-
-                    <ImageView
-                        android:id="@+id/p1a3"
-                        android:layout_width="100dp"
-                        android:layout_height="200dp"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bang_card" />
-
-                    <ImageView
-                        android:id="@+id/p1a4"
-                        android:layout_width="100dp"
-                        android:layout_height="200dp"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bang_card" />
-
-                    <ImageView
-                        android:id="@+id/p1a5"
-                        android:layout_width="100dp"
-                        android:layout_height="200dp"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bang_card" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                     <ImageView
                         android:id="@+id/p1c1"
-                        android:layout_width="100dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:layout_gravity="bottom"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/bang_card" />
+                        android:src="@drawable/card_flipped" />
 
                     <ImageView
                         android:id="@+id/p1c2"
-                        android:layout_width="100dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:layout_gravity="bottom"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/bang_card" />
+                        android:src="@drawable/card_flipped" />
 
                     <ImageView
                         android:id="@+id/p1c3"
-                        android:layout_width="100dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:layout_gravity="bottom"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/bang_card" />
+                        android:src="@drawable/card_flipped" />
 
                     <ImageView
                         android:id="@+id/p1c4"
-                        android:layout_width="100dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:layout_gravity="bottom"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/bang_card" />
+                        android:src="@drawable/card_flipped" />
 
                     <ImageView
                         android:id="@+id/p1c5"
-                        android:layout_width="100dp"
-                        android:layout_height="200dp"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/bang_card" />
-
-                    <Space
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_height="200dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/card_flipped" />
 
                     <LinearLayout
                         android:id="@+id/nameAndHealth1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_gravity="bottom|right"
+                        android:gravity="bottom|right"
                         android:orientation="vertical">
-
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1" />
 
                         <TextView
                             android:id="@+id/playerName"
@@ -553,7 +359,7 @@
                             android:layout_height="50dp"
                             android:layout_gravity="right"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/bullet" />
+                            android:src="@drawable/bullet" />
 
                         <ImageView
                             android:id="@+id/p1h2"
@@ -561,7 +367,7 @@
                             android:layout_height="50dp"
                             android:layout_gravity="right"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/bullet" />
+                            android:src="@drawable/bullet" />
 
                         <ImageView
                             android:id="@+id/p1h3"
@@ -569,7 +375,7 @@
                             android:layout_height="50dp"
                             android:layout_gravity="right"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/bullet" />
+                            android:src="@drawable/bullet" />
 
                         <ImageView
                             android:id="@+id/p1h4"
@@ -577,12 +383,8 @@
                             android:layout_height="50dp"
                             android:layout_gravity="right"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/bullet" />
+                            android:src="@drawable/bullet" />
 
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1" />
                     </LinearLayout>
                 </LinearLayout>
 

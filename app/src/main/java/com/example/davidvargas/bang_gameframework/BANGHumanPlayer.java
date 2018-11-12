@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.davidvargas.bang_gameframework.game.GameHumanPlayer;
 import com.example.davidvargas.bang_gameframework.game.GameMainActivity;
@@ -21,18 +22,25 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     // the current activity
     private Activity myActivity;
 
+    private TextView topText = null;
+
+    private ImageView drawPile = null;
+    private ImageView discardPile = null;
+
     private Button quitGame = null;
     private Button endTurn = null;
+
     private ImageView card1 = null;
     private ImageView card2 = null;
     private ImageView card3 = null;
     private ImageView card4 = null;
     private ImageView card5 = null;
-    private ImageView active1 = null;
-    private ImageView active2 = null;
-    private ImageView active3 = null;
-    private ImageView active4 = null;
-    private ImageView active5 = null;
+
+    //private ImageView active1 = null;
+    //private ImageView active2 = null;
+    //private ImageView active3 = null;
+    //private ImageView active4 = null;
+    //private ImageView active5 = null;
 
 
 
@@ -65,7 +73,10 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
     public void receiveInfo(GameInfo info) {
 
         if(info instanceof BANGState){
-
+            BANGState state = (BANGState)info;
+            state.drawTwo(0);
+            card1.setImageResource(R.drawable.bang_card);
+            card2.setImageResource(R.drawable.bang_card);
         }
 
         /*if (surfaceView == null) return;
@@ -94,6 +105,9 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             BANGLocalGame convert = (BANGLocalGame)game;
             convert.state.endTurn();
             Log.i("ButtonInfo","It is now Player " + convert.state.playerTurn + "'s turn");
+            topText.setText("It is now Player " + ((convert.state.playerTurn)+1) + "'s turn");
+            topText.invalidate();
+            sendInfo(convert.state);
             //gameAction = new BANGEndTurn(this);
             //game.sendAction(gameAction); //sends the EndTurn action
         }
@@ -103,6 +117,17 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             System.exit(0);
             //gameAction = new BANGQuitGame(this);
             //game.sendAction(gameAction); //sends the quitGame action
+        }
+        else if(v.getId() == drawPile.getId())
+        {
+            topText.setText("Number of cards in deck: " + ((BANGLocalGame)game).state.drawPile.size());
+            topText.invalidate();
+        }
+        else if(v.getId() == card1.getId()||v.getId() == card2.getId())
+        {
+            ImageView caste = (ImageView)v;
+            caste.setImageResource(R.drawable.card_flipped);
+            caste.invalidate();
         }
     }
 
@@ -117,20 +142,28 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         // Load the layout resource for the new configuration
         activity.setContentView(layoutId);
 
+        this.topText = (TextView) activity.findViewById(R.id.topText);
+
         //Initialize the widget reference member variables
         this.quitGame = (Button) activity.findViewById(R.id.quit);
         this.endTurn = (Button) activity.findViewById(R.id.endTurn);
+
         this.card1 = (ImageView) activity.findViewById(R.id.p1c1);
         this.card2 = (ImageView) activity.findViewById(R.id.p1c2);
         this.card3 = (ImageView) activity.findViewById(R.id.p1c3);
         this.card4 = (ImageView) activity.findViewById(R.id.p1c4);
         this.card5 = (ImageView) activity.findViewById(R.id.p1c5);
 
-        this.active1 = (ImageView) activity.findViewById(R.id.p1a1);
-        this.active2 = (ImageView) activity.findViewById(R.id.p1a2);
-        this.active3 = (ImageView) activity.findViewById(R.id.p1a3);
-        this.active4 = (ImageView) activity.findViewById(R.id.p1a4);
-        this.active5 = (ImageView) activity.findViewById(R.id.p1a5);
+        this.drawPile = (ImageView) activity.findViewById(R.id.drawPile);
+        drawPile.setOnClickListener(this);
+
+        this.discardPile = (ImageView) activity.findViewById(R.id.discardPile);
+
+        //this.active1 = (ImageView) activity.findViewById(R.id.p1a1);
+        //this.active2 = (ImageView) activity.findViewById(R.id.p1a2);
+        //this.active3 = (ImageView) activity.findViewById(R.id.p1a3);
+        //this.active4 = (ImageView) activity.findViewById(R.id.p1a4);
+        //this.active5 = (ImageView) activity.findViewById(R.id.p1a5);
 
         //Listen for button presses
         quitGame.setOnClickListener(this);
@@ -142,11 +175,11 @@ public class BANGHumanPlayer extends GameHumanPlayer implements View.OnTouchList
         card3.setOnTouchListener(this);
         card4.setOnTouchListener(this);
         card5.setOnTouchListener(this);
-        active1.setOnTouchListener(this);
-        active2.setOnTouchListener(this);
-        active3.setOnTouchListener(this);
-        active4.setOnTouchListener(this);
-        active5.setOnTouchListener(this);
+        //active1.setOnTouchListener(this);
+       // active2.setOnTouchListener(this);
+       // active3.setOnTouchListener(this);
+       // active4.setOnTouchListener(this);
+       // active5.setOnTouchListener(this);
 
 
     }
