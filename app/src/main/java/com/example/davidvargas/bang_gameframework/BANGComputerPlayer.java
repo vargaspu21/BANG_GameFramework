@@ -23,14 +23,7 @@ public class BANGComputerPlayer extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
         //for now, just constantly listen for your turn
-        BANGState state = (BANGState)info;
-        if(state.playerTurn != 0)
-        {
-            System.exit(0);
-        }
 
-
-        /*
         BANGState state;
         GameAction gameAction;
         // if it was a "not your turn" message, just ignore it
@@ -81,7 +74,7 @@ public class BANGComputerPlayer extends GameComputerPlayer {
 
         //fix this BANGMoveAction
          //game.sendAction(new BANGMoveAction(this, cardNum)); //card index in my hand
-*/
+
 
     }
 }

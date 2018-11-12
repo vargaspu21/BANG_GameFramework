@@ -91,6 +91,12 @@ public class BANGLocalGame extends LocalGame{
             state.quitGame(); //call quit game action
             return true;
         }
+        else if(action instanceof  BANGMoveAction){
+            BANGMoveAction moveAction = (BANGMoveAction) action;
+            int cardNum = moveAction.getCardNum();
+            int target = moveAction.getTarget();
+            state.playCard(player, target, cardNum);
+        }
 
         // false, not valid
         return false;

@@ -128,6 +128,10 @@ public class BANGState extends GameState{
         this.bangsPlayed = bs.bangsPlayed;
     }
 
+    public PlayerInfo getPlayer(int i){
+        return players[i];
+    }
+
     //method to initialize deck: adds specific amount (80 total) for each card through for loops, and it randomizes the deck
     private ArrayList<PlayableCard> initDeck(ArrayList<PlayableCard> deck)
     {
@@ -584,6 +588,7 @@ public class BANGState extends GameState{
     //BANG card function:
     public boolean playBANG(int attacker, int target)//automatically uses the attacked player's missed card if found for now
     {
+        if(target == -1) return false;
         if(bangsPlayed > 1 && players[attacker].getCharacter().getCardNum()!=WILLYTHEKID)
             return false; //if player has used a bang and player character is not Willy The Kid, return false
         if (players[attacker].getRange() < distanceBetween(attacker, target))

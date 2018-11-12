@@ -1,5 +1,7 @@
 package com.example.davidvargas.bang_gameframework.objects;
 
+import com.example.davidvargas.bang_gameframework.R;
+
 public class Card {
     //initializes variables:
     //constant for playablecards, will all be added for copy constructor soon
@@ -26,18 +28,21 @@ public class Card {
     public final int SCOPE = 20;
     public final int MUSTANG = 21;
     protected String name, description;
+    protected int resourceId;
 
     //constructor for Card object
     public Card()
     {
         name = null;
         description = null;
+        resourceId = 0;
     }
 
     //copy constructor for Card object:
     public Card(Card c){
         name = c.name;
         description = c.description;
+        resourceId = c.resourceId;
     }
 
     //received from playablecard constructor, will change name and description as suited
@@ -76,6 +81,7 @@ public class Card {
             case BEER:
                 name = "Beer";
                 description = "Let's get drunk. Health+1";
+                resourceId = R.drawable.beer_card;
                 break;
             case GATLING:
                 name = "Gatling";
@@ -114,6 +120,10 @@ public class Card {
     public String getDescription()
     {
         return description;
+    }
+
+    public int getResourceId(){
+        return resourceId;
     }
 
     //toStriing method:
