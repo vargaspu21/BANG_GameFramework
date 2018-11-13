@@ -7,10 +7,24 @@ import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.NotYourTurnInfo;
 
 public class BANGComputerPlayer extends GameComputerPlayer {
+    protected int playerNum;
+
+
+
 
     //constructor for the BANGComputerPlayer class:
     public BANGComputerPlayer(String name){
         super(name); //invoke superclass constructor
+
+    }
+
+
+    public int getPlayerNum(){
+        return this.playerNum;
+    }
+
+    public void setPlayerNum(int playerNum){
+        this.playerNum = playerNum;
     }
 
     /**
@@ -34,13 +48,14 @@ public class BANGComputerPlayer extends GameComputerPlayer {
             state = (BANGState) info; //cast info as BANGState
 
 
-            GamePlayer p = this; //gets the player that sent the action
-            int player = 0; //initialize player #
-            for(int i = 0 ; i < state.players.length; i++){
-                if(state.players[i] == p){
-                    player = i; //the player # is the index of the array where the player is positioned
-                }
+            int player = ((BANGLocalGame)game).getPlayerNum(this);
+            if(state.playerTurn != player){
+                return;
             }
+            sleep(1000);
+            //TODO: get rid of this line, and uncomment
+            game.sendAction(new BANGEndTurn(this));
+            /*
             int cardNum = 0;
             int number = state.players[player].getCardsInHand().size(); //gets size of players hand
             int random = (int )(Math.random() * number); //randomizes number between 0 and size of players hand
@@ -68,6 +83,7 @@ public class BANGComputerPlayer extends GameComputerPlayer {
                 sleep(1000); //delay for a second to make opponent think we're thinking
                 game.sendAction(new BANGMoveAction(this, target, cardNum)); //sends game action
             }
+            */
 
 
         }

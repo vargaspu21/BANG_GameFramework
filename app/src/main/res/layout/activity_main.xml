@@ -303,35 +303,35 @@
 
                     <ImageView
                         android:id="@+id/p1c1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="200dp"
                         android:layout_weight="1"
                         android:src="@drawable/card_flipped" />
 
                     <ImageView
                         android:id="@+id/p1c2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="200dp"
                         android:layout_weight="1"
                         android:src="@drawable/card_flipped" />
 
                     <ImageView
                         android:id="@+id/p1c3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="200dp"
                         android:layout_weight="1"
                         android:src="@drawable/card_flipped" />
 
                     <ImageView
                         android:id="@+id/p1c4"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="200dp"
                         android:layout_weight="1"
                         android:src="@drawable/card_flipped" />
 
                     <ImageView
                         android:id="@+id/p1c5"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="200dp"
                         android:layout_weight="1"
                         android:src="@drawable/card_flipped" />

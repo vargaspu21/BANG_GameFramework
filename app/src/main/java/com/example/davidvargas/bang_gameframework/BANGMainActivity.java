@@ -53,8 +53,8 @@ public class BANGMainActivity extends GameMainActivity {
         // Add the default players
         defaultConfig.addPlayer("Human", 0); // yellow-on-blue GUI
         defaultConfig.addPlayer("Computer1", 1); // dumb computer player
-        defaultConfig.addPlayer("Computer2", 2); // dumb computer player
-        defaultConfig.addPlayer("Computer3", 3); // dumb computer player
+        defaultConfig.addPlayer("Computer2", 1); // dumb computer player
+        defaultConfig.addPlayer("Computer3", 1); // dumb computer player
 
 
         // Set the initial information for the remote player

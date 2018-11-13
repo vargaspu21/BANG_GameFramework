@@ -10,6 +10,7 @@ public class PlayableCard extends Card {
     //constructor
     public PlayableCard()
     {
+        super();
         isActive = false;
         cardNum = 0;
         suit = 0;
@@ -18,7 +19,7 @@ public class PlayableCard extends Card {
     //copy constructor for PlayableCard object
     public PlayableCard(PlayableCard p)
     {
-
+        super(p);
         isActive = p.isActive;
         cardNum = p.cardNum;
         suit = p.suit;

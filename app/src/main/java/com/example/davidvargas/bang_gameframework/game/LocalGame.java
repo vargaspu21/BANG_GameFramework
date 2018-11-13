@@ -237,6 +237,7 @@ public abstract class LocalGame implements Game, Tickable {
 			else if (action instanceof GameAction && gameStage == GameStage.DURING_GAME) {
 
 				// CASE 4: it's during the game, and we get an action from a player
+				Log.i("Local game", "check and handle action");
 				this.checkAndHandleAction(action);
 			}
 			else if (action instanceof GameOverAckAction && gameStage == GameStage.GAME_OVER) {

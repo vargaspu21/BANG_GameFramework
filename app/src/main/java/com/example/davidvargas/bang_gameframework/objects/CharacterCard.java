@@ -9,18 +9,21 @@ public class CharacterCard extends Card {
     //constructor:
     public CharacterCard()
     {
+        super();
         baseHealth = 4;
         cardNum = -1;
     }
 
     //copy constructor for CharacterCard
     public CharacterCard(CharacterCard c){
+        super(c);
         baseHealth = c.baseHealth;
         cardNum = c.cardNum;
     }
     //constructor that passes in health
     public CharacterCard(int health, int num)
     {
+        super();
         baseHealth = health;
         cardNum = num;
     }

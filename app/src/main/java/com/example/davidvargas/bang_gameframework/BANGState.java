@@ -99,7 +99,13 @@ public class BANGState extends GameState{
         players[3] = new PlayerInfo(4);
         playerTurn = 0;//current players turn
         bangsPlayed = 0;//prevents more than one bang card to be played per turn
+        for(int i =0; i<4; i++){
+            for(int j = 0; j<players[i].getHealth(); j++){
+                draw(i);
+            }
+        }
 
+        //TO-DO set player roles randomly, before drawing cards
         /*
          External Citation
          Date: 10 October 2018
@@ -123,7 +129,9 @@ public class BANGState extends GameState{
 
         //creates a deep copy of each card in the array:
         players = new PlayerInfo[4];
-        for(int i = 0; i< players.length; i++) this.players[i] = bs.players[i];
+        for(int i = 0; i< players.length; i++){
+            this.players[i] = new PlayerInfo(bs.players[i]);
+        }
         this.playerTurn = bs.playerTurn;
         this.bangsPlayed = bs.bangsPlayed;
     }
@@ -448,6 +456,13 @@ public class BANGState extends GameState{
             switch(cardNum)
             {
                 case SCHOFIELD: //schofield, +2 range
+                    for(PlayableCard p: players[player].getCardsInHand()){
+                        if(p.getCardNum() == SCHOFIELD){
+                            players[player].getCardsInHand().remove(p);
+                            discardPile.add(p);
+                            break;
+                        }
+                     }
                     players[player].setRange( (players[player].getRange()) + 2);
                     return true;
 
@@ -456,6 +471,7 @@ public class BANGState extends GameState{
                     return true;
                 case WINCHESTER: //winchester, +5 range
                     players[player].setRange( (players[player].getRange()) + 5);
+                    return true;
                 case VOLCANIC: //volcanic, +1 range, play any number of bangs
                     //second effect apply during battle phase
                     players[player].setRange( (players[player].getRange()) + 1);
@@ -486,6 +502,7 @@ public class BANGState extends GameState{
                     //draw two cards
                     draw(player);
                     draw(player);
+                    return true;
 
                 case WELLSFARGO: //wells fargo
                     //draw three cards
@@ -899,8 +916,14 @@ public class BANGState extends GameState{
     //function to endTurn
     public boolean endTurn()//ends the turn, determines next player
     {
+        //TO-DO: allow player to choose the cards discarded
+        for(int i = players[playerTurn].getCardsInHand().size()-1; i >= players[playerTurn].getHealth();i--){
+            players[playerTurn].getCardsInHand().remove(i);
+        }
         if(playerTurn != 3) playerTurn ++;
         else playerTurn = 0;
+
+        drawTwo(playerTurn);
         return true;
     }
 

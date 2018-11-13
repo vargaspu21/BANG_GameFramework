@@ -23,6 +23,7 @@ public class PlayerInfo {
         character = new CharacterCard(); //default character too?
         activeCards = new ArrayList<PlayableCard>(); //filler/default cards in hand?
         cardsInHand = new ArrayList<PlayableCard>();
+
     }
 
     //constructor for Player info object that passes in the name of the player: initializes it
@@ -59,9 +60,9 @@ public class PlayerInfo {
         this.character = pi.character;
         //following lines creates a copy for each of the cards in the different array lists:
         activeCards = new ArrayList<PlayableCard>();
-        for(PlayableCard c: pi.activeCards) this.activeCards.add(c);
+        for(PlayableCard c: pi.activeCards) this.activeCards.add(new PlayableCard(c));
         cardsInHand = new ArrayList<PlayableCard>();
-        for(PlayableCard c: pi.cardsInHand) this.cardsInHand.add(c);
+        for(PlayableCard c: pi.cardsInHand) this.cardsInHand.add(new PlayableCard(c));
     }
 
     //gives the name, which is a number

@@ -1,5 +1,7 @@
 package com.example.davidvargas.bang_gameframework;
 
+import android.util.Log;
+
 import com.example.davidvargas.bang_gameframework.game.GamePlayer;
 import com.example.davidvargas.bang_gameframework.game.LocalGame;
 import com.example.davidvargas.bang_gameframework.game.actionMsg.GameAction;
@@ -25,7 +27,7 @@ public class BANGLocalGame extends LocalGame{
      */
     @Override
     protected String checkIfGameOver() {
-        return "";
+        return null;
 
     }
 
@@ -55,6 +57,7 @@ public class BANGLocalGame extends LocalGame{
      */
     protected boolean canMove(int playerIdx) {
         return playerIdx == state.playerTurn;
+
     }
 
     /**
@@ -68,20 +71,16 @@ public class BANGLocalGame extends LocalGame{
     protected boolean makeMove(GameAction action) {
         //check that it is the correct player turn
         GamePlayer p = action.getPlayer(); //gets the player that sent the action
-        int player = 0; //initialize player #
-        for(int i = 0 ; i < players.length; i++){
-            if(players[i] == p){
-                player = i; //the player # is the index of the array where the player is positioned
-            }
-        }
+        int player = getPlayerNum(p);
 
+        Log.i("Make move", "checking turn...");
         if(player != state.playerTurn) return false; //if it is not the player turn, return
 
 
-        //if game state doesnt check, checj if move is valid
+        //if game state doesnt check, check if move is valid
         //finally, actually make action by changing game state
 
-
+        Log.i("Make move", "checking ation type...");
         if(action instanceof BANGEndTurn){ //if action is End Turn,
             state.endTurn(); //call endTurn action
             return true;
@@ -91,10 +90,14 @@ public class BANGLocalGame extends LocalGame{
             state.quitGame(); //call quit game action
             return true;
         }
+        else if(action instanceof BANGDrawTwo){
+            state.drawTwo(player);
+        }
         else if(action instanceof  BANGMoveAction){
             BANGMoveAction moveAction = (BANGMoveAction) action;
             int cardNum = moveAction.getCardNum();
             int target = moveAction.getTarget();
+            Log.i("Make move", "Playing card "+cardNum+" with target "+target);
             state.playCard(player, target, cardNum);
             return true;
         }
@@ -103,4 +106,12 @@ public class BANGLocalGame extends LocalGame{
         return false;
     }
 
+    public int getPlayerNum(GamePlayer p) {
+        for (int i = 0; i < players.length; i++) {
+            if (p == players[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

@@ -7,11 +7,15 @@ public class RoleCard extends Card {
     //constructor:
     public RoleCard(int roleNum)
     {
+        super();
         role = roleNum;
     }
 
     //copy constructor for RoleCard object:
-    public RoleCard(RoleCard c){ role = c.role;}
+    public RoleCard(RoleCard c){
+        super(c);
+        role = c.role;
+    }
 
     //setter method for role
     public void setRole(int roleNum)
