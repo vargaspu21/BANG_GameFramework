@@ -48,9 +48,25 @@ public class BANGComputerPlayer extends GameComputerPlayer {
                 cardNum = state.players[player].getCardsInHand().get(random).getCardNum(); //gets the random card num
             }
 
+            int target;
+            int rand = (int) (Math.random()* 2) +1; //randomizes 1 or 2
+            if(player == 3){ //if player 4, randomizes between attacking player 3 or 1
+                if(rand == 1) target = 2;
+                else target = 0;
+            }
+            else if(player == 0){ //if player 1, randomizes between attacking player 4 or 2
+                if(rand == 1) target = 1;
+                else target = 3;
+            }
+            else{ //if player 2 or 3, randomizes between attacking player 3 and 1 or 4 and 2, respectively.
+                if(rand == 1) target = player+1;
+                else target = player-1;
+            }
+
+
             if(game instanceof BANGLocalGame){ //if the game is instance of the local game
                 sleep(1000); //delay for a second to make opponent think we're thinking
-                game.sendAction(new BANGMoveAction(this, cardNum)); //sends game action
+                game.sendAction(new BANGMoveAction(this, target, cardNum)); //sends game action
             }
 
 

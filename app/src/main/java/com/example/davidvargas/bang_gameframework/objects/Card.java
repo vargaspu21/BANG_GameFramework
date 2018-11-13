@@ -35,7 +35,7 @@ public class Card {
     {
         name = null;
         description = null;
-        resourceId = 0;
+        resourceId = -1;
     }
 
     //copy constructor for Card object:

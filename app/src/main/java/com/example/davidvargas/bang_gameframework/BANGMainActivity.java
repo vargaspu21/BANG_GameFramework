@@ -47,12 +47,15 @@ public class BANGMainActivity extends GameMainActivity {
         });
         */
 
-        // Create a game configuration class for Tic-tac-toe
+        // Create a game configuration class for BANG
         GameConfig defaultConfig = new GameConfig(playerTypes, 4,4, "BANG", PORT_NUMBER);
 
         // Add the default players
         defaultConfig.addPlayer("Human", 0); // yellow-on-blue GUI
-        defaultConfig.addPlayer("Computer", 1); // dumb computer player
+        defaultConfig.addPlayer("Computer1", 1); // dumb computer player
+        defaultConfig.addPlayer("Computer2", 2); // dumb computer player
+        defaultConfig.addPlayer("Computer3", 3); // dumb computer player
+
 
         // Set the initial information for the remote player
         defaultConfig.setRemoteData("Remote Player", "", 1); // red-on-yellow GUI

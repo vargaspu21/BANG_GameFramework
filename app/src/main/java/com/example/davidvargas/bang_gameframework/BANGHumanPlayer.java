@@ -31,6 +31,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private Button endTurn = null;
     private ArrayList<ImageView> handCards;
     private ArrayList<ArrayList<ImageView>> activeCards;
+    private ArrayList<ArrayList<ImageView>> health;
     private BANGState state;
     private int cardLastClicked;
 
@@ -53,6 +54,45 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
 
         if(info instanceof BANGState){
             this.state = (BANGState)info;
+
+            int discard = -1;
+            if(state.discardPile.size()!= 0) discard = state.discardPile.get(state.discardPile.size()-1).getResourceId(); //the last card added to discard pile
+            discardPile.setImageResource(discard); //draws the last card played on discard pile
+
+            //how to move to start game with cards showing? currently starts game and has all cards facing down
+
+            //how do I draw the health of each player? how do I make a bullet image view invisible as the health decreases?
+            //will draw the bullets for each
+            for(int i=0; i<4; i++){
+                if(i != 0){
+                    int bullet = state.players[i].getHealth();
+                    switch (bullet){
+                        case 1:
+                            //set the difference of the player health and 4 to an invisible bullet
+                            for(int j = bullet; j<4; j++)
+                                health.get(i).get(j).setImageResource(R.drawable.bullet);
+                            break;
+                        case 2:
+                            for(int j = bullet; j<4; j++)
+                                health.get(i).get(j).setImageResource(R.drawable.bullet);
+                            break;
+                        case 3:
+                            for(int j = bullet; j<4; j++)
+                                health.get(i).get(j).setImageResource(R.drawable.bullet);
+                            break;
+                        case 4:
+                            for(int j = bullet; j<4; j++)
+                                health.get(i).get(j).setImageResource(R.drawable.bullet); //change this to invisible bullet
+                            break;
+                    }
+                }
+            }
+
+            //do i start all of the healths at 4 even though character initializes the health?
+            //where are the individual characters initialized?
+
+            //how are the roles initialized?
+            //
 
             //redraw all active cards, and player hand, discard, etc
             //go through gamestate and show correct things
@@ -110,14 +150,15 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
                 }
             }
             if(cardCliked != -1){
-                int cardNum = state.getPlayer(0).getCardsInHand().get(cardCliked).getCardNum();
+                int cardNum = -1;
+                if(state.players[0].getCardsInHand().size() != 0) cardNum = state.players[0].getCardsInHand().get(cardCliked).getCardNum();
                 game.sendAction(new BANGMoveAction(this, -1, cardNum));
 
                 this.cardLastClicked = cardNum;
 
-                //ImageView card = handCards.get(cardCliked);
-                //card.setImageResource(R.drawable.card_flipped);
-                //card.invalidate();
+                ImageView card = handCards.get(cardCliked);
+                card.setImageResource(R.drawable.card_flipped);
+                card.invalidate();
                 //need to send action if card was valid
             }
 
@@ -144,12 +185,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
 
     }
 
-    /**
-     * returns the GUI's top view
-     *
-     * @return
-     * 		the GUI's top view
-     */
+    //returns the GUI's top view
     @Override
     public View getTopView() {
         return myActivity.findViewById(R.id.mainLayout);
@@ -162,8 +198,8 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     protected void initAfterReady() {
         myActivity.setTitle("BANG: "+allPlayerNames[0]+" vs. "+allPlayerNames[1]);
 
-        handCards = new ArrayList<>(); //
-        activeCards = new ArrayList<>();
+        handCards = new ArrayList<>(); //new array list for human player's hand
+        activeCards = new ArrayList<>(); //array list for players' active cards
         for(int i = 0; i < 4; i++){ //iterates for each player (0)
             activeCards.add(new ArrayList<ImageView>()); //adds image view array list for each player
         }
@@ -175,7 +211,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         this.endTurn = (Button) myActivity.findViewById(R.id.endTurn);
 
 
-        //for(int i =0; i<handCardsId.size(); i++){
+
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c1));
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c2));
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c3));
@@ -205,6 +241,8 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         for(ImageView v: this.handCards){
             v.setOnClickListener(this);
         }
+
+
 
         //active1.setOnTouchListener(this);
         // active2.setOnTouchListener(this);
