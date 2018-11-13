@@ -96,6 +96,7 @@ public class BANGLocalGame extends LocalGame{
             int cardNum = moveAction.getCardNum();
             int target = moveAction.getTarget();
             state.playCard(player, target, cardNum);
+            return true;
         }
 
         // false, not valid

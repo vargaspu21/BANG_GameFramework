@@ -24,28 +24,14 @@ import java.util.ArrayList;
 public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickListener {
     // the current activity
     private Activity myActivity;
-
     private TextView topText = null;
-
     private ImageView drawPile = null;
     private ImageView discardPile = null;
-
     private Button quitGame = null;
     private Button endTurn = null;
-
     private ArrayList<ImageView> handCards;
-
     private ArrayList<ArrayList<ImageView>> activeCards;
-
-
     private BANGState state;
-
-    //private ImageView active1 = null;
-    //private ImageView active2 = null;
-    //private ImageView active3 = null;
-    //private ImageView active4 = null;
-    //private ImageView active5 = null;
-
     private int cardLastClicked;
 
 
@@ -54,25 +40,14 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     // the ID for the layout to use
     private int layoutId;
 
-    /**
-     * constructor
-     *
-     * @param name
-     * 		the player's name
-     * @param layoutId
-     *      the id of the layout to use
-     */
+    //constructor
     public BANGHumanPlayer(String name, int layoutId) {
         super(name);
         this.layoutId = layoutId;
     }
 
-    /**
-     * Callback method, called when player gets a message
-     *
-     * @param info
-     * 		the message
-     */
+
+     //Callback method, called when player gets a message
     @Override
     public void receiveInfo(GameInfo info) {
 
@@ -80,50 +55,28 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             this.state = (BANGState)info;
 
             //redraw all active cards, and player hand, discard, etc
-            //go through gamestate and show correvt things
+            //go through gamestate and show correct things
 
-            //for player hand
-            //cardsInHand.get(i).setResouce
-            //any others need to set blank (flipped) resource
-            //invalidate all
 
-            for(int i = 0; i<state.getPlayer(0).getCardsInHand().size();i++){
-                int Id = state.getPlayer(0).getCardsInHand().get(i).getResourceId();
-                handCards.get(i).setImageResource(Id);
-                handCards.get(i).invalidate();
+            for(int i = 0; i < state.getPlayer(0).getCardsInHand().size(); i++){ //for cards in player's hand
+                int Id = state.getPlayer(0).getCardsInHand().get(i).getResourceId(); //gets the Id for card in hand
+                handCards.get(i).setImageResource(Id); //draws specific card in image view
+                handCards.get(i).invalidate(); //invalidate each image view
             }
-            for(int i = state.getPlayer(0).getCardsInHand().size(); i < handCards.size(); i++){
-                handCards.get(i).setImageResource(R.drawable.card_flipped);
-                handCards.get(i).invalidate();
+            for(int i = state.getPlayer(0).getCardsInHand().size(); i < handCards.size(); i++){ //for image views that are not cards
+                handCards.get(i).setImageResource(R.drawable.card_flipped); // //set cards flipped
+                handCards.get(i).invalidate(); //invalidate each image view
             }
 
 
         }
 
-        /*if (surfaceView == null) return;
-
-        if (info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
-            // if the move was out of turn or otherwise illegal, flash the screen
-            surfaceView.flash(Color.RED, 50);
-        }
-        else if (!(info instanceof BANGState))
-            // if we do not have a TTTState, ignore
-            return;
-        else {
-            surfaceView.setState((BANGState)info);
-            surfaceView.invalidate();
-            Log.i("human player", "receiving");
-        }*/
     }
 
     @Override
     public void onClick(View v){
-        GameAction gameAction; //intialize instance variable
+        GameAction gameAction; //initialize instance variable
         if(v == null) return;
-
-
-
-
 
         if(v.getId() == endTurn.getId()){ //if end turn button is clicked
             Log.i("ButtonInfo","Ending turn");
@@ -148,10 +101,10 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             topText.setText("Number of cards in deck: " + ((BANGLocalGame)game).state.drawPile.size());
             topText.invalidate();
         }
-        else //if(v.getId() == card1.getId()||v.getId() == card2.getId())
+        else
         {
             int cardCliked = -1;
-            for(int i=0; i<handCards.size();i++){
+            for(int i = 0; i < handCards.size(); i++){
                 if(v.getId() == handCards.get(i).getId()){
                     cardCliked = i;
                 }
@@ -208,10 +161,11 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
      */
     protected void initAfterReady() {
         myActivity.setTitle("BANG: "+allPlayerNames[0]+" vs. "+allPlayerNames[1]);
-        handCards = new ArrayList<>();
+
+        handCards = new ArrayList<>(); //
         activeCards = new ArrayList<>();
-        for(int i = 0; i<4;i++){
-            activeCards.add(new ArrayList<ImageView>());
+        for(int i = 0; i < 4; i++){ //iterates for each player (0)
+            activeCards.add(new ArrayList<ImageView>()); //adds image view array list for each player
         }
 
         this.topText = (TextView) myActivity.findViewById(R.id.topText);
