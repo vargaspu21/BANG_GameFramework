@@ -52,58 +52,63 @@ public class Card {
         {
             case SCHOFIELD:
                 name = "Schofield";
-                description = "This is a good gun. Range+2";
+                description = "This is a good gun. Range+2\n";
                 resourceId = R.drawable.schofield;
                 break;
             case REVCARBINE:
                 name = "Rev Carbine";
-                description = "Rev it up. Range+4";
+                description = "Rev it up. Range+4\n";
                 resourceId = R.drawable.rev_carabine;
                 break;
             case WINCHESTER:
                 name = "Winchester";
-                description = "For the win. Range+5";
+                description = "For the win. Range+5\n";
                 resourceId = R.drawable.winchester;
                 break;
             case VOLCANIC:
                 name = "Volcanic";
-                description = "Pompeii. Unlimited uses of BANG. Range+1";
+                description = "Pompeii. Unlimited uses of BANG. Range+1\n";
                 resourceId = R.drawable.volcanic;
                 break;
             case REMINGTON:
                 name = "Remington";
-                description = "Remington. Range+3";
+                description = "Remington. Range+3\n";
                 resourceId = R.drawable.remington;
                 break;
             case BANG:
                 name = "BANG!";
-                description = "Dishes out one damage. I love you kitchen gun!";
+                description = "Dishes out one damage. I love you kitchen gun!\n";
                 resourceId = R.drawable.bang;
                 break;
             case MISSED:
                 name = "Missed!";
-                description = "I miss you! Dodges one BANG!";
+                description = "I miss you! Dodges one BANG!\n";
                 resourceId = R.drawable.missed;
                 break;
             case BEER:
                 name = "Beer";
-                description = "Let's get drunk. Health+1";
+                description = "Let's get drunk. Health+1\n";
                 resourceId = R.drawable.beer;
                 break;
             case GATLING:
                 name = "Gatling";
-                description = "Gratatatatatatata. Deals 1 damage to every enemy.";
+                description = "Gratatatatatatata. Deals 1 damage to every enemy.\n";
                 resourceId = R.drawable.gatling;
                 break;
             case INDIANS:
                 name = "Indians";
-                description = "Angry Indians are here! Lose a BANG! card or lose one health!";
+                description = "Angry Indians are here! Lose a BANG! card or lose one health!\n";
                 resourceId = R.drawable.indians;
                 break;
             case SALOON:
                 name = "Saloon";
-                description = "Refreshing! Everyone heals one health. You heal two!";
+                description = "Refreshing! Everyone heals one health. You heal two!\n";
                 resourceId = R.drawable.saloon;
+                break;
+            case DUEL:
+                name = "Duel";
+                description = "The player playing this card challenges any other player (at any distance) staring him in the eyes.\n";
+                resourceId = R.drawable.duel_card;
                 break;
         }
     }

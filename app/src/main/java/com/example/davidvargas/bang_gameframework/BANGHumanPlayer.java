@@ -54,22 +54,24 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             discardPile.setImageResource(discard); //draws the last card played on discard pile
         }
 
-        //how to move to start game with cards showing? currently starts game and has all cards facing down
 
+
+        //sets all of the health image views to the bullet image.
+        for(int i=0; i<4; i++){
+            for(int j=0; j<4; j++){
+                health.get(i).get(j).setImageResource(R.drawable.bullet);
+                health.get(i).get(j).invalidate();
+            }
+        }
         //how do I draw the health of each player? how do I make a bullet image view invisible as the health decreases?
         //will draw the bullets for each
-           /* for(int i=0; i<4; i++){
-                if(i != 0){
-                    int bullet = state.players[i].getHealth();
-                    //set the difference of the player health and 4 to an invisible bullet
-                    for(int j = bullet; j<5; j++)
-                        health.get(i).get(j).setVisibility(View.INVISIBLE);
-                        //health.get(i).get(j).setImageResource(R.drawable.bullet);
-
-
+           for(int i = 0; i<4; i++){
+                int bullet = state.players[i].getHealth();
+                for(int j = bullet; j<4; j++) { //set the difference of the player health and 4 to an invisible bullet
+                    health.get(i).get(j).setVisibility(View.INVISIBLE);
+                    health.get(i).get(j).invalidate();
                 }
             }
-            */
 
         //do i start all of the healths at 4 even though character initializes the health?
         //where are the individual characters initialized?
@@ -221,7 +223,6 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         //Initialize the widget reference member variables
         this.quitGame = (Button) myActivity.findViewById(R.id.quit);
         this.endTurn = (Button) myActivity.findViewById(R.id.endTurn);
-
         this.drawPile = (ImageView) myActivity.findViewById(R.id.drawPile);
 
 
@@ -230,6 +231,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c3));
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c4));
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c5));
+
 
 
 
@@ -266,16 +268,46 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
 
 
 
-        /*health = new ArrayList<>(); //array list for players' health
+        health = new ArrayList<>(); //array list for players' health
         for(int i = 0; i < 4; i++){ //iterates for each player (0)
             health.add(new ArrayList<ImageView>()); //adds image view array list for each player
         }
 
+        health.get(0).add((ImageView) myActivity.findViewById(R.id.p1h1));
+        health.get(0).add((ImageView) myActivity.findViewById(R.id.p1h2));
+        health.get(0).add((ImageView) myActivity.findViewById(R.id.p1h3));
+        health.get(0).add((ImageView) myActivity.findViewById(R.id.p1h4));
 
+        health.get(1).add((ImageView) myActivity.findViewById(R.id.p2h1));
+        health.get(1).add((ImageView) myActivity.findViewById(R.id.p2h2));
+        health.get(1).add((ImageView) myActivity.findViewById(R.id.p2h3));
+        health.get(1).add((ImageView) myActivity.findViewById(R.id.p2h4));
+
+        health.get(2).add((ImageView) myActivity.findViewById(R.id.p3h1));
+        health.get(2).add((ImageView) myActivity.findViewById(R.id.p3h2));
+        health.get(2).add((ImageView) myActivity.findViewById(R.id.p3h3));
+        health.get(2).add((ImageView) myActivity.findViewById(R.id.p3h4));
+
+        health.get(3).add((ImageView) myActivity.findViewById(R.id.p4h1));
+        health.get(3).add((ImageView) myActivity.findViewById(R.id.p4h2));
+        health.get(3).add((ImageView) myActivity.findViewById(R.id.p4h3));
+        health.get(3).add((ImageView) myActivity.findViewById(R.id.p4h4));
+
+        for(int i = 0; i<4; i++){
+            for(ImageView v: health.get(i)){
+                v.setOnClickListener(this);
+            }
+        }
+
+
+
+
+        /*
         for(int i = 0; i<4; i++){
             for(int j = 0; j<5; j++)
                 health.get(i).get(j).setImageResource(R.drawable.bullet);
-        }*/
+        }
+        */
 
     }
 
