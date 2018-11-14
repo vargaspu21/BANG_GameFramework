@@ -1,14 +1,38 @@
 package com.example.davidvargas.bang_gameframework.objects;
 
+import com.example.davidvargas.bang_gameframework.R;
+
 public class RoleCard extends Card {
 
-    private int role; //0: Sheriff, 1: Outlaw, 2: Renegade
+    public int role; //0: Sheriff, 1: Outlaw, 2: Renegade
+
+    public final int SHERIFF = 0;
+    public final int OUTLAW = 2;
+    public final int RENEGADE = 1;
 
     //constructor:
     public RoleCard(int roleNum)
     {
-        super();
+        super(roleNum);
         role = roleNum;
+        switch (roleNum){
+            case SHERIFF:
+                name = "Sheriff";
+                description = "The goal is to eliminate all the Outlaws and the Renegade, to protect law and order.\n";
+                resourceId = R.drawable.sheriff;
+                break;
+            case RENEGADE:
+                name = "Renegade";
+                description = "The goal is to be the last character in play.\n";
+                resourceId = R.drawable.renegade;
+                break;
+            case OUTLAW:
+                name = "Outlaw";
+                description = "The goal is to kill the Sheriff.\n";
+                resourceId= R.drawable.outlaw;
+                break;
+
+        }
     }
 
     //copy constructor for RoleCard object:
@@ -33,8 +57,8 @@ public class RoleCard extends Card {
     public String toString()
     {
         //convert role number to string role:
-        if(role == 0) return "\t\t\t\tThe role is a Sheriff\n";
-        else if(role == 1) return "\t\t\t\tThe role is an Outlaw\n";
+        if(role == SHERIFF) return "\t\t\t\tThe role is a Sheriff\n";
+        else if(role == RENEGADE) return "\t\t\t\tThe role is an Outlaw\n";
         else return "\t\t\t\tThe role is a Renegade\n";
 
     }

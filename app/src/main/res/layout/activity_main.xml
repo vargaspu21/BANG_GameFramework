@@ -52,7 +52,7 @@
                 android:layout_width="100dp"
                 android:layout_height="200dp"
                 android:layout_weight="1"
-                android:src="@drawable/calamity_janet" />
+                android:src="@drawable/card_flipped" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -156,7 +156,7 @@
                             android:id="@+id/p4role"
                             android:layout_width="100dp"
                             android:layout_height="200dp"
-                            android:src="@drawable/jesse_jones" />
+                            android:src="@drawable/card_flipped" />
 
                         <ImageView
                             android:id="@+id/p4c"
@@ -331,7 +331,7 @@
                             android:id="@+id/p2role"
                             android:layout_width="100dp"
                             android:layout_height="200dp"
-                            android:src="@drawable/slab_the_killer" />
+                            android:src="@drawable/card_flipped" />
 
                         <ImageView
                             android:id="@+id/p2c"
@@ -371,16 +371,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="left"
-                        android:layout_weight="5"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/p1role"
-                            android:layout_width="wrap_content"
-                            android:layout_height="200dp"
+                            android:layout_width="150dp"
+                            android:layout_height="225dp"
                             android:layout_gravity="left"
                             android:layout_weight="0"
-                            android:src="@drawable/jourdonnais" />
+                            android:src="@drawable/card_flipped" />
                     </LinearLayout>
 
                     <ImageView

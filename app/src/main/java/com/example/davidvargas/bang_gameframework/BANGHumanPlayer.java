@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.davidvargas.bang_gameframework.game.GameHumanPlayer;
@@ -37,9 +38,11 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private ArrayList<ImageView> handCards;
     private ArrayList<ArrayList<ImageView>> activeCards;
     private ArrayList<ArrayList<ImageView>> health;
+    private ArrayList<ImageView> roles;
     private BANGState state;
     private int cardLastClicked;
     private static final int MAXHAND = 8;
+    private LinearLayout player2, player3, player4;
 
 
 
@@ -60,6 +63,23 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             discardPile.setImageResource(discard); //draws the last card played on discard pile
         }
 
+        for(int i = 0; i<4; i++){
+            if(state.players[i].getHealth() <= 0){
+
+            }
+        }
+        for(int i = 0; i<4; i++){
+            if(state.players[i].getRole().getRole() == state.SHERIFF){
+                roles.get(i).setImageResource(R.drawable.sheriff_copy);
+            }
+            /*else if(state.players[i].getRole().getRole() == state.OUTLAW){
+                roles.get(i).setImageResource(R.drawable.outlaw);
+            }
+            else if(state.players[i].getRole().getRole() == state.RENEGADE){
+                roles.get(i).setImageResource(R.drawable.renegade);
+            }
+            */
+        }
 
 
         //sets all of the health image views to the bullet image.
@@ -189,10 +209,11 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
                 cardNum = state.players[0].getCardsInHand().get(cardCliked).getCardNum();
                 Log.i("button click", "Asked for card "+ cardCliked);
 
-
+                int target = 1;
+                if(state.players[target].getHealth() <= 0) target++;
                 this.cardLastClicked = cardNum;
 
-                game.sendAction(new BANGMoveAction(this, 1, cardNum));
+                game.sendAction(new BANGMoveAction(this, target, cardNum));
 
                 //need to send action if card was valid
             }
@@ -233,6 +254,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     protected void initAfterReady() {
         myActivity.setTitle("BANG: "+allPlayerNames[0]+" vs. "+allPlayerNames[1]);
 
+        roles = new ArrayList<>();
         handCards = new ArrayList<>(); //new array list for human player's hand
         activeCards = new ArrayList<>(); //array list for players' active cards
         for(int i = 0; i < 4; i++){ //iterates for each player (0)
@@ -267,8 +289,10 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c8));
 
 
-
-
+        this.roles.add((ImageView) myActivity.findViewById(R.id.p1role));
+        this.roles.add((ImageView) myActivity.findViewById(R.id.p2role));
+        this.roles.add((ImageView) myActivity.findViewById(R.id.p3role));
+        this.roles.add((ImageView) myActivity.findViewById(R.id.p4role));
 
         this.drawPile = (ImageView) myActivity.findViewById(R.id.drawPile);
         drawPile.setOnClickListener(this);
@@ -335,6 +359,9 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
 
 
 
+        player2 = (LinearLayout) myActivity.findViewById(R.id.p2MainLayout);
+        player3 = (LinearLayout) myActivity.findViewById(R.id.p3row);
+        player4 = (LinearLayout) myActivity.findViewById(R.id.p4MainLayout);
 
         /*
         for(int i = 0; i<4; i++){
