@@ -27,8 +27,62 @@ public class BANGLocalGame extends LocalGame{
      */
     @Override
     protected String checkIfGameOver() {
-        return null;
+        //first, checks if sheriff is dead
+        //counts how many players left
+        int numPlayersLeft = 0;
+        boolean sheriffDead = false;
+        int numOutlawsDead = 0;
 
+        //iterates entire player array in (casted) state
+        for (int i = 0; i < 4; i++)
+        {
+            //if player is dead
+            if(((BANGState)state).players[i].getHealth()<=0)
+            {
+                //marks if sheriff is dead
+                if(((BANGState)state).players[i].getRole().getRole()==BANGState.SHERIFF)
+                {
+                    sheriffDead = true;
+                }
+
+                //counts number of outlaws dead
+                if(((BANGState)state).players[i].getRole().getRole()==BANGState.OUTLAW)
+                {
+                    numOutlawsDead++;
+                }
+                //adds 1 onto counter
+                numPlayersLeft++;
+            }
+            //by the end, number of players recorded
+
+            //if sheriff is dead and numoutlawsdead < 2, an outlaw is still alive, and outlaws win
+            if(sheriffDead&&(numOutlawsDead<2))
+            {
+                //victory for outlaw
+                return "Outlaws win!";
+            }
+            //if last man standing is sheriff, sheriff wins
+            else if(!sheriffDead&&(numPlayersLeft==1))
+            {
+                return "Sheriff wins!";
+            }
+            //if sheriff dead and 2 outlaws dead, last man standing MUST be renegade
+            else if(sheriffDead&&(numOutlawsDead>=2)&&(numPlayersLeft==1))
+            {
+                return "Renegade wins!";
+            }
+            //if everyone died for some reason, stalemate
+            else if(numPlayersLeft==0)
+            {
+                return "Stalemate: everyone is dead!";
+            }
+            else
+            {
+                return null;
+            }
+        }
+        //supposed to be unreachable
+        return null;
     }
 
     /**

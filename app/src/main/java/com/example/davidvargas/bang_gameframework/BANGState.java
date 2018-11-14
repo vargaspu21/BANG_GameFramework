@@ -75,9 +75,9 @@ public class BANGState extends GameState{
     public final int NUMMUSTANG = 2;
 
     //CConstants for roles
-    public final int SHERIFF = 0;
-    public final int OUTLAW  = 1;
-    public final int RENEGADE = 2;
+    public static final int SHERIFF = 0;
+    public static final int OUTLAW  = 1;
+    public static final int RENEGADE = 2;
 
     //initializes variables:
     protected ArrayList<PlayableCard> drawPile;
