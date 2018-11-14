@@ -142,8 +142,6 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         else if(v.getId() == drawPile.getId())
         {
             Log.i("ButtonInfo","Drawing two cards");
-            gameAction = new BANGDrawTwo(this);
-           // game.sendAction(gameAction);
             topText.setText("Number of cards in deck: " + ((BANGLocalGame)game).state.drawPile.size());
             topText.invalidate();
         }

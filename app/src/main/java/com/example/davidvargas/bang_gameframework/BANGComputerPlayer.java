@@ -88,25 +88,5 @@ public class BANGComputerPlayer extends GameComputerPlayer {
 
         }
 
-        //randomly choose from current hand and play card here
-        //get the size of the hand
-        //randomize a number smaller than size
-        //play random number card in the hand
-        //  int cardNum = 0;
-
-
-        // delay for a second to make opponent think we're thinking
-        //sleep(1000);
-
-        // Submit our move to the game object. We haven't even checked it it's
-        // our turn, or that that position is unoccupied. If it was not our turn,
-        // we'll get a message back that we'll ignore. If it was an illegal move,
-        // we'll end up here again (and possibly again, and again). At some point,
-        // we'll end up randomly pick a move that is legal.
-
-        //fix this BANGMoveAction
-         //game.sendAction(new BANGMoveAction(this, cardNum)); //card index in my hand
-
-
     }
 }

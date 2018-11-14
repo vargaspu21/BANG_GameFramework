@@ -145,7 +145,7 @@ public class BANGState extends GameState{
     {
         //adds cards based on the Constant amounts (for-loops);
         int i;
-        //for(i=0; i<NUMSCHOFIELD; i++) deck.add(new PlayableCard(true, SCHOFIELD));
+        for(i=0; i<NUMSCHOFIELD; i++) deck.add(new PlayableCard(true, SCHOFIELD));
         //deck.add(new PlayableCard(true, REVCARBINE));
         //deck.add(new PlayableCard(true, WINCHESTER));
         //for(i=0; i<NUMVOLCANIC; i++) deck.add(new PlayableCard(true, VOLCANIC));
@@ -445,6 +445,66 @@ public class BANGState extends GameState{
         return true;
     }
 
+    public boolean playSchofield(int player){
+        for(PlayableCard p: players[player].getCardsInHand()){
+            if(p.getCardNum() == SCHOFIELD){
+                players[player].getCardsInHand().remove(p);
+                discardPile.add(p);
+                players[player].setRange((players[player].getRange()) + 2);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean playRevCarbine(int player){
+        for(PlayableCard p: players[player].getCardsInHand()){
+            if(p.getCardNum() == REVCARBINE){
+                players[player].getCardsInHand().remove(p);
+                discardPile.add(p);
+                players[player].setRange((players[player].getRange()) + 4);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean playWinchester(int player){
+        for(PlayableCard p: players[player].getCardsInHand()){
+            if(p.getCardNum() == WINCHESTER){
+                players[player].getCardsInHand().remove(p);
+                discardPile.add(p);
+                players[player].setRange((players[player].getRange()) + 5);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean playVolcanic(int player){
+        for(PlayableCard p: players[player].getCardsInHand()){
+            if(p.getCardNum() == VOLCANIC){
+                players[player].getCardsInHand().remove(p);
+                discardPile.add(p);
+                players[player].setRange((players[player].getRange()) + 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean playRemington(int player){
+        for(PlayableCard p: players[player].getCardsInHand()){
+            if(p.getCardNum() == REMINGTON){
+                players[player].getCardsInHand().remove(p);
+                discardPile.add(p);
+                players[player].setRange((players[player].getRange()) + 3);
+                return true;
+
+            }
+        }
+        return false;
+    }
     public boolean playCard(int player, int target, int cardNum)//will be the cases in playableCard; cases should be handled here because this is the main gamestate
     {
         if(playerTurn != player)
@@ -456,48 +516,39 @@ public class BANGState extends GameState{
             switch(cardNum)
             {
                 case SCHOFIELD: //schofield, +2 range
-                    for(PlayableCard p: players[player].getCardsInHand()){
-                        if(p.getCardNum() == SCHOFIELD){
-                            players[player].getCardsInHand().remove(p);
-                            discardPile.add(p);
-                            break;
-                        }
-                     }
-                    players[player].setRange( (players[player].getRange()) + 2);
+                    playSchofield(player);
                     return true;
-
                 case REVCARBINE: //rev carabine, +4 range
-                    players[player].setRange( (players[player].getRange()) + 4);
+                    playRevCarbine(player);
                     return true;
                 case WINCHESTER: //winchester, +5 range
-                    players[player].setRange( (players[player].getRange()) + 5);
+                    playWinchester(player);
                     return true;
                 case VOLCANIC: //volcanic, +1 range, play any number of bangs
                     //second effect apply during battle phase
-                    players[player].setRange( (players[player].getRange()) + 1);
+                    playVolcanic(player);
                     return true;
-
                 case REMINGTON: //remington, +3 range
-                    players[player].setRange( (players[player].getRange()) + 3);
+                    playRemington(player);
                     return true;
                 case BANG: //bang
                     playBANG(player, target);
                     return true;
-
                 case MISSED: //missed!, never used independently
                     //cannot be used without replying to a bang
                     //can be implemented multiple ways, can have a separate fn
                     return false; //false for now?
-
                 case BEER: //beer, heals a health
                     playBeer(player);
                     return true;
                 case PANIC: //panic!
                     //player in 1 range gives up a card
-                    return playPanic(player, target);
+                    playPanic(player, target);
+                    return true;
                 case CATBALOU: //cat balou
                     //one player discards a card
-                    return playCatBalou(target);
+                    playCatBalou(player, target);
+                    return true;
                 case STAGECOACH: //stagecoach
                     //draw two cards
                     draw(player);
@@ -532,18 +583,22 @@ public class BANGState extends GameState{
                 case GENERALSTORE: //general store, reveal number of cards as players from deck, each choose one
 
                 case SALOON: //saloon, player +2 health, others +1 health
-                    return playSaloon(player);
+                     playSaloon(player);
+                     return true;
 
                 case JAIL: //jail
-                    return playActiveCard(player, target, cardNum);
+                    playActiveCard(player, target, cardNum);
+                    return true;
                 //start of turn check for jail, if players has then skip turn
                 //implemented in drawTwo method as that signals start of turn
                 case DYNAMITE: //dynamite
-                    return playActiveCard(player, target, cardNum);
+                    playActiveCard(player, target, cardNum);
+                    return true;
                 //start of turn draw! mechanic to determine if damage is taken.
                 //implemented in drawTwo function as that signals start of turn
                 case BARREL: //barrel
-                    return playActiveCard(player, player, cardNum);
+                    playActiveCard(player, player, cardNum);
+                    return true;
                 //implemented in bang function,
                 case SCOPE: //scope, you see others -1 distance
                     players[player].setRange(players[player].getRange()-1);
@@ -713,22 +768,28 @@ public class BANGState extends GameState{
     //method to play the Duel card:
     public boolean playDuel(int player, int target) {
         //initializes counts of bang cards in attacker's and target's hands to 0
-        int targetCount = 0;
-        int attackerCount = 0;
+        for (PlayableCard q : players[player].getCardsInHand())//iterates through entire hand of player
+        {
+            if (q.getCardNum() == GATLING) {
+                players[player].getCardsInHand().remove(q);
+                discardPile.add(q);
+                int attackerCount = 0, targetCount = 0;
+                //counts how many bangs are in attacker's and target's hands
+                for (PlayableCard p : players[player].getCardsInHand()){
+                    if (p.getCardNum() == BANG) attackerCount++;
+                }
+                for (PlayableCard p : players[target].getCardsInHand()){
+                    if (p.getCardNum() == BANG) targetCount++;
+                }
 
-        //counts how many bangs are in attacker's and target's hands
-        for (PlayableCard p : players[player].getCardsInHand()){
-            if (p.getCardNum() == BANG) attackerCount++;
+                if (attackerCount <= targetCount) //if attacker has less than or same amount BANGs as target, attacker loses
+                    players[player].setHealth(players[player].getHealth() - 1); //lose one health
+                else
+                    players[target].setHealth(players[target].getHealth() - 1); //else if attacker has more BANGs than target, target loses one health
+                return true;
+            }
         }
-        for (PlayableCard p : players[target].getCardsInHand()){
-            if (p.getCardNum() == BANG) targetCount++;
-        }
-
-        if (attackerCount <= targetCount) //if attacker has less than or same amount BANGs as target, attacker loses
-            players[player].setHealth(players[player].getHealth() - 1); //lose one health
-        else players[target].setHealth(players[target].getHealth() - 1); //else if attacker has more BANGs than target, target loses one health
-
-        return true;
+        return false;
     }
 
     //method to play gatling card; called from playCard method; deals damage to everyone except attacker
@@ -777,19 +838,31 @@ public class BANGState extends GameState{
     {
         if(distanceBetween(player, target) == 1)
         {
-            drawFromPlayer(player, target);
-            return true;
+            for(PlayableCard p: players[player].getCardsInHand()) {
+                if(p.getCardNum() == PANIC) {
+                    players[player].getCardsInHand().remove(p);
+                    discardPile.add(p);
+                    drawFromPlayer(player, target);
+                    return true;
+                }
+            }
         }
-        else return false;
+        return false;
     }
     /*target player discards a card,
     however currently the card is prechosen, this could be changed lated to allow for target to choose, or attacker to choose.
      */
-    private boolean playCatBalou(int target)
+    private boolean playCatBalou(int player, int target)
     {
-
-        players[target].getCardsInHand().remove(0); //removes the left most card in targets hand
-        return true;
+        for(PlayableCard p: players[player].getCardsInHand()) {
+            if (p.getCardNum() == PANIC) {
+                players[player].getCardsInHand().remove(p);
+                discardPile.add(p);
+                players[target].getCardsInHand().remove(0); //removes the left most card in targets hand
+                return true;
+            }
+        }
+        return false;
     }
 
     //Beer card function:
@@ -800,8 +873,10 @@ public class BANGState extends GameState{
         if(players[player].health >= players[player].getMaxHealth()) return false; //checks that user does not surpass the max health
         for(PlayableCard p: players[player].getCardsInHand())//iterates through entire players hand
         {
-            if(p.getCardNum()==1)//if cardnum for beer, uses it
+            if(p.getCardNum()==BEER)//if cardnum for beer, uses it
             {
+                players[player].getCardsInHand().remove(p);
+                discardPile.add(p);
                 players[player].setHealth(players[player].getHealth()+1); //adds one life point to user
                 return true; //returns true, showing that the move was successful
             }
@@ -811,15 +886,20 @@ public class BANGState extends GameState{
 
     //used when playing saloon card; called from playCard; heals everyone 1 health. heals the user an additional one health.
     private boolean playSaloon(int player) {
-        //checks player and increases health accordingly;
-        for(int i=0; i < 4; i++){
-            if(i == player){
+        for(PlayableCard p: players[player].getCardsInHand()){
+            if(p.getCardNum() == SALOON){
+                //checks player and increases health accordingly;
+                for(int i=0; i < 4; i++){
+                    if(i == player){
+                        players[player].setHealth(players[player].getHealth()+2);
+                    }
+                    players[i].setHealth(players[i].getHealth()+1);
+                }
                 players[player].setHealth(players[player].getHealth()+2);
+                return true;
             }
-            players[i].setHealth(players[i].getHealth()+1);
         }
-        players[player].setHealth(players[player].getHealth()+2);
-        return true;
+        return false;
     }
 
     public boolean useAbility(int player, int ability)
