@@ -336,6 +336,27 @@
                         android:layout_weight="1"
                         android:src="@drawable/card_flipped" />
 
+                    <ImageView
+                        android:id="@+id/p1c6"
+                        android:layout_width="100dp"
+                        android:layout_height="200dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/card_flipped" />
+
+                    <ImageView
+                        android:id="@+id/p1c7"
+                        android:layout_width="100dp"
+                        android:layout_height="200dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/card_flipped" />
+
+                    <ImageView
+                        android:id="@+id/p1c8"
+                        android:layout_width="100dp"
+                        android:layout_height="200dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/card_flipped" />
+
                     <LinearLayout
                         android:id="@+id/nameAndHealth1"
                         android:layout_width="wrap_content"

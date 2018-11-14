@@ -34,7 +34,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private ArrayList<ArrayList<ImageView>> health;
     private BANGState state;
     private int cardLastClicked;
-    private static final int MAXHAND = 5;
+    private static final int MAXHAND = 8;
 
 
 
@@ -231,6 +231,9 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c3));
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c4));
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c5));
+        this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c6));
+        this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c7));
+        this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c8));
 
 
 
