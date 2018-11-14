@@ -28,6 +28,10 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private ImageView drawPile = null;
     private ImageView discardPile = null;
 
+    private ImageView player2cards = null;
+    private ImageView player3cards = null;
+    private ImageView player4cards = null;
+
     private Button quitGame = null;
     private Button endTurn = null;
     private ArrayList<ImageView> handCards;
@@ -149,6 +153,21 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             topText.setText("Number of cards in deck: " + ((BANGLocalGame)game).state.drawPile.size());
             topText.invalidate();
         }
+        else if(v.getId() == player2cards.getId())
+        {
+            topText.setText("Number of cards in player 2's hand: " + ((BANGLocalGame)game).state.players[1].getCardsInHand().size());
+            topText.invalidate();
+        }
+        else if(v.getId() == player3cards.getId())
+        {
+            topText.setText("Number of cards in player 3's hand: " + ((BANGLocalGame)game).state.players[2].getCardsInHand().size());
+            topText.invalidate();
+        }
+        else if(v.getId() == player4cards.getId())
+        {
+            topText.setText("Number of cards in player 4's hand: " + ((BANGLocalGame)game).state.players[3].getCardsInHand().size());
+            topText.invalidate();
+        }
         else
         {
             int cardCliked = -1;
@@ -226,6 +245,16 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         this.quitGame = (Button) myActivity.findViewById(R.id.quit);
         this.endTurn = (Button) myActivity.findViewById(R.id.endTurn);
         this.drawPile = (ImageView) myActivity.findViewById(R.id.drawPile);
+
+        this.player2cards = (ImageView) myActivity.findViewById(R.id.p2c);
+        player2cards.setOnClickListener(this);
+
+        this.player3cards = (ImageView) myActivity.findViewById(R.id.p3c);
+        player3cards.setOnClickListener(this);
+
+        this.player4cards = (ImageView) myActivity.findViewById(R.id.p4c);
+        player4cards.setOnClickListener(this);
+
 
 
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c1));
