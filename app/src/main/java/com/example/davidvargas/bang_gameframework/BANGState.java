@@ -221,7 +221,7 @@ public class BANGState extends GameState{
     //method to make new draw pile from discard pile:
     private boolean discardIntoDraw(ArrayList<PlayableCard> discardPile){
         if(this.drawPile.isEmpty()){ //if draw pile is empty, move discard pile cards to it
-            for(PlayableCard c: discardPile){
+            for(PlayableCard c: this.discardPile){
                 drawPile.add(c);
             }
             return true;
@@ -286,11 +286,12 @@ public class BANGState extends GameState{
         }
         else
         {
-            discardIntoDraw(drawPile);//checks if drawpile is empty. if it is, turns discardpile into drawpile
-            if(drawPile.isEmpty()) return false;
-            PlayableCard toDraw= drawPile.get(0);//gets topmost card
-            players[player].setCardsInHand(toDraw);//adds topmost card to player's hand
-            drawPile.remove(toDraw);//deletes the first instance of the card from drawpile
+            if(drawPile.isEmpty()){
+                discardIntoDraw(drawPile);
+            }
+            PlayableCard toDraw = drawPile.get(0);
+            players[player].getCardsInHand().add(toDraw);
+            drawPile.remove(toDraw);
             return true;
         }
     }
