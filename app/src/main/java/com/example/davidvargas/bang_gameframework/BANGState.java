@@ -164,7 +164,7 @@ public class BANGState extends GameState{
     {
         //adds cards based on the Constant amounts (for-loops);
         int i;
-        for(i=0; i<NUMSCHOFIELD; i++) deck.add(new PlayableCard(true, SCHOFIELD));
+        //for(i=0; i<NUMSCHOFIELD; i++) deck.add(new PlayableCard(true, SCHOFIELD));
         //deck.add(new PlayableCard(true, REVCARBINE));
         //deck.add(new PlayableCard(true, WINCHESTER));
         //for(i=0; i<NUMVOLCANIC; i++) deck.add(new PlayableCard(true, VOLCANIC));

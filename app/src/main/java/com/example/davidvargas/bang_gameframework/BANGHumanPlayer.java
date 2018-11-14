@@ -43,6 +43,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private int cardLastClicked;
     private static final int MAXHAND = 8;
     private LinearLayout player2, player3, player4;
+    private ArrayList<TextView> playerTexts;
 
 
 
@@ -65,21 +66,30 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
 
         for(int i = 0; i<4; i++){
             if(state.players[i].getHealth() <= 0){
-
+                roles.get(i).setVisibility(View.INVISIBLE);
+                roles.get(i).invalidate();
+                playerTexts.get(i-1).setText("Player " + String.valueOf(i+1)+" is dead!\n");
             }
         }
-        for(int i = 0; i<4; i++){
-            if(state.players[i].getRole().getRole() == state.SHERIFF){
+        for(int i = 0; i<4; i++) {
+            if (state.players[i].getRole().getRole() == state.SHERIFF) {
                 roles.get(i).setImageResource(R.drawable.sheriff_copy);
+                roles.get(i).invalidate();
             }
-            /*else if(state.players[i].getRole().getRole() == state.OUTLAW){
-                roles.get(i).setImageResource(R.drawable.outlaw);
-            }
-            else if(state.players[i].getRole().getRole() == state.RENEGADE){
-                roles.get(i).setImageResource(R.drawable.renegade);
-            }
-            */
         }
+        if(state.players[0].getRole().getRole() == state.OUTLAW) {
+            roles.get(0).setImageResource(R.drawable.outlaw);
+            roles.get(0).invalidate();
+        }
+
+        else if(state.players[0].getRole().getRole() == state.RENEGADE){
+            roles.get(0).setImageResource(R.drawable.renegade);
+            roles.get(0).invalidate();
+        }
+
+
+
+
 
 
         //sets all of the health image views to the bullet image.
@@ -254,6 +264,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     protected void initAfterReady() {
         myActivity.setTitle("BANG: "+allPlayerNames[0]+" vs. "+allPlayerNames[1]);
 
+        playerTexts = new ArrayList<>();
         roles = new ArrayList<>();
         handCards = new ArrayList<>(); //new array list for human player's hand
         activeCards = new ArrayList<>(); //array list for players' active cards
@@ -363,12 +374,10 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         player3 = (LinearLayout) myActivity.findViewById(R.id.p3row);
         player4 = (LinearLayout) myActivity.findViewById(R.id.p4MainLayout);
 
-        /*
-        for(int i = 0; i<4; i++){
-            for(int j = 0; j<5; j++)
-                health.get(i).get(j).setImageResource(R.drawable.bullet);
-        }
-        */
+
+        this.playerTexts.add((TextView) myActivity.findViewById(R.id.computer1));
+        this.playerTexts.add((TextView) myActivity.findViewById(R.id.computer2));
+        this.playerTexts.add((TextView) myActivity.findViewById(R.id.computer3));
 
     }
 
