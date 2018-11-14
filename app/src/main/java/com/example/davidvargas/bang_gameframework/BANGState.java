@@ -4,8 +4,10 @@ import com.example.davidvargas.bang_gameframework.game.infoMsg.GameState;
 import com.example.davidvargas.bang_gameframework.objects.Card;
 import com.example.davidvargas.bang_gameframework.objects.PlayableCard;
 import com.example.davidvargas.bang_gameframework.objects.PlayerInfo;
+import com.example.davidvargas.bang_gameframework.objects.RoleCard;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
 
@@ -82,6 +84,7 @@ public class BANGState extends GameState{
     //initializes variables:
     protected ArrayList<PlayableCard> drawPile;
     protected ArrayList <PlayableCard> discardPile;
+    protected ArrayList<Integer> roles;
     protected int playerTurn, bangsPlayed;
     protected PlayerInfo[] players;
     public static Random rand = new Random ();
@@ -98,14 +101,12 @@ public class BANGState extends GameState{
         players[2] = new PlayerInfo(3);
         players[3] = new PlayerInfo(4);
         playerTurn = 0;//current players turn
-        bangsPlayed = 0;//prevents more than one bang card to be played per turn
+        //amount of cards drawn depends on the health:
         for(int i =0; i<4; i++){
             for(int j = 0; j<players[i].getHealth(); j++){
                 draw(i);
             }
         }
-
-        //TO-DO set player roles randomly, before drawing cards
         /*
          External Citation
          Date: 10 October 2018
@@ -114,6 +115,20 @@ public class BANGState extends GameState{
          Solution: Assisted with writing this line of code.
          */
         rand.setSeed(System.currentTimeMillis());
+
+        //sets the roles randomly :
+        roles = new ArrayList<Integer>();
+        roles.add(0);
+        roles.add(1);
+        roles.add(1);
+        roles.add(2);
+        Collections.shuffle(roles, rand);
+        for(int i=0; i<4; i++){
+            players[i].setRole(new RoleCard(roles.get(i)));
+            if(players[i].getRole().getRole() == SHERIFF){
+                playerTurn = i; //sets the playerTurn to start at the sherrif
+            }
+        }
     }
 
     //copy constructor - used to replicate two gameStates:
@@ -134,6 +149,10 @@ public class BANGState extends GameState{
         }
         this.playerTurn = bs.playerTurn;
         this.bangsPlayed = bs.bangsPlayed;
+
+        //copies array list of the roles:
+        roles = new ArrayList<Integer>();
+        for(Integer i: roles) this.roles.add(i);
     }
 
     public PlayerInfo getPlayer(int i){
@@ -268,7 +287,8 @@ public class BANGState extends GameState{
         else
         {
             discardIntoDraw(drawPile);//checks if drawpile is empty. if it is, turns discardpile into drawpile
-            PlayableCard toDraw = drawPile.get(0);//gets topmost card
+            if(drawPile.isEmpty()) return false;
+            PlayableCard toDraw= drawPile.get(0);//gets topmost card
             players[player].setCardsInHand(toDraw);//adds topmost card to player's hand
             drawPile.remove(toDraw);//deletes the first instance of the card from drawpile
             return true;
@@ -770,7 +790,7 @@ public class BANGState extends GameState{
         //initializes counts of bang cards in attacker's and target's hands to 0
         for (PlayableCard q : players[player].getCardsInHand())//iterates through entire hand of player
         {
-            if (q.getCardNum() == GATLING) {
+            if (q.getCardNum() == DUEL) {
                 players[player].getCardsInHand().remove(q);
                 discardPile.add(q);
                 int attackerCount = 0, targetCount = 0;
@@ -1004,6 +1024,7 @@ public class BANGState extends GameState{
         else playerTurn = 0;
 
         drawTwo(playerTurn);
+        bangsPlayed = 0;
         return true;
     }
 

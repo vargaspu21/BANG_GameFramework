@@ -54,8 +54,8 @@ public class BANGComputerPlayer extends GameComputerPlayer {
             }
             sleep(1000);
             //TODO: get rid of this line, and uncomment
-            game.sendAction(new BANGEndTurn(this));
-            /*
+           game.sendAction(new BANGEndTurn(this));
+
             int cardNum = 0;
             int number = state.players[player].getCardsInHand().size(); //gets size of players hand
             int random = (int )(Math.random() * number); //randomizes number between 0 and size of players hand
@@ -75,7 +75,7 @@ public class BANGComputerPlayer extends GameComputerPlayer {
             }
             else{ //if player 2 or 3, randomizes between attacking player 3 and 1 or 4 and 2, respectively.
                 if(rand == 1) target = player+1;
-                else target = player-1;
+                else target = player - 1;
             }
 
 
@@ -83,7 +83,7 @@ public class BANGComputerPlayer extends GameComputerPlayer {
                 sleep(1000); //delay for a second to make opponent think we're thinking
                 game.sendAction(new BANGMoveAction(this, target, cardNum)); //sends game action
             }
-            */
+
 
 
         }
