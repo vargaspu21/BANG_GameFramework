@@ -50,7 +50,7 @@ public class BANGLocalGame extends LocalGame{
                 {
                     numOutlawsDead++;
                 }
-                //adds 1 onto counter
+                //subtracts 1 onto players left if found dead
                 numPlayersLeft--;
             }
             //by the end, number of players recorded
