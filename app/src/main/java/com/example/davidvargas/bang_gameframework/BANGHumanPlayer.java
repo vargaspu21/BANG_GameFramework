@@ -27,6 +27,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private TextView topText = null;
     private ImageView drawPile = null;
     private ImageView discardPile = null;
+
     private Button quitGame = null;
     private Button endTurn = null;
     private ArrayList<ImageView> handCards;
@@ -35,6 +36,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private BANGState state;
     private int cardLastClicked;
     private static final int MAXHAND = 8;
+
 
 
 
