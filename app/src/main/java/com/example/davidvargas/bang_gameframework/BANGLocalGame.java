@@ -29,7 +29,7 @@ public class BANGLocalGame extends LocalGame{
     protected String checkIfGameOver() {
         //first, checks if sheriff is dead
         //counts how many players left
-        int numPlayersLeft = 0;
+        int numPlayersLeft = 4;
         boolean sheriffDead = false;
         int numOutlawsDead = 0;
 
@@ -51,9 +51,12 @@ public class BANGLocalGame extends LocalGame{
                     numOutlawsDead++;
                 }
                 //adds 1 onto counter
-                numPlayersLeft++;
+                numPlayersLeft--;
             }
             //by the end, number of players recorded
+
+            //ASSUMES PLAYER IS RENDERED NOT ABLE TO ACT WHEN DEAD
+            //THEREFORE, THE IF-ELSEIF CONDITION ORDER *SHOULD* NOT MATTER, SINCE IT SHOULD BE CHECKED PER PLAYER'S TURN
 
             //if sheriff is dead and numoutlawsdead < 2, an outlaw is still alive, and outlaws win
             if(sheriffDead&&(numOutlawsDead<2))
