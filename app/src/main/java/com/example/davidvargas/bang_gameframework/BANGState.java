@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
 
-public class BANGState extends GameState{
+public class BANGState extends GameState {
 
     private static final long serialVersionUID = 7552321013488624386L;
 
@@ -78,20 +78,23 @@ public class BANGState extends GameState{
 
     //CConstants for roles
     public static final int SHERIFF = 0;
-    public static final int OUTLAW  = 1;
+    public static final int OUTLAW = 1;
     public static final int RENEGADE = 2;
 
     //initializes variables:
     protected ArrayList<PlayableCard> drawPile;
-    protected ArrayList <PlayableCard> discardPile;
+    protected ArrayList<PlayableCard> discardPile;
     protected ArrayList<Integer> roles;
     protected int playerTurn, bangsPlayed;
     protected PlayerInfo[] players;
-    public static Random rand = new Random ();
+    public static Random rand = new Random();
+    //UPDATE 11/18/18 - new variable to record how many turns has passed, used so health adjustment for sheriff in BANGHumanPlayer is only done once. plus, it might be helpful for other things?
+    private int turnNum;
 
     //constructor for gameState, used to make a new one:
-    public BANGState()
-    {
+    public BANGState() {
+        turnNum = 0;
+
         drawPile = new ArrayList<PlayableCard>();
         drawPile = initDeck(drawPile);
         discardPile = new ArrayList<PlayableCard>();
@@ -102,8 +105,8 @@ public class BANGState extends GameState{
         players[3] = new PlayerInfo(4);
         playerTurn = 0;//current players turn
         //amount of cards drawn depends on the health:
-        for(int i =0; i<4; i++){
-            for(int j = 0; j<players[i].getHealth(); j++){
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < players[i].getHealth(); j++) {
                 draw(i);
             }
         }
@@ -123,45 +126,47 @@ public class BANGState extends GameState{
         roles.add(1);
         roles.add(2);
         Collections.shuffle(roles, rand);
-        for(int i=0; i<4; i++){
+        for (int i = 0; i < 4; i++) {
             players[i].setRole(new RoleCard(roles.get(i)));
-            if(players[i].getRole().getRole() == SHERIFF){
+            if (players[i].getRole().getRole() == SHERIFF) {
                 playerTurn = i; //sets the playerTurn to start at the sherrif
             }
         }
     }
 
     //copy constructor - used to replicate two gameStates:
-    public BANGState(BANGState bs)
-    {
+    public BANGState(BANGState bs) {
         //creates a deep copy of each card in the array list:
         drawPile = new ArrayList<PlayableCard>();
-        for(PlayableCard c: bs.drawPile) this.drawPile.add(new PlayableCard(c.getIsActive(),c.getCardNum()));
+        for (PlayableCard c : bs.drawPile)
+            this.drawPile.add(new PlayableCard(c.getIsActive(), c.getCardNum()));
 
         //creates a deep copy of each card in the array list:
         discardPile = new ArrayList<PlayableCard>();
-        for(PlayableCard c: bs.discardPile) this.discardPile.add(new PlayableCard(c.getIsActive(),c.getCardNum()));
+        for (PlayableCard c : bs.discardPile)
+            this.discardPile.add(new PlayableCard(c.getIsActive(), c.getCardNum()));
 
         //creates a deep copy of each card in the array:
         players = new PlayerInfo[4];
-        for(int i = 0; i< players.length; i++){
+        for (int i = 0; i < players.length; i++) {
             this.players[i] = new PlayerInfo(bs.players[i]);
         }
         this.playerTurn = bs.playerTurn;
         this.bangsPlayed = bs.bangsPlayed;
 
+        this.turnNum = bs.turnNum;
+
         //copies array list of the roles:
         roles = new ArrayList<Integer>();
-        for(Integer i: roles) this.roles.add(i);
+        for (Integer i : roles) this.roles.add(i);
     }
 
-    public PlayerInfo getPlayer(int i){
+    public PlayerInfo getPlayer(int i) {
         return players[i];
     }
 
     //method to initialize deck: adds specific amount (80 total) for each card through for loops, and it randomizes the deck
-    private ArrayList<PlayableCard> initDeck(ArrayList<PlayableCard> deck)
-    {
+    private ArrayList<PlayableCard> initDeck(ArrayList<PlayableCard> deck) {
         //adds cards based on the Constant amounts (for-loops);
         int i;
         //for(i=0; i<NUMSCHOFIELD; i++) deck.add(new PlayableCard(true, SCHOFIELD));
@@ -169,16 +174,16 @@ public class BANGState extends GameState{
         //deck.add(new PlayableCard(true, WINCHESTER));
         //for(i=0; i<NUMVOLCANIC; i++) deck.add(new PlayableCard(true, VOLCANIC));
         //deck.add(new PlayableCard(true, REMINGTON));
-        for(i=0; i<NUMBANG; i++) deck.add(new PlayableCard(false, BANG));
-        for(i=0; i<NUMMISSED; i++) deck.add(new PlayableCard(false, MISSED));
-        for(i=0; i<NUMBEER; i++) deck.add(new PlayableCard(false, BEER));
+        for (i = 0; i < NUMBANG; i++) deck.add(new PlayableCard(false, BANG));
+        for (i = 0; i < NUMMISSED; i++) deck.add(new PlayableCard(false, MISSED));
+        for (i = 0; i < NUMBEER; i++) deck.add(new PlayableCard(false, BEER));
         //for(i=0; i<NUMPANIC; i++) deck.add(new PlayableCard(false, PANIC));
         //for(i=0; i<NUMCATBALOU; i++) deck.add(new PlayableCard(false, CATBALOU));
         //for(i=0; i<NUMSTAGECOACH; i++) deck.add(new PlayableCard(false, STAGECOACH));
         //deck.add(new PlayableCard(false, WELLSFARGO));
         deck.add(new PlayableCard(false, GATLING));
-        for(i=0; i<NUMDUEL; i++) deck.add(new PlayableCard(false, DUEL));
-        for(i=0; i<NUMINDIANS; i++) deck.add(new PlayableCard(false, INDIANS));
+        for (i = 0; i < NUMDUEL; i++) deck.add(new PlayableCard(false, DUEL));
+        for (i = 0; i < NUMINDIANS; i++) deck.add(new PlayableCard(false, INDIANS));
         //for(i=0; i<NUMGENERALSTORE; i++) deck.add(new PlayableCard(false, GENERALSTORE));
         //deck.add(new PlayableCard(false, SALOON));
         //for(i=0; i<NUMJAIL; i++) deck.add(new PlayableCard (true, JAIL));
@@ -191,8 +196,7 @@ public class BANGState extends GameState{
     }
 
     //shuffle method for the drawPile:
-    private void shuffle()
-    {
+    private void shuffle() {
         /*
          External Citation
          Date: 20 October 2018
@@ -204,24 +208,20 @@ public class BANGState extends GameState{
         Collections.shuffle(drawPile, rand);//makes use of collections object to shuffle arraylist
     }
 
-    public boolean discardCard(PlayableCard card, int player)
-    {
-        if (players[player].getCardsInHand().contains(card))
-        {
+    public boolean discardCard(PlayableCard card, int player) {
+        if (players[player].getCardsInHand().contains(card)) {
             players[player].getCardsInHand().remove(card);//delete an instance of card if exists
             discardPile.add(card);//adds card into discard pile
             return true;
-        }
-        else
-        {
+        } else {
             return false; //default: return true;
         }
     }
 
     //method to make new draw pile from discard pile:
-    private boolean discardIntoDraw(ArrayList<PlayableCard> discardPile){
-        if(this.drawPile.isEmpty()){ //if draw pile is empty, move discard pile cards to it
-            for(PlayableCard c: this.discardPile){
+    private boolean discardIntoDraw(ArrayList<PlayableCard> discardPile) {
+        if (this.drawPile.isEmpty()) { //if draw pile is empty, move discard pile cards to it
+            for (PlayableCard c : this.discardPile) {
                 drawPile.add(c);
             }
             return true;
@@ -233,31 +233,22 @@ public class BANGState extends GameState{
     The following function uses the suits to make the draw mechanic work, right now
     suits are not fully implemented.
      */
-    private boolean drawExclamation(int player, int suit)
-    {
-        if(players[player].getCharacter().getCardNum() == LUCKYDUKE)
-        {
-            if(drawPile.get(0).getSuit() == suit || drawPile.get(1).getSuit() == suit)
+    private boolean drawExclamation(int player, int suit) {
+        if (players[player].getCharacter().getCardNum() == LUCKYDUKE) {
+            if (drawPile.get(0).getSuit() == suit || drawPile.get(1).getSuit() == suit)
                 return true;
         }
-        if(drawPile.get(0).getSuit() == suit)
-        {
+        if (drawPile.get(0).getSuit() == suit) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
     //function to draw the topmost card in the discard pile:
-    public boolean drawFromDiscard(int player)
-    {
-        if(playerTurn != player)
-        {
+    public boolean drawFromDiscard(int player) {
+        if (playerTurn != player) {
             return false; //if not turn, return
-        }
-        else
-        {
-            if(discardPile.isEmpty())
-            {
+        } else {
+            if (discardPile.isEmpty()) {
                 return false; //if discard pile empty, return
             }
             PlayableCard toDraw = discardPile.get(0);//gets topmost card
@@ -267,8 +258,7 @@ public class BANGState extends GameState{
         }
     }
 
-    public boolean drawFromPlayer(int player, int target)
-    {
+    public boolean drawFromPlayer(int player, int target) {
         int handSize = players[target].getCardsInHand().size();//gets size of opponents hand
         int indexToDraw = rand.nextInt(handSize);//randomly chooses card index to draw
         PlayableCard toDraw = players[target].getCardsInHand().get(indexToDraw);//records what that card is
@@ -278,15 +268,11 @@ public class BANGState extends GameState{
     }
 
     //draws one card:
-    public boolean draw(int player)
-    {
-        if(playerTurn != player)
-        {
+    public boolean draw(int player) {
+        if (playerTurn != player) {
             return false;
-        }
-        else
-        {
-            if(drawPile.isEmpty()){
+        } else {
+            if (drawPile.isEmpty()) {
                 discardIntoDraw(drawPile);
             }
             PlayableCard toDraw = drawPile.get(0);
@@ -297,15 +283,13 @@ public class BANGState extends GameState{
     }
 
     //draws two cards, used for starting-turn draw ONLY:
-    public boolean drawTwo(int player)
-    {
-        if(playerTurn != player)//if not their turn, return
+    public boolean drawTwo(int player) {
+        if (playerTurn != player)//if not their turn, return
         {
             return false;
         }
         checkVultureSam(player); //checks for Vulture Sam
-        for(PlayableCard p : players[player].getActiveCards())
-        {
+        for (PlayableCard p : players[player].getActiveCards()) {
             /*if(p.getCardNum() == JAIL)
             {
                 if(!drawExclamation(player, SPADES)) {
@@ -339,11 +323,10 @@ public class BANGState extends GameState{
                 }
             }*/
         }
-        if(players[player].getCharacter().getCardNum()==JESSEJONES) //if player is Jesse Jones, first card drawn is from a random player
+        if (players[player].getCharacter().getCardNum() == JESSEJONES) //if player is Jesse Jones, first card drawn is from a random player
         {
             return checkJesseJones(player);
-        }
-        else if(players[player].getCharacter().getCardNum() == BLACKJACK) //if character is blackjack try to use their ability
+        } else if (players[player].getCharacter().getCardNum() == BLACKJACK) //if character is blackjack try to use their ability
         {
             /*
             Draws the first card then does a suit check for hearts or diamonds on second draw
@@ -363,9 +346,7 @@ public class BANGState extends GameState{
                 return true;
             }*/
 
-        }
-        else
-        {
+        } else {
             draw(player);//calls draw twice
             draw(player);
             return true;
@@ -374,7 +355,7 @@ public class BANGState extends GameState{
     }
 
     //method to determine the distance between players:
-    private int distanceBetween(int attacker, int target){
+    private int distanceBetween(int attacker, int target) {
         //if first player, distance is 1 for players 2 and 4, and is 2 for player 3
         int distance = 1;
         /*
@@ -382,50 +363,48 @@ public class BANGState extends GameState{
         Then checks if the target has a mustang, if player does then adds one to distance
         These abilities can stack
          */
-        if(players[target].getCharacter().getCardNum() == PAULREGRET)
-            distance ++;
-        for(PlayableCard p : players[target].getActiveCards()) {
-            if(p.getCardNum() == MUSTANG)
-                distance ++;
+        if (players[target].getCharacter().getCardNum() == PAULREGRET)
+            distance++;
+        for (PlayableCard p : players[target].getActiveCards()) {
+            if (p.getCardNum() == MUSTANG)
+                distance++;
         }
-        if(attacker == 0 ){
-            if(target == 1 || target == 3)
+        if (attacker == 0) {
+            if (target == 1 || target == 3)
                 return distance;
-            else if(target ==2)
+            else if (target == 2)
                 return distance++;
         }
         //if second player, distance is 1 for players 3 and 1, and is 2 for player 4
-        else if(attacker == 1){
-            if(target == 2 || target == 0 )
+        else if (attacker == 1) {
+            if (target == 2 || target == 0)
                 return distance;
-            else if(target == 3)
+            else if (target == 3)
                 return distance++;
         }
         //if third player, distance is 1 for players 2 and 4, and is 2 for player 1
-        else if(attacker == 2){
-            if(target == 3 || target == 1 )
+        else if (attacker == 2) {
+            if (target == 3 || target == 1)
                 return distance;
-            else if(target == 0) {
+            else if (target == 0) {
                 return distance++;
             }
         }
         //if fourth player, distance is 1 for players 3 and 1, and is 2 for player 2
-        else if (attacker == 3){
-            if(target == 0 || target == 2 )
+        else if (attacker == 3) {
+            if (target == 0 || target == 2)
                 return distance;
-            else if(target == 1)
+            else if (target == 1)
                 return distance++;
         }
         return 0; //default , return 0
     }
 
     //helper method to check for Vulture Sam when drawing two cards:
-    public void checkVultureSam(int player){
-        if(players[player].getHealth() <= 0)
-        {
-            for(int i = 0; i < 4; i++)
-            {
-                if(players[i].getCharacter().getCardNum() == VULTURESAM) {
+    public void checkVultureSam(int player) {
+        if (players[player].getHealth() <= 0) {
+            for (int i = 0; i < 4; i++) {
+                if (players[i].getCharacter().getCardNum() == VULTURESAM) {
                     for (PlayableCard p : players[player].getCardsInHand()) {
                         players[i].setCardsInHand(p);
                     }
@@ -435,40 +414,31 @@ public class BANGState extends GameState{
     }
 
     //helper method for drawing a card from opponent if character is Jesse Jones:
-    public boolean checkJesseJones(int player){
-        if(player==0)
-        {
-            int toDrawFrom = rand.nextInt(3)+1;
+    public boolean checkJesseJones(int player) {
+        if (player == 0) {
+            int toDrawFrom = rand.nextInt(3) + 1;
             drawFromPlayer(player, toDrawFrom);
-        }
-        else if(player==1)
-        {
-            int[] drawArray = {0,2,3};
+        } else if (player == 1) {
+            int[] drawArray = {0, 2, 3};
             int toDrawFrom = rand.nextInt(3);
-            drawFromPlayer(player,drawArray[toDrawFrom]);
-        }
-        else if(player==2)
-        {
-            int[] drawArray = {0,1,3};
+            drawFromPlayer(player, drawArray[toDrawFrom]);
+        } else if (player == 2) {
+            int[] drawArray = {0, 1, 3};
             int toDrawFrom = rand.nextInt(3);
-            drawFromPlayer(player,drawArray[toDrawFrom]);
-        }
-        else if(player==3)
-        {
+            drawFromPlayer(player, drawArray[toDrawFrom]);
+        } else if (player == 3) {
             int toDrawFrom = rand.nextInt(3);
-            drawFromPlayer(player,toDrawFrom);
-        }
-        else
-        {
+            drawFromPlayer(player, toDrawFrom);
+        } else {
             return false;
         }
         draw(player);
         return true;
     }
 
-    public boolean playSchofield(int player){
-        for(PlayableCard p: players[player].getCardsInHand()){
-            if(p.getCardNum() == SCHOFIELD){
+    public boolean playSchofield(int player) {
+        for (PlayableCard p : players[player].getCardsInHand()) {
+            if (p.getCardNum() == SCHOFIELD) {
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
                 players[player].setRange((players[player].getRange()) + 2);
@@ -478,9 +448,9 @@ public class BANGState extends GameState{
         return false;
     }
 
-    public boolean playRevCarbine(int player){
-        for(PlayableCard p: players[player].getCardsInHand()){
-            if(p.getCardNum() == REVCARBINE){
+    public boolean playRevCarbine(int player) {
+        for (PlayableCard p : players[player].getCardsInHand()) {
+            if (p.getCardNum() == REVCARBINE) {
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
                 players[player].setRange((players[player].getRange()) + 4);
@@ -490,9 +460,9 @@ public class BANGState extends GameState{
         return false;
     }
 
-    public boolean playWinchester(int player){
-        for(PlayableCard p: players[player].getCardsInHand()){
-            if(p.getCardNum() == WINCHESTER){
+    public boolean playWinchester(int player) {
+        for (PlayableCard p : players[player].getCardsInHand()) {
+            if (p.getCardNum() == WINCHESTER) {
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
                 players[player].setRange((players[player].getRange()) + 5);
@@ -502,9 +472,9 @@ public class BANGState extends GameState{
         return false;
     }
 
-    public boolean playVolcanic(int player){
-        for(PlayableCard p: players[player].getCardsInHand()){
-            if(p.getCardNum() == VOLCANIC){
+    public boolean playVolcanic(int player) {
+        for (PlayableCard p : players[player].getCardsInHand()) {
+            if (p.getCardNum() == VOLCANIC) {
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
                 players[player].setRange((players[player].getRange()) + 1);
@@ -514,9 +484,9 @@ public class BANGState extends GameState{
         return false;
     }
 
-    public boolean playRemington(int player){
-        for(PlayableCard p: players[player].getCardsInHand()){
-            if(p.getCardNum() == REMINGTON){
+    public boolean playRemington(int player) {
+        for (PlayableCard p : players[player].getCardsInHand()) {
+            if (p.getCardNum() == REMINGTON) {
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
                 players[player].setRange((players[player].getRange()) + 3);
@@ -526,16 +496,13 @@ public class BANGState extends GameState{
         }
         return false;
     }
+
     public boolean playCard(int player, int target, int cardNum)//will be the cases in playableCard; cases should be handled here because this is the main gamestate
     {
-        if(playerTurn != player)
-        {
+        if (playerTurn != player) {
             return false;
-        }
-        else
-        {
-            switch(cardNum)
-            {
+        } else {
+            switch (cardNum) {
                 case SCHOFIELD: //schofield, +2 range
                     playSchofield(player);
                     return true;
@@ -604,8 +571,8 @@ public class BANGState extends GameState{
                 case GENERALSTORE: //general store, reveal number of cards as players from deck, each choose one
 
                 case SALOON: //saloon, player +2 health, others +1 health
-                     playSaloon(player);
-                     return true;
+                    playSaloon(player);
+                    return true;
 
                 case JAIL: //jail
                     playActiveCard(player, target, cardNum);
@@ -622,7 +589,7 @@ public class BANGState extends GameState{
                     return true;
                 //implemented in bang function,
                 case SCOPE: //scope, you see others -1 distance
-                    players[player].setRange(players[player].getRange()-1);
+                    players[player].setRange(players[player].getRange() - 1);
                     return playActiveCard(player, player, cardNum);
 
                 case MUSTANG: //mustang, people see you +1 distance
@@ -640,37 +607,32 @@ public class BANGState extends GameState{
     //as well as add it to the targets active cards
     public boolean playActiveCard(int player, int target, int card) {
         boolean flag = false;
-        for(PlayableCard p : players[player].getCardsInHand()) { //checks to see if it is possible to play this card
-            if(p.getCardNum() == card) { //checks players hand
-                for(PlayableCard c : players[target].getActiveCards()) {
-                    if(c.getCardNum() == card) { //checks targets Active cards
+        for (PlayableCard p : players[player].getCardsInHand()) { //checks to see if it is possible to play this card
+            if (p.getCardNum() == card) { //checks players hand
+                for (PlayableCard c : players[target].getActiveCards()) {
+                    if (c.getCardNum() == card) { //checks targets Active cards
                         players[player].getCardsInHand().remove(p);
                         flag = true;
                     }
                 }
             }
         }
-        if(flag)
-        {
-            if(card == JAIL) {
-                if(players[target].getRole().getRole() != SHERIFF) {
+        if (flag) {
+            if (card == JAIL) {
+                if (players[target].getRole().getRole() != SHERIFF) {
                     players[target].setActiveCards(new PlayableCard(true, JAIL));
                     return true;
                 }
-            }
-            else if(card == BARREL) {
-                players[target].setActiveCards(new PlayableCard(true,BARREL));
+            } else if (card == BARREL) {
+                players[target].setActiveCards(new PlayableCard(true, BARREL));
                 return true;
-            }
-            else if(card == SCOPE) {
+            } else if (card == SCOPE) {
                 players[target].setActiveCards(new PlayableCard(true, SCOPE));
                 return true;
-            }
-            else if(card == MUSTANG) {
+            } else if (card == MUSTANG) {
                 players[target].setActiveCards(new PlayableCard(true, MUSTANG));
                 return true;
-            }
-            else if(card == DYNAMITE) {
+            } else if (card == DYNAMITE) {
                 players[target].setActiveCards(new PlayableCard(true, DYNAMITE));
                 return true;
             }
@@ -681,15 +643,15 @@ public class BANGState extends GameState{
     //BANG card function:
     public boolean playBANG(int attacker, int target)//automatically uses the attacked player's missed card if found for now
     {
-        if(target == -1) return false;
-        if(bangsPlayed > 1 && players[attacker].getCharacter().getCardNum()!=WILLYTHEKID)
+        if (target == -1) return false;
+        if (bangsPlayed > 1 && players[attacker].getCharacter().getCardNum() != WILLYTHEKID)
             return false; //if player has used a bang and player character is not Willy The Kid, return false
         if (players[attacker].getRange() < distanceBetween(attacker, target))
             return false; //if the attacker's range if less than the distance to the target, return false;
 
-        for(PlayableCard p: players[attacker].getCardsInHand())//iterates through entire hand of player
+        for (PlayableCard p : players[attacker].getCardsInHand())//iterates through entire hand of player
         {
-            if(players[attacker].getCharacter().getCardNum() == CALAMITYJANET) { //checks if calamityjanets ability is applicable
+            if (players[attacker].getCharacter().getCardNum() == CALAMITYJANET) { //checks if calamityjanets ability is applicable
                 if (p.getCardNum() == BANG || p.getCardNum() == MISSED) {
                     bangsPlayed++; //increases the count of bangsPlayed by 1
                     players[attacker].getCardsInHand().remove(p);//removes bang card
@@ -702,8 +664,7 @@ public class BANGState extends GameState{
                                 return true; //if the draw! is successful then it exits without the target taking damage
                             }
                         }
-                        if(players[target].getCharacter().getCardNum() == JOURDONNAIS)
-                        {
+                        if (players[target].getCharacter().getCardNum() == JOURDONNAIS) {
                             //if(drawExclamation(target, SPADES)) //CHANGE TO HEARTS WHEN SUIT IS FULLY IMPLEMENTED
                             {
                                 return true;
@@ -724,39 +685,35 @@ public class BANGState extends GameState{
                     }
                 }
             }
-            if(p.getCardNum()== BANG)//if particular card is the cardnumber for bang, use it
+            if (p.getCardNum() == BANG)//if particular card is the cardnumber for bang, use it
             {
                 bangsPlayed++; //increases the count of bangsPlayed by 1
                 players[attacker].getCardsInHand().remove(p);//removes bang card
                 discardPile.add(p);
-                for(PlayableCard r : players[target].getActiveCards()) //searches through targets blue cards for barrel
+                for (PlayableCard r : players[target].getActiveCards()) //searches through targets blue cards for barrel
                 {
-                    if(r.getCardNum() == BARREL) { //if
-                       // if(drawExclamation(target, SPADES)) //this should actually check for hearts but the default suit is hearts so i made it spades
+                    if (r.getCardNum() == BARREL) { //if
+                        // if(drawExclamation(target, SPADES)) //this should actually check for hearts but the default suit is hearts so i made it spades
                         {
                             return true; //if the draw! is successful then it exits without the target taking damage
                         }
                     }
-                    if(players[target].getCharacter().getCardNum() == JOURDONNAIS)
-                    {
+                    if (players[target].getCharacter().getCardNum() == JOURDONNAIS) {
                         //if(drawExclamation(target, SPADES)) //CHANGE TO HEARTS WHEN SUIT IS FULLY IMPLEMENTED
                         {
                             return true;
                         }
                     }
                 }
-                for(PlayableCard q: players[target].getCardsInHand())
-                {
-                    if(players[target].getCharacter().getCardNum() == CALAMITYJANET)
-                    {
-                        if(q.getCardNum() == MISSED || q.getCardNum() == BANG)
-                        {
+                for (PlayableCard q : players[target].getCardsInHand()) {
+                    if (players[target].getCharacter().getCardNum() == CALAMITYJANET) {
+                        if (q.getCardNum() == MISSED || q.getCardNum() == BANG) {
                             players[target].getCardsInHand().remove(q);
                             discardPile.add(q);
                             return true;
                         }
                     }
-                    if(q.getCardNum()== MISSED) {//if there exists a missed card in the attacked player's hand
+                    if (q.getCardNum() == MISSED) {//if there exists a missed card in the attacked player's hand
                         players[target].getCardsInHand().remove(q);//check if it works - removes missed card if one exists in the attacked player
                         discardPile.add(q);
                         return true;
@@ -768,16 +725,14 @@ public class BANGState extends GameState{
                     }
                 }
                 //else, no missed cards are found
-                players[target].setHealth(players[target].getHealth()-1); //decreases health of target player
+                players[target].setHealth(players[target].getHealth() - 1); //decreases health of target player
 
                 //if target's character is El Gringo, takes card from the attacker
-                if(players[target].getCharacter().getCardNum()==ELGRINGO)
-                {
-                    drawFromPlayer(target,attacker);
+                if (players[target].getCharacter().getCardNum() == ELGRINGO) {
+                    drawFromPlayer(target, attacker);
                 }
                 //if target's character is Bart Cassidy, draws a card from deck
-                else if(players[target].getCharacter().getCardNum()==BARTCASSIDY)
-                {
+                else if (players[target].getCharacter().getCardNum() == BARTCASSIDY) {
                     draw(target);
                 }
                 return true;
@@ -796,10 +751,10 @@ public class BANGState extends GameState{
                 discardPile.add(q);
                 int attackerCount = 0, targetCount = 0;
                 //counts how many bangs are in attacker's and target's hands
-                for (PlayableCard p : players[player].getCardsInHand()){
+                for (PlayableCard p : players[player].getCardsInHand()) {
                     if (p.getCardNum() == BANG) attackerCount++;
                 }
-                for (PlayableCard p : players[target].getCardsInHand()){
+                for (PlayableCard p : players[target].getCardsInHand()) {
                     if (p.getCardNum() == BANG) targetCount++;
                 }
 
@@ -834,33 +789,31 @@ public class BANGState extends GameState{
 
 
     //function to play Indians card:
-    public boolean playIndians(int player){
+    public boolean playIndians(int player) {
         //checks if the other players have BANGs in their hands, removes the first instance of it and returns:
 
         boolean losePoint;
-        for(int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             losePoint = true;
-            if(i != player){ //if not the player playing Indians
-                for(PlayableCard p: players[i].getCardsInHand()){ //iterate through other player's hand
-                    if(p.getCardNum() == BANG){ //if has BANG card
+            if (i != player) { //if not the player playing Indians
+                for (PlayableCard p : players[i].getCardsInHand()) { //iterate through other player's hand
+                    if (p.getCardNum() == BANG) { //if has BANG card
                         players[i].getCardsInHand().remove(p); //removes BANG card
                         losePoint = false; //will not lose a point
                         break;
                     }
                 }
-                if(losePoint) //if player did not have BANG card
+                if (losePoint) //if player did not have BANG card
                     players[i].setHealth(players[i].getHealth() - 1); //player loses point
             }
         }
         return false; //default: returns false;
     }
 
-    private boolean playPanic(int player, int target)
-    {
-        if(distanceBetween(player, target) == 1)
-        {
-            for(PlayableCard p: players[player].getCardsInHand()) {
-                if(p.getCardNum() == PANIC) {
+    private boolean playPanic(int player, int target) {
+        if (distanceBetween(player, target) == 1) {
+            for (PlayableCard p : players[player].getCardsInHand()) {
+                if (p.getCardNum() == PANIC) {
                     players[player].getCardsInHand().remove(p);
                     discardPile.add(p);
                     drawFromPlayer(player, target);
@@ -870,12 +823,12 @@ public class BANGState extends GameState{
         }
         return false;
     }
+
     /*target player discards a card,
     however currently the card is prechosen, this could be changed lated to allow for target to choose, or attacker to choose.
      */
-    private boolean playCatBalou(int player, int target)
-    {
-        for(PlayableCard p: players[player].getCardsInHand()) {
+    private boolean playCatBalou(int player, int target) {
+        for (PlayableCard p : players[player].getCardsInHand()) {
             if (p.getCardNum() == PANIC) {
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
@@ -887,18 +840,18 @@ public class BANGState extends GameState{
     }
 
     //Beer card function:
-    public boolean playBeer(int player)
-    {
+    public boolean playBeer(int player) {
         //This card lets a player regain one life point - slide the card so that one more bullet is shown.
         // A player cannot gain more life points than his starting amount! The Beer cards cannot be used to help other players.
-        if(players[player].health >= players[player].getMaxHealth()) return false; //checks that user does not surpass the max health
-        for(PlayableCard p: players[player].getCardsInHand())//iterates through entire players hand
+        if (players[player].health >= players[player].getMaxHealth())
+            return false; //checks that user does not surpass the max health
+        for (PlayableCard p : players[player].getCardsInHand())//iterates through entire players hand
         {
-            if(p.getCardNum()==BEER)//if cardnum for beer, uses it
+            if (p.getCardNum() == BEER)//if cardnum for beer, uses it
             {
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
-                players[player].setHealth(players[player].getHealth()+1); //adds one life point to user
+                players[player].setHealth(players[player].getHealth() + 1); //adds one life point to user
                 return true; //returns true, showing that the move was successful
             }
         }
@@ -907,31 +860,27 @@ public class BANGState extends GameState{
 
     //used when playing saloon card; called from playCard; heals everyone 1 health. heals the user an additional one health.
     private boolean playSaloon(int player) {
-        for(PlayableCard p: players[player].getCardsInHand()){
-            if(p.getCardNum() == SALOON){
+        for (PlayableCard p : players[player].getCardsInHand()) {
+            if (p.getCardNum() == SALOON) {
                 //checks player and increases health accordingly;
-                for(int i=0; i < 4; i++){
-                    if(i == player){
-                        players[player].setHealth(players[player].getHealth()+2);
+                for (int i = 0; i < 4; i++) {
+                    if (i == player) {
+                        players[player].setHealth(players[player].getHealth() + 2);
                     }
-                    players[i].setHealth(players[i].getHealth()+1);
+                    players[i].setHealth(players[i].getHealth() + 1);
                 }
-                players[player].setHealth(players[player].getHealth()+2);
+                players[player].setHealth(players[player].getHealth() + 2);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean useAbility(int player, int ability)
-    {
-        if(playerTurn != player)
-        {
+    public boolean useAbility(int player, int ability) {
+        if (playerTurn != player) {
             return false;
-        }
-        else
-        {
-            switch(ability) {
+        } else {
+            switch (ability) {
                 case PAULREGRET: //paul regret - +1 distance seen
                     /*
                     Implemented within the find distance method
@@ -960,8 +909,7 @@ public class BANGState extends GameState{
                     //COMPLETED, happens during drawTwo
 
                 case SUZYLAFAYETTE: //suzy lafayette - soon as there are no cards in hand, draws new one
-                    if (players[player].getActiveCards().isEmpty())
-                    {
+                    if (players[player].getActiveCards().isEmpty()) {
                         draw(player);
                     }
                     return true;
@@ -981,7 +929,7 @@ public class BANGState extends GameState{
 
                 case SIDKETCHUM: //sid ketchum -  can discard 2 cards to regain one life
                     //IMPLEMENT - discard two cards
-                    players[player].setHealth(players[player].getHealth()+1);
+                    players[player].setHealth(players[player].getHealth() + 1);
                     return true;
 
                 case LUCKYDUKE: //lucky duke - anytime draws, flips first two cards up and chooses one
@@ -1018,42 +966,54 @@ public class BANGState extends GameState{
     public boolean endTurn()//ends the turn, determines next player
     {
         //TO-DO: allow player to choose the cards discarded
-        for(int i = players[playerTurn].getCardsInHand().size()-1; i >= players[playerTurn].getHealth();i--){
+        for (int i = players[playerTurn].getCardsInHand().size() - 1; i >= players[playerTurn].getHealth(); i--) {
             players[playerTurn].getCardsInHand().remove(i);
         }
-        if(playerTurn != 3) playerTurn ++;
+        if (playerTurn != 3) playerTurn++;
         else playerTurn = 0;
 
         drawTwo(playerTurn);
         bangsPlayed = 0;
+
+        this.turnNum++;
         return true;
     }
 
     //method to examine card(name and description):
-    public boolean examineCard(Card card)
-    {
+    public boolean examineCard(Card card) {
         System.out.println(card.toString());//for now: prototype
         return true;
     }
 
     //exists program, for now;prototype
-    public void quitGame()
-    {
+    public void quitGame() {
         System.exit(0);
     }
+
     //toString method:
-    public String toString()
-    {
+    public String toString() {
         //DRAWPILE CARDS ARE MOSTLY NULL! For now...
         String string = "\tDraw pile:\n";
-        for(PlayableCard c: drawPile) string +=  c.toString(); //concatenates strings of the draw pile
+        for (PlayableCard c : drawPile)
+            string += c.toString(); //concatenates strings of the draw pile
         string += "\tDiscard pile:\n";
-        for(PlayableCard c: discardPile) string += "\t\t" + c.toString(); //concatenates strings of the discard pile
+        for (PlayableCard c : discardPile)
+            string += "\t\t" + c.toString(); //concatenates strings of the discard pile
         string += "\tPlayers:\n";
-        for(PlayerInfo p: players) string += p.toString() + "\n"; //concatenates strings of players
-        string += "\t\tCurrent player turn: "+playerTurn+"\n"; ///concatenates player turn
-        string += "\t\tBANGs played: "+bangsPlayed+"\n"; //concatenates current BANGs played
+        for (PlayerInfo p : players)
+            string += p.toString() + "\n"; //concatenates strings of players
+        string += "\t\tCurrent player turn: " + playerTurn + "\n"; ///concatenates player turn
+        string += "\t\tBANGs played: " + bangsPlayed + "\n"; //concatenates current BANGs played
         return string;
 
+    }
+
+    public int getTurnNum() {
+        return this.turnNum;
+    }
+
+    public void setTurnNum(int toSet)
+    {
+        this.turnNum = toSet;
     }
 }
