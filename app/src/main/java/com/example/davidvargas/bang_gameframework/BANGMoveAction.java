@@ -18,15 +18,10 @@ public class BANGMoveAction extends GameAction {
     {
         // invoke superclass constructor to set the player
         super(player);
-
         this.cardNum= cardNum;
         this.target = target;
-
     }
-
     //get the object's cardNum
     public int getCardNum(){ return cardNum; }
-
-
     public int getTarget(){ return target; }
 }

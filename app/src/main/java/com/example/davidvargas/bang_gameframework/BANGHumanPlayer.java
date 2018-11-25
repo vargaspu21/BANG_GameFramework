@@ -5,12 +5,15 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.media.Image;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.davidvargas.bang_gameframework.game.GameHumanPlayer;
 import com.example.davidvargas.bang_gameframework.game.GameMainActivity;
@@ -35,6 +38,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
 
     private Button quitGame = null;
     private Button endTurn = null;
+    private Button chooseTarget = null;
     private ArrayList<ImageView> handCards;
     private ArrayList<ArrayList<ImageView>> activeCards;
     private ArrayList<ArrayList<ImageView>> health;
@@ -45,11 +49,12 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private LinearLayout player2, player3, player4;
     private ArrayList<TextView> playerTexts;
 
-
+    private int target;
 
 
     // the ID for the layout to use
     private int layoutId;
+
 
     //constructor
     public BANGHumanPlayer(String name, int layoutId) {
@@ -157,17 +162,8 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             Log.i("ButtonInfo","null view clicked on?");
             return;
         }
-
-
         if(v.getId() == endTurn.getId()){ //if end turn button is clicked
             Log.i("ButtonInfo","Ending turn");
-            /*BANGLocalGame convert = (BANGLocalGame)game;
-            convert.state.endTurn();
-            Log.i("ButtonInfo","It is now Player " + convert.state.playerTurn + "'s turn");
-            topText.setText("It is now Player " + ((convert.state.playerTurn)+1) + "'s turn");
-            topText.invalidate();
-            sendInfo(convert.state);*/
-            //Tribelhorn says you have to send the actions, don't just do it
             gameAction = new BANGEndTurn(this);
             game.sendAction(gameAction); //sends the EndTurn action
         }
@@ -175,8 +171,6 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             //this can work for now; there currently only exists one human player, and the only one who can quit the game
             Log.i("ButtonInfo","Quitting game");
             System.exit(0);
-            //gameAction = new BANGQuitGame(this);
-            //game.sendAction(gameAction); //sends the quitGame action
         }
         else if(v.getId() == drawPile.getId())
         {
@@ -199,6 +193,37 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             topText.setText("Number of cards in player 4's hand: " + ((BANGLocalGame)game).state.players[3].getCardsInHand().size());
             topText.invalidate();
         }
+        else if(v.getId() == chooseTarget.getId()){
+
+            /*
+             External Citation
+             Date: 23 November 2018
+             Problem: Needed to allow player to choose target.
+             Resource: https://stackoverflow.com/questions/21329132/android-custom-dropdown-popup-menu
+             Solution: used a tutorial to create popup menu.
+            */
+            PopupMenu popupMenu = new PopupMenu(myActivity, v);
+            popupMenu.getMenuInflater().inflate(R.menu.target_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    Toast.makeText(myActivity, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
+                    switch (item.getItemId()){
+                        case R.id.player2:
+                            target = 1;
+                            break;
+                        case R.id.player3:
+                            target = 2;
+                            break;
+                        case R.id.player4:
+                            target = 3;
+                            break;
+                    }
+                    return true;
+                }
+            });
+            popupMenu.show();
+        }
         else
         {
             int cardCliked = -1;
@@ -210,8 +235,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             Log.i("buttn click","Player 0 has " + state.getPlayer(0).getCardsInHand().size()+" cards");
             if(cardCliked != -1){
                 int cardNum = -1;
-                if(state.players[0].getCardsInHand().size() <=  cardCliked)
-
+                if(state.players[0].getCardsInHand().size() <= cardCliked)
                 {
                     Log.i("recieve info", "Ask for card beyond hand size: "+cardCliked);
                     return;
@@ -220,7 +244,6 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
                 cardNum = state.players[0].getCardsInHand().get(cardCliked).getCardNum();
                 Log.i("button click", "Asked for card "+ cardCliked);
 
-                int target = 1;
                 if(state.players[target].getHealth() <= 0) target++;
                 this.cardLastClicked = cardNum;
 
@@ -246,8 +269,6 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
 
         // Load the layout resource for the new configuration
         activity.setContentView(layoutId);
-
-
 
 
     }
@@ -278,6 +299,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         //Initialize the widget reference member variables
         this.quitGame = (Button) myActivity.findViewById(R.id.quit);
         this.endTurn = (Button) myActivity.findViewById(R.id.endTurn);
+        this.chooseTarget = (Button) myActivity.findViewById(R.id.chooseTarget);
         this.drawPile = (ImageView) myActivity.findViewById(R.id.drawPile);
 
         this.player2cards = (ImageView) myActivity.findViewById(R.id.p2c);
@@ -321,6 +343,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         //Listen for button presses
         quitGame.setOnClickListener(this);
         endTurn.setOnClickListener(this);
+        chooseTarget.setOnClickListener(this);
         drawPile.setOnClickListener(this);
 
         //Listen for image presses
@@ -369,8 +392,6 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             }
         }
 
-
-
         player2 = (LinearLayout) myActivity.findViewById(R.id.p2MainLayout);
         player3 = (LinearLayout) myActivity.findViewById(R.id.p3row);
         player4 = (LinearLayout) myActivity.findViewById(R.id.p4MainLayout);
@@ -381,8 +402,5 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         this.playerTexts.add((TextView) myActivity.findViewById(R.id.computer3));
 
     }
-
-
-
 
 }

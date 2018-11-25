@@ -37,17 +37,12 @@ public class BANGComputerPlayer extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
         //for now, just constantly listen for your turn
-
         BANGState state;
         GameAction gameAction;
         // if it was a "not your turn" message, just ignore it
         if (info instanceof NotYourTurnInfo) return;
-
-
         if(info instanceof BANGState){ //if info is GameState info
             state = (BANGState) info; //cast info as BANGState
-
-
             int player = ((BANGLocalGame)game).getPlayerNum(this);
             if(state.playerTurn != player){
                 return;
@@ -56,13 +51,12 @@ public class BANGComputerPlayer extends GameComputerPlayer {
             //TODO: get rid of this line, and uncomment
            game.sendAction(new BANGEndTurn(this));
 
-            int cardNum = 0;
+            int cardNum = state.BANG;
             int number = state.players[player].getCardsInHand().size(); //gets size of players hand
             int random = (int )(Math.random() * number); //randomizes number between 0 and size of players hand
             if(number != 0){
                 cardNum = state.players[player].getCardsInHand().get(random).getCardNum(); //gets the random card num
             }
-
             int target;
             int rand = (int) (Math.random()* 2) +1; //randomizes 1 or 2
             if(player == 3){ //if player 4, randomizes between attacking player 3 or 1
@@ -77,15 +71,10 @@ public class BANGComputerPlayer extends GameComputerPlayer {
                 if(rand == 1) target = player+1;
                 else target = player - 1;
             }
-
-
             if(game instanceof BANGLocalGame){ //if the game is instance of the local game
                 sleep(1000); //delay for a second to make opponent think we're thinking
                 game.sendAction(new BANGMoveAction(this, target, cardNum)); //sends game action
             }
-
-
-
         }
 
     }
