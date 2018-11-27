@@ -1062,7 +1062,8 @@ public class BANGState extends GameState{
 
     //function to endTurn
     public boolean endTurn(){ //ends the turn, determines next player
-        //TO-DO: allow player to choose the cards discarded
+        //TODO: allow player to choose the cards discarded
+        //TODO: fix out of bounds array
         for(int i = players[playerTurn].getCardsInHand().size()-1; i >= players[playerTurn].getHealth();i--){
             players[playerTurn].getCardsInHand().remove(i);
         }
