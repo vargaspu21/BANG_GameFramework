@@ -2,6 +2,15 @@ package com.example.davidvargas.bang_gameframework.objects;
 
 import java.util.ArrayList;
 
+/**
+ * Contains information of each player, stored in gameState
+ *
+ * @author David Vargas
+ * @author Johnny Huang
+ * @version November 2018
+ * @see com.example.davidvargas.bang_gameframework.BANGState
+ */
+
 public class PlayerInfo {
 
     public int health, range;

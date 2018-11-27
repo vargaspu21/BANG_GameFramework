@@ -11,6 +11,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * Contains information about all players and current state of game. Contains all actions players can do to other players.
+ *
+ * @author David Vargas
+ * @author Johnny Huang
+ * @version November 2018
+ */
+
 public class BANGState extends GameState{
 
     private static final long serialVersionUID = 7552321013488624386L;

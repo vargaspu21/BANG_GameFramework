@@ -1,5 +1,13 @@
 package com.example.davidvargas.bang_gameframework.objects;
 
+/**
+ * Class that contains characters with special abilities to spice up BANG! gameplay. Also contains health modifiers.
+ *
+ * @author David Vargas
+ * @author Johnny Huang
+ * @version November 2018
+ */
+
 public class CharacterCard extends Card {
 
     //initialize variables

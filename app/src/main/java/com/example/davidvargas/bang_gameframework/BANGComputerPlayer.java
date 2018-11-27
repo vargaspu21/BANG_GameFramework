@@ -6,6 +6,14 @@ import com.example.davidvargas.bang_gameframework.game.actionMsg.GameAction;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.NotYourTurnInfo;
 
+/**
+ * Mainly contains AI for computer player, both dumb and smart. Decisions for computers are made here.
+ *
+ * @author David Vargas
+ * @author Johnny Huang
+ * @version November 2018
+ */
+
 public class BANGComputerPlayer extends GameComputerPlayer {
     protected int playerNum;
 

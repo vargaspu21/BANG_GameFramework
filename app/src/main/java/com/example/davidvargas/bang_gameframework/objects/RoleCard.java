@@ -2,6 +2,14 @@ package com.example.davidvargas.bang_gameframework.objects;
 
 import com.example.davidvargas.bang_gameframework.R;
 
+/**
+ * Class for aligned roles. Assigned goal depends on this.
+ *
+ * @author David Vargas
+ * @author Johnny Huang
+ * @version November 2018
+ */
+
 public class RoleCard extends Card {
 
     public int role; //0: Sheriff, 1: Outlaw, 2: Renegade

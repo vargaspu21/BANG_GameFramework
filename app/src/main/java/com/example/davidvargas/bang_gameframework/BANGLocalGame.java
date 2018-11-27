@@ -7,6 +7,15 @@ import com.example.davidvargas.bang_gameframework.game.LocalGame;
 import com.example.davidvargas.bang_gameframework.game.actionMsg.GameAction;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.IllegalMoveInfo;
 
+/**
+ * Receives actions from all players, changes game state accordingly. Only allows for actions to affect state if within regulations.
+ * Also contains criteria for victory, with game state to interpret.
+ *
+ * @author David Vargas
+ * @author Johnny Huang
+ * @version November 2018
+ */
+
 public class BANGLocalGame extends LocalGame{
 
     public BANGState state; //the game state
