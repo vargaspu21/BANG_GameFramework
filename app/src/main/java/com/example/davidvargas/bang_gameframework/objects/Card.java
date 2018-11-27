@@ -2,6 +2,18 @@ package com.example.davidvargas.bang_gameframework.objects;
 
 import com.example.davidvargas.bang_gameframework.R;
 
+/**
+ * Base class for CharacterCard, PlayableCard, and RoleCard. Mainly contains name of card, description, and resource id of image to be
+ * used alongside it.
+ *
+ * @author David Vargas
+ * @author Johnny Huang
+ * @version November 2018
+ * @see CharacterCard
+ * @see PlayableCard
+ * @see RoleCard
+ */
+
 public class Card {
     //initializes variables:
     //constant for playablecards, will all be added for copy constructor soon
