@@ -6,6 +6,8 @@ import com.example.davidvargas.bang_gameframework.game.actionMsg.GameAction;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.NotYourTurnInfo;
 
+import java.util.Random;
+
 /**
  * Mainly contains AI for computer player, both dumb and smart. Decisions for computers are made here.
  *
@@ -44,7 +46,6 @@ public class BANGComputerPlayer extends GameComputerPlayer
     {
         //for now, just constantly listen for your turn
         BANGState state;
-        GameAction gameAction;
 
         // if it was a "not your turn" message, just ignore it
         if (info instanceof NotYourTurnInfo) return;
@@ -61,47 +62,41 @@ public class BANGComputerPlayer extends GameComputerPlayer
             }
             sleep(1000);
             //TODO: get rid of this line, and uncomment
-           game.sendAction(new BANGEndTurn(this));
+           //game.sendAction(new BANGEndTurn(this));
 
-            int cardNum = state.BANG;
 
-            //gets size of players hand
-            int number = state.players[player].getCardsInHand().size();
-
-            //randomizes number between 0 and size of players hand
-            int random = (int )(Math.random() * number);
-
-            //gets the random card num
-            if(number != 0)
-            {
-                cardNum = state.players[player].getCardsInHand().get(random).getCardNum();
+            Random rand = new Random();
+            int size = state.players[player].getCardsInHand().size();
+            int random = rand.nextInt(size);
+            if(size == 0)
+                game.sendAction(new BANGEndTurn(this));
+            int cardNum = state.players[player].getCardsInHand().get(random).getCardNum();
+            int target = 0;
+            int targetRandom = rand.nextInt(2);
+            switch(player){
+                case 1:
+                    if(targetRandom == 1)
+                        target = 2;
+                    else
+                        target = 0;
+                    break;
+                case 2:
+                    if(targetRandom== 1)
+                        target = 3;
+                    else
+                        target = 1;
+                    break;
+                case 3:
+                    if(targetRandom == 1)
+                        target = 0;
+                    else
+                        target = 2;
+                    break;
             }
-            int target;
+            game.sendAction(new BANGMoveAction(this, target, cardNum ));
+            game.sendAction(new BANGEndTurn(this));
 
-            //randomizes 1 or 2
-            int rand = (int) (Math.random()* 2) +1;
-
-            //if player 4, randomizes between attacking player 3 or 1
-            if(player == 3)
-            {
-                if(rand == 1) target = 2;
-                else target = 0;
-            }
-
-            //if player 1, randomizes between attacking player 4 or 2
-            else if(player == 0)
-            {
-                if(rand == 1) target = 1;
-                else target = 3;
-            }
-
-            //if player 2 or 3, randomizes between attacking player 3 and 1 or 4 and 2, respectively.
-            else
-                {
-                if(rand == 1) target = player+1;
-                else target = player - 1;
-            }
-
+            /*
             //if the game is instance of the local game
             if(game instanceof BANGLocalGame)
             {
@@ -111,6 +106,7 @@ public class BANGComputerPlayer extends GameComputerPlayer
                 //sends game action
                 game.sendAction(new BANGMoveAction(this, target, cardNum));
             }
+            */
         }
     }
 }
