@@ -60,38 +60,35 @@ public class BANGComputerPlayer extends GameComputerPlayer
             if(state.playerTurn != player)
                 return;
             sleep(1000);
-            //game.sendAction(new BANGEndTurn(this));
-
-
             Random rand = new Random();
             int size = state.players[player].getCardsInHand().size();
-            if(size == 0)
-                game.sendAction(new BANGEndTurn(this));
-            int random = rand.nextInt(size);
-            int cardNum = state.players[player].getCardsInHand().get(random).getCardNum();
-            int target = 0;
-            int targetRandom = rand.nextInt(2);
-            switch(player){
-                case 1:
-                    if(targetRandom == 1)
-                        target = 2;
-                    else
-                        target = 0;
-                    break;
-                case 2:
-                    if(targetRandom == 1)
-                        target = 3;
-                    else
-                        target = 1;
-                    break;
-                case 3:
-                    if(targetRandom == 1)
-                        target = 0;
-                    else
-                        target = 2;
-                    break;
+            if(size != 0){
+                int random = rand.nextInt(size);
+                int cardNum = state.players[player].getCardsInHand().get(random).getCardNum();
+                int target = 0;
+                int targetRandom = rand.nextInt(2);
+                switch(player){
+                    case 1:
+                        if(targetRandom == 1)
+                            target = 2;
+                        else
+                            target = 0;
+                        break;
+                    case 2:
+                        if(targetRandom == 1)
+                            target = 3;
+                        else
+                            target = 1;
+                        break;
+                    case 3:
+                        if(targetRandom == 1)
+                            target = 0;
+                        else
+                            target = 2;
+                        break;
+                }
+                game.sendAction(new BANGMoveAction(this, target, cardNum ));
             }
-            game.sendAction(new BANGMoveAction(this, target, cardNum ));
             game.sendAction(new BANGEndTurn(this));
 
             /*

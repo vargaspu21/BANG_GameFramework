@@ -53,36 +53,23 @@
                 android:layout_weight="1"
                 android:src="@drawable/card_flipped" />
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
-
             <ImageView
                 android:id="@+id/p3c"
                 android:layout_width="100dp"
-                android:layout_height="125dp"
-                android:layout_gravity="center"
+                android:layout_height="200dp"
                 android:layout_weight="1"
                 android:src="@drawable/card_flippedupside" />
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="right"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/computer2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
                     android:text="Player 3"
                     android:textSize="20sp" />
 
@@ -90,42 +77,33 @@
                     android:id="@+id/p3h1"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="right"
                     android:src="@drawable/bullet" />
 
                 <ImageView
                     android:id="@+id/p3h2"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="right"
                     android:src="@drawable/bullet" />
 
                 <ImageView
                     android:id="@+id/p3h3"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="right"
                     android:src="@drawable/bullet" />
 
                 <ImageView
                     android:id="@+id/p3h4"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="right"
                     android:src="@drawable/bullet" />
 
                 <ImageView
                     android:id="@+id/p3h5"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="right"
                     android:src="@drawable/bullet" />
             </LinearLayout>
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
@@ -176,10 +154,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_gravity="right"
                         android:layout_weight="1"
-                        android:foregroundGravity="right|center_horizontal|center"
-                        android:gravity="right|center"
                         android:orientation="vertical">
 
                         <TextView

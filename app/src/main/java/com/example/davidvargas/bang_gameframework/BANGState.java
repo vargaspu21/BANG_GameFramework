@@ -874,18 +874,19 @@ public class BANGState extends GameState{
                     {
                         for(PlayableCard q: players[i].getCardsInHand())
                         {
-                            if(q.getCardNum() == BANG && !hasBANG)
+                            if(q.getCardNum() == BANG && hasBANG == false)
                             {
                                 players[i].getCardsInHand().remove(q);
                                 discardPile.add(q);
                                 hasBANG = true;
                             }
                         }
-                        if(!hasBANG)
+                        if(hasBANG == false)
                         {
                             players[i].setHealth(players[i].getHealth()-1);
                         }
                     }
+                    return true;
                 }
             }
         }
