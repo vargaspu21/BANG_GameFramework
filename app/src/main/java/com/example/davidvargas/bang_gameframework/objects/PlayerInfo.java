@@ -102,7 +102,10 @@ public class PlayerInfo {
 
     public void setHealth(int health)
     {
-        this.health = health;
+        if(health > this.getMaxHealth())
+            this.health = this.getMaxHealth();
+        else
+            this.health = health;
     } //setter method for player's health'
 
     public void setRange(int range){ this.range = range; } //setter method for player's range

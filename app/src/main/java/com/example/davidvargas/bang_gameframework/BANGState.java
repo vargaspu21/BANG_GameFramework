@@ -898,7 +898,7 @@ public class BANGState extends GameState{
                 discardPile.add(p);
                 for (int i = 0; i < 4; i++) {
                     if (player != i) {
-                        players[i].setHealth(players[player].getHealth() - 1);
+                        players[i].setHealth(players[i].getHealth() - 1);
                     }
                 }
                 return true;
@@ -911,7 +911,7 @@ public class BANGState extends GameState{
     //function to play Indians card:
     public boolean playIndians(int player){
         //checks if the other players have BANGs in their hands, removes the first instance of it and returns:
-
+/*
         boolean losePoint;
         for(int i = 0; i < 4; i++){
             losePoint = true;
@@ -928,6 +928,38 @@ public class BANGState extends GameState{
             }
         }
         return false; //default: returns false;
+
+        */
+        boolean hasBANG;
+        for(PlayableCard p: players[player].getCardsInHand())
+        {
+            if(p.getCardNum() == INDIANS)
+            {
+                players[player].getCardsInHand().remove(p);
+                discardPile.add(p);
+                for(int i = 0; i < 4; i++)
+                {
+                    hasBANG = false;
+                    if(i != player)
+                    {
+                        for(PlayableCard q: players[i].getCardsInHand())
+                        {
+                            if(q.getCardNum() == BANG && !hasBANG)
+                            {
+                                players[i].getCardsInHand().remove(q);
+                                discardPile.add(q);
+                                hasBANG = true;
+                            }
+                        }
+                        if(!hasBANG)
+                        {
+                            players[i].setHealth(players[i].getHealth()-1);
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private boolean playPanic(int player, int target)
@@ -998,14 +1030,14 @@ public class BANGState extends GameState{
     private boolean playSaloon(int player) {
         for(PlayableCard p: players[player].getCardsInHand()){
             if(p.getCardNum() == SALOON){
-                //checks player and increases health accordingly;
-                for(int i=0; i < 4; i++){
-                    if(i == player){
-                        players[player].setHealth(players[player].getHealth()+2);
-                    }
-                    players[i].setHealth(players[i].getHealth()+1);
+                players[player].getCardsInHand().remove(p);
+                discardPile.add(p);
+                for(int i =0; i< 4; i++){
+                    if(i != player)
+                        players[i].setHealth(players[i].getHealth() + 1);
+                    else
+                        players[i].setHealth((players[i].getHealth() + 2));
                 }
-                players[player].setHealth(players[player].getHealth()+2);
                 return true;
             }
         }

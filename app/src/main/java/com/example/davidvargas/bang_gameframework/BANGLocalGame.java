@@ -27,6 +27,30 @@ public class BANGLocalGame extends LocalGame{
      */
     @Override
     protected String checkIfGameOver() {
+        boolean sheriffDead = false;
+        int numOutlawDead = 0;
+        boolean renegadeDead = false;
+
+        for (int i = 0; i < 4; i++) {
+            if ((((BANGState) state).players[i].getHealth() <= 0) && ((BANGState) state).players[i].getRole().getRole() == BANGState.SHERIFF) {
+                sheriffDead = true;
+            } else if ((((BANGState) state).players[i].getHealth() <= 0) && ((BANGState) state).players[i].getRole().getRole() == BANGState.OUTLAW) {
+                numOutlawDead++;
+            } else if ((((BANGState) state).players[i].getHealth() <= 0) && ((BANGState) state).players[i].getRole().getRole() == BANGState.RENEGADE) {
+                renegadeDead = true;
+            }
+        }
+        if (sheriffDead && numOutlawDead < 2) {
+            return "Sheriff is dead! Outlaws win!";
+        } else if (sheriffDead && numOutlawDead >= 2) {
+            return "Everyone is dead but renegade. Renegade wins!";
+        } else if (numOutlawDead >= 2 && renegadeDead) {
+            return "Everyone is dead but sheriff. Sheriff wins!";
+        } else {
+            return null;
+        }
+
+        /*
         //first, checks if sheriff is dead
         //counts how many players left
         int numPlayersLeft = 4;
@@ -86,6 +110,7 @@ public class BANGLocalGame extends LocalGame{
         }
         //supposed to be unreachable
         return null;
+        */
     }
 
     /**
