@@ -60,7 +60,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private Button missed = null;
     private int target;
     private GamePlayer player = this;
-
+    private ArrayList<LinearLayout> playerLayouts;
     // the ID for the layout to use
     private int layoutId;
 
@@ -83,6 +83,8 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
                 roles.get(i).setVisibility(View.INVISIBLE);
                 roles.get(i).invalidate();
                 playerTexts.get(i-1).setText("Player " + String.valueOf(i+1)+" is dead!\n");
+                playerLayouts.get(i-1).setVisibility(View.INVISIBLE);
+                playerLayouts.get(i-1).invalidate();
             }
         }
         for(int i = 0; i<4; i++) {
@@ -461,14 +463,19 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             //}
         //}
 
-        player2 = (LinearLayout) myActivity.findViewById(R.id.p2MainLayout);
-        player3 = (LinearLayout) myActivity.findViewById(R.id.p3row);
-        player4 = (LinearLayout) myActivity.findViewById(R.id.p4MainLayout);
+        playerLayouts = new ArrayList<>();
+
+        this.playerLayouts.add((LinearLayout) myActivity.findViewById(R.id.p2MainLayout));
+        this.playerLayouts.add((LinearLayout) myActivity.findViewById(R.id.p3row));
+        this.playerLayouts.add((LinearLayout) myActivity.findViewById(R.id.p4MainLayout));
+
+
 
 
         this.playerTexts.add((TextView) myActivity.findViewById(R.id.computer1));
         this.playerTexts.add((TextView) myActivity.findViewById(R.id.computer2));
         this.playerTexts.add((TextView) myActivity.findViewById(R.id.computer3));
+
 
 
 
