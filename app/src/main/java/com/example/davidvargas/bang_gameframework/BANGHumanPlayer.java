@@ -111,7 +111,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         //will draw the bullets for each
            for(int i = 0; i<4; i++){
                 int bullet = state.players[i].getHealth();
-                if(bullet <= 0) break;
+                if(bullet < 0) break;
                 for(int j = bullet; j<5; j++) { //set the difference of the player health and 4 to an invisible bullet
                     health.get(i).get(j).setVisibility(View.INVISIBLE);
                     health.get(i).get(j).invalidate();
