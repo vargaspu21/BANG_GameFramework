@@ -71,13 +71,17 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         this.layoutId = layoutId;
     }
 
+    //method that initializes the GUI for the human player:
     private void render(){
         int discard = -1;
-        if(state.discardPile.size()!= 0) {
+
+        //demonstrates the last card added to the discard pile on discard pile:
+        if(state.discardPile.size() != 0) {
             discard = state.discardPile.get(state.discardPile.size() - 1).getResourceId(); //the last card added to discard pile
             discardPile.setImageResource(discard); //draws the last card played on discard pile
         }
 
+        //if a player is dead, sets their role card and layout as invisible, and sets text:
         for(int i = 0; i<4; i++){
             if(state.players[i].getHealth() <= 0){
                 roles.get(i).setVisibility(View.INVISIBLE);
@@ -87,6 +91,8 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
                 playerLayouts.get(i-1).invalidate();
             }
         }
+
+        //only demonstratest the role card for sheriff:
         for(int i = 0; i<4; i++) {
             if (state.players[i].getRole().getRole() == state.SHERIFF) {
                 roles.get(i).setImageResource(R.drawable.sheriff_copy);
@@ -94,21 +100,15 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             }
         }
 
+        //demonstrates role card for human player:
         if(state.players[0].getRole().getRole() == state.OUTLAW) {
             roles.get(0).setImageResource(R.drawable.outlaw);
             roles.get(0).invalidate();
         }
-
         else if(state.players[0].getRole().getRole() == state.RENEGADE){
             roles.get(0).setImageResource(R.drawable.renegade);
             roles.get(0).invalidate();
         }
-
-
-
-
-
-
 
         //sets all of the health image views to the bullet image.
         for(int i=0; i<4; i++){
@@ -118,28 +118,26 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
                 health.get(i).get(j).invalidate();
             }
         }
-        //how do I draw the health of each player? how do I make a bullet image view invisible as the health decreases?
-        //will draw the bullets for each
-           for(int i = 0; i<4; i++){
-                int bullet = state.players[i].getHealth();
-                if(bullet < 0) break;
-                for(int j = bullet; j<5; j++) { //set the difference of the player health and 4 to an invisible bullet
-                    health.get(i).get(j).setVisibility(View.INVISIBLE);
-                    health.get(i).get(j).invalidate();
-                }
+
+        //sets the bullets that are "extra" to invisible:
+        for(int i = 0; i<4; i++){
+            int bullet = state.players[i].getHealth();
+            if(bullet < 0) break;
+            for(int j = bullet; j<5; j++) { //set the difference of the player health and 4 to an invisible bullet
+                health.get(i).get(j).setVisibility(View.INVISIBLE);
+                health.get(i).get(j).invalidate();
             }
+        }
 
         //do i start all of the healths at 4 even though character initializes the health?
         //where are the individual characters initialized?
-
         //how are the roles initialized?
-        //
-
         //redraw all active cards, and player hand, discard, etc
         //go through gamestate and show correct things
 
         Log.i("render","Player 0 has " + state.getPlayer(0).getCardsInHand().size()+" cards");
 
+        //draws the images for the specific card
         for(int i = 0; i < Math.min(state.getPlayer(0).getCardsInHand().size(), MAXHAND); i++){ //for cards in player's hand
             int Id = state.getPlayer(0).getCardsInHand().get(i).getResourceId(); //gets the Id for card in hand
             if(Id != -1){
@@ -147,6 +145,8 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
                 handCards.get(i).invalidate(); //invalidate each image view
             }
         }
+
+        //draws the flipped-down card images for the "left over" cards
         for(int i = state.getPlayer(0).getCardsInHand().size(); i < Math.min(handCards.size(),MAXHAND); i++){ //for image views that are not cards
             handCards.get(i).setImageResource(R.drawable.card_flipped); // //set cards flipped
             handCards.get(i).invalidate(); //invalidate each image view
@@ -167,6 +167,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
 
     }
 
+    //listener for all clicks in the GUI:
     @Override
     public void onClick(View v){
         GameAction gameAction; //initialize instance variable
@@ -187,13 +188,13 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             Log.i("ButtonInfo","Quitting game");
             System.exit(0);
         }
-        else if(v.getId() == drawPile.getId())
+        else if(v.getId() == drawPile.getId()) //when draw pile clicked, demonstrates the amount in pile
         {
             Log.i("ButtonInfo","Drawing two cards");
             topText.setText("Number of cards in deck: " + ((BANGLocalGame)game).state.drawPile.size());
             topText.invalidate();
         }
-        else if(v.getId() == player2cards.getId())
+        else if(v.getId() == player2cards.getId()) //gets the amount 
         {
             topText.setText("Number of cards in player 2's hand: " + ((BANGLocalGame)game).state.players[1].getCardsInHand().size());
             topText.invalidate();

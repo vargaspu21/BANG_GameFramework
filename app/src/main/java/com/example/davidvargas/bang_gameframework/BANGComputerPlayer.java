@@ -57,11 +57,8 @@ public class BANGComputerPlayer extends GameComputerPlayer
             state = (BANGState) info;
             int player = ((BANGLocalGame)game).getPlayerNum(this);
             if(state.playerTurn != player)
-            {
                 return;
-            }
             sleep(1000);
-            //TODO: get rid of this line, and uncomment
            //game.sendAction(new BANGEndTurn(this));
 
 
@@ -81,7 +78,7 @@ public class BANGComputerPlayer extends GameComputerPlayer
                         target = 0;
                     break;
                 case 2:
-                    if(targetRandom== 1)
+                    if(targetRandom == 1)
                         target = 3;
                     else
                         target = 1;

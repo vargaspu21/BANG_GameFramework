@@ -995,14 +995,10 @@ public class BANGState extends GameState{
         return false;
     }
 
-    public boolean useAbility(int player, int ability)
-    {
+    public boolean useAbility(int player, int ability) {
         if(playerTurn != player)
-        {
             return false;
-        }
-        else
-        {
+        else {
             switch(ability) {
                 case PAULREGRET: //paul regret - +1 distance seen
                     /*
@@ -1010,7 +1006,6 @@ public class BANGState extends GameState{
                     COMPLETED
                      */
                     return true;
-
                 case JOURDONNAIS: //jourdonnais - if draw heart when BANG'd, MISS'd
                     //Implement within the bang method
                     //IMPLEMENT - check last card they drew
@@ -1018,7 +1013,6 @@ public class BANGState extends GameState{
                     /*
                     Implemented within the bang method
                      */
-
                 case BLACKJACK: //black jack - shows second card drawn, if heart or diamond, draws another card
                     //Implement within the draw two function, no functionality for showing card yet
 
@@ -1087,8 +1081,7 @@ public class BANGState extends GameState{
     }
 
     //function to endTurn
-    public boolean endTurn()//ends the turn, determines next player
-    {
+    public boolean endTurn(){ //ends the turn, determines next player
         //TO-DO: allow player to choose the cards discarded
         for(int i = players[playerTurn].getCardsInHand().size()-1; i >= players[playerTurn].getHealth();i--){
             players[playerTurn].getCardsInHand().remove(i);
@@ -1114,10 +1107,12 @@ public class BANGState extends GameState{
         System.exit(0);
     }
 
+    //getter method for missed card
     public void setMissedCard(boolean missedCard){
         this.missedCard = missedCard;
     }
 
+    //setter method for missed card
     public boolean getMissedCard(){
         return missedCard;
     }
