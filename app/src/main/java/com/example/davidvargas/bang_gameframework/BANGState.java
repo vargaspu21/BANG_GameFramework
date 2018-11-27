@@ -242,24 +242,6 @@ public class BANGState extends GameState{
         return false;
     }
 
-    /*
-    The following function uses the suits to make the draw mechanic work, right now
-    suits are not fully implemented.
-     */
-    private boolean drawExclamation(int player, int suit)
-    {
-        if(players[player].getCharacter().getCardNum() == LUCKYDUKE)
-        {
-            if(drawPile.get(0).getSuit() == suit || drawPile.get(1).getSuit() == suit)
-                return true;
-        }
-        if(drawPile.get(0).getSuit() == suit)
-        {
-            return true;
-        }
-        else return false;
-    }
-
     //function to draw the topmost card in the discard pile:
     public boolean drawFromDiscard(int player)
     {
