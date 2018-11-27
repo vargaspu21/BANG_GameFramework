@@ -153,6 +153,15 @@ public class BANGLocalGame extends LocalGame{
             int target = moveAction.getTarget();
             Log.i("Make move", "Playing card "+cardNum+" with target "+target);
             state.playCard(player, target, cardNum);
+            if(cardNum == state.BANG && state.getResponseRequired() != 0){
+                state.playerTurn = target;
+            }
+            return true;
+        }
+        else if(action instanceof BANGMissedAction){
+            BANGMissedAction missedAction = (BANGMissedAction) action;
+            boolean missedCard = missedAction.getMissedCard();
+            state.setMissedCard(missedCard);
             return true;
         }
 

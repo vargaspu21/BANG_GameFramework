@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.davidvargas.bang_gameframework.game.GameHumanPlayer;
 import com.example.davidvargas.bang_gameframework.game.GameMainActivity;
+import com.example.davidvargas.bang_gameframework.game.GamePlayer;
 import com.example.davidvargas.bang_gameframework.game.actionMsg.GameAction;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.IllegalMoveInfo;
@@ -39,6 +40,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private Button quitGame = null;
     private Button endTurn = null;
     private Button chooseTarget = null;
+    private Button missed = null;
     private ArrayList<ImageView> handCards;
     private ArrayList<ArrayList<ImageView>> activeCards;
     private ArrayList<ArrayList<ImageView>> health;
@@ -48,9 +50,9 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private static final int MAXHAND = 8;
     private LinearLayout player2, player3, player4;
     private ArrayList<TextView> playerTexts;
-
-    private int target;
-
+    private ArrayList<LinearLayout> playerLayouts;
+    private int target = 1;
+    GamePlayer player = this;
 
     // the ID for the layout to use
     private int layoutId;
@@ -74,6 +76,9 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
                 roles.get(i).setVisibility(View.INVISIBLE);
                 roles.get(i).invalidate();
                 playerTexts.get(i-1).setText("Player " + String.valueOf(i+1)+" is dead!\n");
+                playerTexts.get(i-1).invalidate();
+                playerLayouts.get(i-1).setVisibility(View.INVISIBLE);
+                playerLayouts.get(i-1).invalidate();
             }
         }
         for(int i = 0; i<4; i++) {
@@ -111,7 +116,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         //will draw the bullets for each
            for(int i = 0; i<4; i++){
                 int bullet = state.players[i].getHealth();
-                if(bullet <= 0) break;
+                if(bullet < 0) break;
                 for(int j = bullet; j<5; j++) { //set the difference of the player health and 4 to an invisible bullet
                     health.get(i).get(j).setVisibility(View.INVISIBLE);
                     health.get(i).get(j).invalidate();
@@ -251,6 +256,25 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             });
             popupMenu.show();
         }
+        else if(v.getId() == missed.getId()){
+
+            PopupMenu popupMenu = new PopupMenu(myActivity, v);
+            popupMenu.getMenuInflater().inflate(R.menu.missed, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if(item.getItemId() == R.id.noMissed){
+                        game.sendAction(new BANGMissedAction(player, false));
+                    }
+                    else if(item.getItemId() == R.id.yesMissed){
+                        game.sendAction(new BANGMissedAction(player, true));
+                    }
+                    return true;
+                }
+
+            });
+            popupMenu.show();
+        }
         else
         {
             int cardCliked = -1;
@@ -308,6 +332,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     protected void initAfterReady() {
         myActivity.setTitle("BANG: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
 
+        playerLayouts = new ArrayList<>();
         playerTexts = new ArrayList<>();
         roles = new ArrayList<>();
         handCards = new ArrayList<>(); //new array list for human player's hand
@@ -322,6 +347,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         this.quitGame = (Button) myActivity.findViewById(R.id.quit);
         this.endTurn = (Button) myActivity.findViewById(R.id.endTurn);
         this.chooseTarget = (Button) myActivity.findViewById(R.id.chooseTarget);
+        this.missed = (Button) myActivity.findViewById(R.id.playMissed);
         this.drawPile = (ImageView) myActivity.findViewById(R.id.drawPile);
 
         this.player2cards = (ImageView) myActivity.findViewById(R.id.p2c);
@@ -370,6 +396,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         quitGame.setOnClickListener(this);
         endTurn.setOnClickListener(this);
         chooseTarget.setOnClickListener(this);
+        missed.setOnClickListener(this);
         drawPile.setOnClickListener(this);
 
         //Listen for image presses
@@ -426,9 +453,12 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             //}
         //}
 
-        player2 = (LinearLayout) myActivity.findViewById(R.id.p2MainLayout);
-        player3 = (LinearLayout) myActivity.findViewById(R.id.p3row);
-        player4 = (LinearLayout) myActivity.findViewById(R.id.p4MainLayout);
+        this.playerLayouts.add((LinearLayout) myActivity.findViewById(R.id.p2MainLayout));
+        this.playerLayouts.add((LinearLayout) myActivity.findViewById(R.id.p3row));
+        this.playerLayouts.add((LinearLayout) myActivity.findViewById(R.id.p4MainLayout));
+
+
+
 
 
         this.playerTexts.add((TextView) myActivity.findViewById(R.id.computer1));
