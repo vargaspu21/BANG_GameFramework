@@ -49,8 +49,7 @@ public class BANGComputerPlayer extends GameComputerPlayer {
             }
             sleep(1000);
             //TODO: get rid of this line, and uncomment
-            //game.sendAction(new BANGMoveAction(this, 0, state.BANG));
-            game.sendAction(new BANGEndTurn(this));
+           game.sendAction(new BANGEndTurn(this));
 
             int cardNum = state.BANG;
             int number = state.players[player].getCardsInHand().size(); //gets size of players hand
@@ -75,10 +74,6 @@ public class BANGComputerPlayer extends GameComputerPlayer {
             if(game instanceof BANGLocalGame){ //if the game is instance of the local game
                 sleep(1000); //delay for a second to make opponent think we're thinking
                 game.sendAction(new BANGMoveAction(this, target, cardNum)); //sends game action
-            }
-            //if bang card being played, allow human player to use missed card
-            if(cardNum == state.BANG){
-                //send
             }
         }
 

@@ -88,8 +88,7 @@ public class BANGState extends GameState{
     protected int playerTurn, bangsPlayed;
     protected PlayerInfo[] players;
     public static Random rand = new Random ();
-    protected int responseRequired = 0;
-    protected boolean missedCard;
+
     //constructor for gameState, used to make a new one:
     public BANGState()
     {
@@ -132,7 +131,6 @@ public class BANGState extends GameState{
                 playerTurn = i; //sets the playerTurn to start at the sherrif
             }
         }
-        missedCard = false;
     }
 
     //copy constructor - used to replicate two gameStates:
@@ -157,7 +155,6 @@ public class BANGState extends GameState{
         //copies array list of the roles:
         roles = new ArrayList<Integer>();
         for(Integer i: roles) this.roles.add(i);
-        this.missedCard = bs.missedCard;
     }
 
     public PlayerInfo getPlayer(int i){
@@ -537,27 +534,6 @@ public class BANGState extends GameState{
         {
             return false;
         }
-        /*else if(responseRequired != 0){
-            switch (cardNum){
-                case MISSED: //missed!, never used independently
-                    //cannot be used without replying to a bang
-                    //can be implemented multiple ways, can have a separate fn
-                    if(responseRequired == 1){
-                        for(PlayableCard p: players[player].getCardsInHand()){
-                            endTurn();
-                            players[player].getCardsInHand().remove(p);
-                            discardPile.add(p);
-                            return true;
-                        }
-                            //change turn
-                            //discard card
-                            //return true
-                            //future:
-                    }
-                    return false; //false for now?
-            }
-        }
-        */
         else
         {
             switch(cardNum)
@@ -738,8 +714,7 @@ public class BANGState extends GameState{
                             }
                         }
                     }
-                    setResponseRequired(1);
-                    /*for (PlayableCard q : players[target].getCardsInHand()) {
+                    for (PlayableCard q : players[target].getCardsInHand()) {
                         if (q.getCardNum() == MISSED) {//if there exists a missed card in the attacked player's hand
                             players[target].getCardsInHand().remove(q);//check if it works - removes missed card if one exists in the attacked player
                             discardPile.add(q);
@@ -750,10 +725,7 @@ public class BANGState extends GameState{
                             //  return true;
                             //}
                         }
-
-
                     }
-                    */
                 }
             }
             if(p.getCardNum()== BANG)//if particular card is the cardnumber for bang, use it
@@ -788,9 +760,7 @@ public class BANGState extends GameState{
                             return true;
                         }
                     }
-                    setResponseRequired(1);
-                    return  true;
-                    /*if(q.getCardNum()== MISSED) {//if there exists a missed card in the attacked player's hand
+                    if(q.getCardNum()== MISSED) {//if there exists a missed card in the attacked player's hand
                         players[target].getCardsInHand().remove(q);//check if it works - removes missed card if one exists in the attacked player
                         discardPile.add(q);
                         return true;
@@ -800,21 +770,9 @@ public class BANGState extends GameState{
                         //  return true;
                         //}
                     }
-                    */
-                }
-
-                if(missedCard){
-                    for(PlayableCard targetCard: players[target].getCardsInHand()){
-                        if(targetCard.getCardNum() == MISSED){
-                            players[target].getCardsInHand().remove(targetCard);
-                            discardPile.add(targetCard);
-                            return true;
-                        }
-                    }
                 }
                 //else, no missed cards are found
                 players[target].setHealth(players[target].getHealth()-1); //decreases health of target player
-
 
                 //if target's character is El Gringo, takes card from the attacker
                 if(players[target].getCharacter().getCardNum()==ELGRINGO)
@@ -1176,21 +1134,5 @@ public class BANGState extends GameState{
         string += "\t\tBANGs played: "+bangsPlayed+"\n"; //concatenates current BANGs played
         return string;
 
-    }
-
-    public int getResponseRequired(){
-        return responseRequired;
-    }
-
-    public void setResponseRequired(int responseRequired){
-        this.responseRequired = responseRequired;
-    }
-
-    public void setMissedCard(boolean missedCard){
-        this.missedCard = missedCard;
-    }
-
-    public boolean getMissedCard(){
-        return missedCard;
     }
 }
