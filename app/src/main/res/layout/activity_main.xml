@@ -114,6 +114,13 @@
                     android:layout_height="50dp"
                     android:layout_gravity="right"
                     android:src="@drawable/bullet" />
+
+                <ImageView
+                    android:id="@+id/p3h5"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/bullet" />
             </LinearLayout>
 
             <Space
@@ -206,6 +213,13 @@
 
                         <ImageView
                             android:id="@+id/p4h4"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/bullet" />
+
+                        <ImageView
+                            android:id="@+id/p4h5"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_gravity="right"
@@ -324,6 +338,13 @@
 
                         <ImageView
                             android:id="@+id/p2h4"
+                            android:layout_width="75dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/bullet" />
+
+                        <ImageView
+                            android:id="@+id/p2h5"
                             android:layout_width="75dp"
                             android:layout_height="50dp"
                             android:layout_gravity="right"
@@ -493,6 +514,14 @@
 
                         <ImageView
                             android:id="@+id/p1h4"
+                            android:layout_width="75dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="right"
+                            android:layout_weight="1"
+                            android:src="@drawable/bullet" />
+
+                        <ImageView
+                            android:id="@+id/p1h5"
                             android:layout_width="75dp"
                             android:layout_height="50dp"
                             android:layout_gravity="right"

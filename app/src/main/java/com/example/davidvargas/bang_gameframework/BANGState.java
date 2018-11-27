@@ -126,6 +126,8 @@ public class BANGState extends GameState{
         for(int i=0; i<4; i++){
             players[i].setRole(new RoleCard(roles.get(i)));
             if(players[i].getRole().getRole() == SHERIFF){
+                players[i].setMaxHealth(5);
+                players[i].setHealth(5);
                 playerTurn = i; //sets the playerTurn to start at the sherrif
             }
         }

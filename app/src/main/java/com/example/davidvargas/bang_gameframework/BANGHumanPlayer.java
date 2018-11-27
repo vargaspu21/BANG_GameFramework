@@ -82,6 +82,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
                 roles.get(i).invalidate();
             }
         }
+
         if(state.players[0].getRole().getRole() == state.OUTLAW) {
             roles.get(0).setImageResource(R.drawable.outlaw);
             roles.get(0).invalidate();
@@ -97,9 +98,10 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
 
 
 
+
         //sets all of the health image views to the bullet image.
         for(int i=0; i<4; i++){
-            for(int j=0; j<4; j++){
+            for(int j=0; j<5; j++){
                 health.get(i).get(j).setImageResource(R.drawable.bullet);
                 health.get(i).get(j).invalidate();
             }
@@ -109,7 +111,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
            for(int i = 0; i<4; i++){
                 int bullet = state.players[i].getHealth();
                 if(bullet <= 0) break;
-                for(int j = bullet; j<4; j++) { //set the difference of the player health and 4 to an invisible bullet
+                for(int j = bullet; j<5; j++) { //set the difference of the player health and 4 to an invisible bullet
                     health.get(i).get(j).setVisibility(View.INVISIBLE);
                     health.get(i).get(j).invalidate();
                 }
@@ -191,6 +193,27 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         else if(v.getId() == player4cards.getId())
         {
             topText.setText("Number of cards in player 4's hand: " + ((BANGLocalGame)game).state.players[3].getCardsInHand().size());
+            topText.invalidate();
+        }
+        //11-26-18 ~ used for debugging
+        else if(v.getId() == roles.get(0).getId())
+        {
+            topText.setText(""+state.players[0].getHealth());
+            topText.invalidate();
+        }
+        else if(v.getId() == roles.get(1).getId())
+        {
+            topText.setText(""+state.players[1].getHealth());
+            topText.invalidate();
+        }
+        else if(v.getId() == roles.get(2).getId())
+        {
+            topText.setText(""+state.players[2].getHealth());
+            topText.invalidate();
+        }
+        else if(v.getId() == roles.get(3).getId())
+        {
+            topText.setText(""+state.players[3].getHealth());
             topText.invalidate();
         }
         else if(v.getId() == chooseTarget.getId()){
@@ -284,13 +307,13 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
      * knows what their game-position and opponents' names are.
      */
     protected void initAfterReady() {
-        myActivity.setTitle("BANG: "+allPlayerNames[0]+" vs. "+allPlayerNames[1]);
+        myActivity.setTitle("BANG: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
 
         playerTexts = new ArrayList<>();
         roles = new ArrayList<>();
         handCards = new ArrayList<>(); //new array list for human player's hand
         activeCards = new ArrayList<>(); //array list for players' active cards
-        for(int i = 0; i < 4; i++){ //iterates for each player (0)
+        for (int i = 0; i < 4; i++) { //iterates for each player (0)
             activeCards.add(new ArrayList<ImageView>()); //adds image view array list for each player
         }
 
@@ -312,7 +335,6 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         player4cards.setOnClickListener(this);
 
 
-
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c1));
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c2));
         this.handCards.add((ImageView) myActivity.findViewById(R.id.p1c3));
@@ -327,6 +349,11 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         this.roles.add((ImageView) myActivity.findViewById(R.id.p2role));
         this.roles.add((ImageView) myActivity.findViewById(R.id.p3role));
         this.roles.add((ImageView) myActivity.findViewById(R.id.p4role));
+
+          for(ImageView v: this.roles)
+          {
+            v.setOnClickListener(this);
+          }
 
         this.drawPile = (ImageView) myActivity.findViewById(R.id.drawPile);
         drawPile.setOnClickListener(this);
@@ -370,27 +397,35 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         health.get(0).add((ImageView) myActivity.findViewById(R.id.p1h2));
         health.get(0).add((ImageView) myActivity.findViewById(R.id.p1h3));
         health.get(0).add((ImageView) myActivity.findViewById(R.id.p1h4));
+        health.get(0).add((ImageView) myActivity.findViewById(R.id.p1h5));
+
 
         health.get(1).add((ImageView) myActivity.findViewById(R.id.p2h1));
         health.get(1).add((ImageView) myActivity.findViewById(R.id.p2h2));
         health.get(1).add((ImageView) myActivity.findViewById(R.id.p2h3));
         health.get(1).add((ImageView) myActivity.findViewById(R.id.p2h4));
+        health.get(1).add((ImageView) myActivity.findViewById(R.id.p2h5));
+
 
         health.get(2).add((ImageView) myActivity.findViewById(R.id.p3h1));
         health.get(2).add((ImageView) myActivity.findViewById(R.id.p3h2));
         health.get(2).add((ImageView) myActivity.findViewById(R.id.p3h3));
         health.get(2).add((ImageView) myActivity.findViewById(R.id.p3h4));
+        health.get(2).add((ImageView) myActivity.findViewById(R.id.p3h5));
+
 
         health.get(3).add((ImageView) myActivity.findViewById(R.id.p4h1));
         health.get(3).add((ImageView) myActivity.findViewById(R.id.p4h2));
         health.get(3).add((ImageView) myActivity.findViewById(R.id.p4h3));
         health.get(3).add((ImageView) myActivity.findViewById(R.id.p4h4));
+        health.get(3).add((ImageView) myActivity.findViewById(R.id.p4h5));
 
-        for(int i = 0; i<4; i++){
-            for(ImageView v: health.get(i)){
-                v.setOnClickListener(this);
-            }
-        }
+        //11-26-18 ~ bullet imageviews does not need to listen to anything?
+        //for(int i = 0; i<4; i++){
+          //  for(ImageView v: health.get(i)){
+            //    v.setOnClickListener(this);
+            //}
+        //}
 
         player2 = (LinearLayout) myActivity.findViewById(R.id.p2MainLayout);
         player3 = (LinearLayout) myActivity.findViewById(R.id.p3row);
