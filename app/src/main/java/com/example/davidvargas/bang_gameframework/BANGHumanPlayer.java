@@ -194,7 +194,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             topText.setText("Number of cards in deck: " + ((BANGLocalGame)game).state.drawPile.size());
             topText.invalidate();
         }
-        else if(v.getId() == player2cards.getId()) //gets the amount 
+        else if(v.getId() == player2cards.getId()) //gets the amount
         {
             topText.setText("Number of cards in player 2's hand: " + ((BANGLocalGame)game).state.players[1].getCardsInHand().size());
             topText.invalidate();
