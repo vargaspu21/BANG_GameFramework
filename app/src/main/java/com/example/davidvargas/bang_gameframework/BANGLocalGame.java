@@ -59,67 +59,6 @@ public class BANGLocalGame extends LocalGame{
             return null;
         }
 
-        /*
-        //first, checks if sheriff is dead
-        //counts how many players left
-        int numPlayersLeft = 4;
-        boolean sheriffDead = false;
-        int numOutlawsDead = 0;
-
-        //iterates entire player array in (casted) state
-        for (int i = 0; i < 4; i++)
-        {
-            //if player is dead
-            if(((BANGState)state).players[i].getHealth()<=0)
-            {
-                //marks if sheriff is dead
-                if(((BANGState)state).players[i].getRole().getRole()==BANGState.SHERIFF)
-                {
-                    sheriffDead = true;
-                }
-
-                //counts number of outlaws dead
-                if(((BANGState)state).players[i].getRole().getRole()==BANGState.OUTLAW)
-                {
-                    numOutlawsDead++;
-                }
-                //subtracts 1 onto players left if found dead
-                numPlayersLeft--;
-            }
-            //by the end, number of players recorded
-
-            //ASSUMES PLAYER IS RENDERED NOT ABLE TO ACT WHEN DEAD
-            //THEREFORE, THE IF-ELSEIF CONDITION ORDER *SHOULD* NOT MATTER, SINCE IT SHOULD BE CHECKED PER PLAYER'S TURN
-
-            //if sheriff is dead and numoutlawsdead < 2, an outlaw is still alive, and outlaws win
-            if(sheriffDead&&(numOutlawsDead<2))
-            {
-                //victory for outlaw
-                return "Outlaws win!";
-            }
-            //if last man standing is sheriff, sheriff wins
-            else if(!sheriffDead&&(numPlayersLeft==1))
-            {
-                return "Sheriff wins!";
-            }
-            //if sheriff dead and 2 outlaws dead, last man standing MUST be renegade
-            else if(sheriffDead&&(numOutlawsDead>=2)&&(numPlayersLeft==1))
-            {
-                return "Renegade wins!";
-            }
-            //if everyone died for some reason, stalemate
-            else if(numPlayersLeft==0)
-            {
-                return "Stalemate: everyone is dead!";
-            }
-            else
-            {
-                return null;
-            }
-        }
-        //supposed to be unreachable
-        return null;
-        */
     }
 
     /**
@@ -187,6 +126,12 @@ public class BANGLocalGame extends LocalGame{
             int target = moveAction.getTarget();
             Log.i("Make move", "Playing card "+cardNum+" with target "+target);
             state.playCard(player, target, cardNum);
+            return true;
+        }
+        else if(action instanceof BANGMissedAction){
+            BANGMissedAction missedAction = (BANGMissedAction) action;
+            boolean missedCard = missedAction.getMissedCard();
+            state.setMissedCard(missedCard);
             return true;
         }
 
