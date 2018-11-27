@@ -121,7 +121,7 @@ public class Card
             case DUEL:
                 name = "Duel";
                 description = "The true showdown. Players exchange BANG! back and forth until one no longer has any, getting shot.";
-                resourceId = R.drawable.duel;
+                resourceId = R.drawable.duel_card;
                 break;
             case PANIC:
                 name = "Panic";
