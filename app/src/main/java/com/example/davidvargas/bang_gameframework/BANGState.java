@@ -376,7 +376,7 @@ public class BANGState extends GameState{
     }
 
     //method to determine the distance between players:
-    private int distanceBetween(int attacker, int target){
+    public int distanceBetween(int attacker, int target){
         //if first player, distance is 1 for players 2 and 4, and is 2 for player 3
         int distance = 1;
         /*
