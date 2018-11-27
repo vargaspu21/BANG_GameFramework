@@ -53,7 +53,7 @@ public class BANGComputerPlayer extends GameComputerPlayer
         //if info is GameState info
         if(info instanceof BANGState)
         {
-            /*
+
             //cast info as BANGState
             state = (BANGState) info;
             int player = ((BANGLocalGame)game).getPlayerNum(this);
@@ -65,9 +65,9 @@ public class BANGComputerPlayer extends GameComputerPlayer
 
             Random rand = new Random();
             int size = state.players[player].getCardsInHand().size();
-            int random = rand.nextInt(size);
             if(size == 0)
                 game.sendAction(new BANGEndTurn(this));
+            int random = rand.nextInt(size);
             int cardNum = state.players[player].getCardsInHand().get(random).getCardNum();
             int target = 0;
             int targetRandom = rand.nextInt(2);
@@ -92,7 +92,6 @@ public class BANGComputerPlayer extends GameComputerPlayer
                     break;
             }
             game.sendAction(new BANGMoveAction(this, target, cardNum ));
-            */
             game.sendAction(new BANGEndTurn(this));
 
             /*

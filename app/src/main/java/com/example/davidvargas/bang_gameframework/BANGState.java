@@ -861,31 +861,10 @@ public class BANGState extends GameState{
 
     //function to play Indians card:
     public boolean playIndians(int player){
-        //checks if the other players have BANGs in their hands, removes the first instance of it and returns:
-/*
-        boolean losePoint;
-        for(int i = 0; i < 4; i++){
-            losePoint = true;
-            if(i != player){ //if not the player playing Indians
-                for(PlayableCard p: players[i].getCardsInHand()){ //iterate through other player's hand
-                    if(p.getCardNum() == BANG){ //if has BANG card
-                        players[i].getCardsInHand().remove(p); //removes BANG card
-                        losePoint = false; //will not lose a point
-                        break;
-                    }
-                }
-                if(losePoint) //if player did not have BANG card
-                    players[i].setHealth(players[i].getHealth() - 1); //player loses point
-            }
-        }
-        return false; //default: returns false;
-
-        */
         boolean hasBANG;
         for(PlayableCard p: players[player].getCardsInHand())
         {
-            if(p.getCardNum() == INDIANS)
-            {
+            if(p.getCardNum() == INDIANS) {
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
                 for(int i = 0; i < 4; i++)
