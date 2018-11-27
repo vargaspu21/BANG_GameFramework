@@ -11,6 +11,14 @@ import com.example.davidvargas.bang_gameframework.game.GamePlayerType;
 
 import java.util.ArrayList;
 
+/**
+ * On launch of app, contains information for lobby layout. Mainly contains configuration for game.
+ *
+ * @author David Vargas
+ * @author Johnny Huang
+ * @version November 2018
+ */
+
 public class BANGMainActivity extends GameMainActivity {
 
     public static final int PORT_NUMBER = 5213;

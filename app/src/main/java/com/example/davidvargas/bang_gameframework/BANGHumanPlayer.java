@@ -25,6 +25,14 @@ import com.example.davidvargas.bang_gameframework.objects.PlayableCard;
 
 import java.util.ArrayList;
 
+/**
+ * Main player as well as containing the main layout when playing. Actions are sent from this class.
+ *
+ * @author David Vargas
+ * @author Johnny Huang
+ * @version November 2018
+ */
+
 public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickListener {
     // the current activity
     private Activity myActivity;

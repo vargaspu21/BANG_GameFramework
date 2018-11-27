@@ -1,5 +1,13 @@
 package com.example.davidvargas.bang_gameframework.objects;
 
+/**
+ * Class of cards that are played from hand, and exists in drawPile and discardPile.
+ *
+ * @author David Vargas
+ * @author Johnny Huang
+ * @version November 2018
+ */
+
 public class PlayableCard extends Card {
 
     //initializes variables:
