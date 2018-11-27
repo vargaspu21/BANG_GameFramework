@@ -88,6 +88,7 @@ public class BANGState extends GameState{
     protected int playerTurn, bangsPlayed;
     protected PlayerInfo[] players;
     public static Random rand = new Random ();
+    protected boolean missedCard;
 
     //constructor for gameState, used to make a new one:
     public BANGState()
@@ -131,6 +132,7 @@ public class BANGState extends GameState{
                 playerTurn = i; //sets the playerTurn to start at the sherrif
             }
         }
+        missedCard = false;
     }
 
     //copy constructor - used to replicate two gameStates:
@@ -155,6 +157,7 @@ public class BANGState extends GameState{
         //copies array list of the roles:
         roles = new ArrayList<Integer>();
         for(Integer i: roles) this.roles.add(i);
+        this.missedCard = bs.missedCard;
     }
 
     public PlayerInfo getPlayer(int i){
@@ -1120,6 +1123,17 @@ public class BANGState extends GameState{
     {
         System.exit(0);
     }
+
+    public void setMissedCard(boolean missedCard){
+        this.missedCard = missedCard;
+    }
+
+    public boolean getMissedCard(){
+        return missedCard;
+    }
+
+
+
     //toString method:
     public String toString()
     {

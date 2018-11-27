@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.davidvargas.bang_gameframework.game.GameHumanPlayer;
 import com.example.davidvargas.bang_gameframework.game.GameMainActivity;
+import com.example.davidvargas.bang_gameframework.game.GamePlayer;
 import com.example.davidvargas.bang_gameframework.game.actionMsg.GameAction;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.IllegalMoveInfo;
@@ -48,9 +49,9 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private static final int MAXHAND = 8;
     private LinearLayout player2, player3, player4;
     private ArrayList<TextView> playerTexts;
-
+    private Button missed = null;
     private int target;
-
+    private GamePlayer player = this;
 
     // the ID for the layout to use
     private int layoutId;
@@ -159,6 +160,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     @Override
     public void onClick(View v){
         GameAction gameAction; //initialize instance variable
+
         Log.i("ButtonInfo","click arrived");
         if(v == null)
         {
@@ -251,6 +253,26 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             });
             popupMenu.show();
         }
+        else if(v.getId() == missed.getId()){
+            PopupMenu popupMenu = new PopupMenu(myActivity, v);
+            popupMenu.getMenuInflater().inflate(R.menu.missed, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    Toast.makeText(myActivity, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
+                    switch (item.getItemId()){
+                        case R.id.noMissed:
+                            game.sendAction(new BANGMissedAction(player, false));
+                            break;
+                        case R.id.yesMissed:
+                            game.sendAction(new BANGMissedAction(player, true));
+                            break;
+                    }
+                    return true;
+                }
+            });
+            popupMenu.show();
+        }
         else
         {
             int cardCliked = -1;
@@ -322,6 +344,9 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         this.quitGame = (Button) myActivity.findViewById(R.id.quit);
         this.endTurn = (Button) myActivity.findViewById(R.id.endTurn);
         this.chooseTarget = (Button) myActivity.findViewById(R.id.chooseTarget);
+        this.missed = (Button) myActivity.findViewById(R.id.missed);
+
+
         this.drawPile = (ImageView) myActivity.findViewById(R.id.drawPile);
 
         this.player2cards = (ImageView) myActivity.findViewById(R.id.p2c);
@@ -370,6 +395,8 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         quitGame.setOnClickListener(this);
         endTurn.setOnClickListener(this);
         chooseTarget.setOnClickListener(this);
+        missed.setOnClickListener(this);
+
         drawPile.setOnClickListener(this);
 
         //Listen for image presses
@@ -434,6 +461,8 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         this.playerTexts.add((TextView) myActivity.findViewById(R.id.computer1));
         this.playerTexts.add((TextView) myActivity.findViewById(R.id.computer2));
         this.playerTexts.add((TextView) myActivity.findViewById(R.id.computer3));
+
+
 
     }
 
