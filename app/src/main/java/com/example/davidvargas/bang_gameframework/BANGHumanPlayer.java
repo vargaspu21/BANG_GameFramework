@@ -103,6 +103,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         for(int i=0; i<4; i++){
             for(int j=0; j<5; j++){
                 health.get(i).get(j).setImageResource(R.drawable.bullet);
+                health.get(i).get(j).setVisibility(View.VISIBLE);
                 health.get(i).get(j).invalidate();
             }
         }
@@ -213,7 +214,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         }
         else if(v.getId() == roles.get(3).getId())
         {
-            topText.setText(""+state.players[3].getHealth());
+            topText.setText(""+state.bangsPlayed);
             topText.invalidate();
         }
         else if(v.getId() == chooseTarget.getId()){

@@ -174,15 +174,15 @@ public class BANGState extends GameState{
         for(i=0; i<NUMBANG; i++) deck.add(new PlayableCard(false, BANG));
         for(i=0; i<NUMMISSED; i++) deck.add(new PlayableCard(false, MISSED));
         for(i=0; i<NUMBEER; i++) deck.add(new PlayableCard(false, BEER));
-        //for(i=0; i<NUMPANIC; i++) deck.add(new PlayableCard(false, PANIC));
-        //for(i=0; i<NUMCATBALOU; i++) deck.add(new PlayableCard(false, CATBALOU));
-        //for(i=0; i<NUMSTAGECOACH; i++) deck.add(new PlayableCard(false, STAGECOACH));
-        //deck.add(new PlayableCard(false, WELLSFARGO));
+        for(i=0; i<NUMPANIC; i++) deck.add(new PlayableCard(false, PANIC));
+        for(i=0; i<NUMCATBALOU; i++) deck.add(new PlayableCard(false, CATBALOU));
+        for(i=0; i<NUMSTAGECOACH; i++) deck.add(new PlayableCard(false, STAGECOACH));
+        deck.add(new PlayableCard(false, WELLSFARGO));
         deck.add(new PlayableCard(false, GATLING));
         for(i=0; i<NUMDUEL; i++) deck.add(new PlayableCard(false, DUEL));
         for(i=0; i<NUMINDIANS; i++) deck.add(new PlayableCard(false, INDIANS));
         //for(i=0; i<NUMGENERALSTORE; i++) deck.add(new PlayableCard(false, GENERALSTORE));
-        //deck.add(new PlayableCard(false, SALOON));
+        deck.add(new PlayableCard(false, SALOON));
         //for(i=0; i<NUMJAIL; i++) deck.add(new PlayableCard (true, JAIL));
         //deck.add(new PlayableCard(true, DYNAMITE));
         //for(i=0; i<NUMBARREL; i++) deck.add(new PlayableCard(true, BARREL));
@@ -554,72 +554,74 @@ public class BANGState extends GameState{
                 case REMINGTON: //remington, +3 range
                     playRemington(player);
                     return true;
-                case BANG: //bang
+                case BANG: //11-26-18 ~ COMPLETED, BUT BUGS
                     playBANG(player, target);
                     return true;
-                case MISSED: //missed!, never used independently
+
+                case MISSED:
                     //cannot be used without replying to a bang
                     //can be implemented multiple ways, can have a separate fn
                     return false; //false for now?
-                case BEER: //beer, heals a health
+
+                case BEER: //11-26-18 ~ COMPLETED
                     playBeer(player);
                     return true;
-                case PANIC: //panic!
+
+                case PANIC: //11-26-18 ~ COMPLETED
                     //player in 1 range gives up a card
                     playPanic(player, target);
                     return true;
-                case CATBALOU: //cat balou
+
+                case CATBALOU: //11-26-18 ~ COMPLETED
                     //one player discards a card
                     playCatBalou(player, target);
                     return true;
-                case STAGECOACH: //stagecoach
+
+                case STAGECOACH: //11-26-18 ~ COMPLETED
                     //draw two cards
-                    draw(player);
-                    draw(player);
+                    playStagecoach(player);
                     return true;
 
-                case WELLSFARGO: //wells fargo
+                case WELLSFARGO: //11-26-18 ~ COMPLETED
                     //draw three cards
-                    draw(player);
-                    draw(player);
-                    draw(player);
+                    playWellsfargo(player);
                     return true;
 
-                case GATLING: //gatling
+                case GATLING: //11-26-18 ~ COMPLETED
                     //all other players lose one health
                     //copy rose doolans effect
                     playGatling(player);
                     return true;
 
-                case DUEL: //duel
+                case DUEL: //11-26-18 ~ COMPLETED
                     //back-and-forth with selected player
                     playDuel(player, target);
                     return true;
 
-                case INDIANS: //indians, all players discard bang or lose a life
+                case INDIANS:
                     //automatic for now
                     //check players entire hands for a bang. discard if found. dont lose a life.
                     playIndians(player);
                     return true;
 
+                case GENERALSTORE:
+                    return false;
 
-                case GENERALSTORE: //general store, reveal number of cards as players from deck, each choose one
-
-                case SALOON: //saloon, player +2 health, others +1 health
+                case SALOON:
                      playSaloon(player);
                      return true;
 
-                case JAIL: //jail
+                case JAIL:
                     playActiveCard(player, target, cardNum);
                     return true;
                 //start of turn check for jail, if players has then skip turn
                 //implemented in drawTwo method as that signals start of turn
-                case DYNAMITE: //dynamite
+                case DYNAMITE:
                     playActiveCard(player, target, cardNum);
                     return true;
                 //start of turn draw! mechanic to determine if damage is taken.
                 //implemented in drawTwo function as that signals start of turn
-                case BARREL: //barrel
+                case BARREL:
                     playActiveCard(player, player, cardNum);
                     return true;
                 //implemented in bang function,
@@ -684,7 +686,7 @@ public class BANGState extends GameState{
     public boolean playBANG(int attacker, int target)//automatically uses the attacked player's missed card if found for now
     {
         if(target == -1) return false;
-        if(bangsPlayed > 1 && players[attacker].getCharacter().getCardNum()!=WILLYTHEKID)
+        if(bangsPlayed >= 1 && players[attacker].getCharacter().getCardNum()!=WILLYTHEKID)
             return false; //if player has used a bang and player character is not Willy The Kid, return false
         if (players[attacker].getRange() < distanceBetween(attacker, target))
             return false; //if the attacker's range if less than the distance to the target, return false;
@@ -788,6 +790,35 @@ public class BANGState extends GameState{
         return false;//after searching through entire hand, if bang card not found, exits
     }
 
+    public boolean playStagecoach(int player) {
+        for (PlayableCard p : players[player].getCardsInHand())//iterates through entire hand of player
+        {
+            if (p.getCardNum() == STAGECOACH) {
+                players[player].getCardsInHand().remove(p);
+                discardPile.add(p);
+                draw(player);
+                draw(player);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean playWellsfargo(int player) {
+        for (PlayableCard p : players[player].getCardsInHand())//iterates through entire hand of player
+        {
+            if (p.getCardNum() == WELLSFARGO) {
+                players[player].getCardsInHand().remove(p);
+                discardPile.add(p);
+                draw(player);
+                draw(player);
+                draw(player);
+                return true;
+            }
+        }
+        return false;
+    }
+
     //method to play the Duel card:
     public boolean playDuel(int player, int target) {
         //initializes counts of bang cards in attacker's and target's hands to 0
@@ -865,8 +896,15 @@ public class BANGState extends GameState{
                 if(p.getCardNum() == PANIC) {
                     players[player].getCardsInHand().remove(p);
                     discardPile.add(p);
-                    drawFromPlayer(player, target);
-                    return true;
+                    if(players[target].getCardsInHand().isEmpty())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        drawFromPlayer(player, target);
+                        return true;
+                    }
                 }
             }
         }
@@ -878,11 +916,18 @@ public class BANGState extends GameState{
     private boolean playCatBalou(int player, int target)
     {
         for(PlayableCard p: players[player].getCardsInHand()) {
-            if (p.getCardNum() == PANIC) {
+            if (p.getCardNum() == CATBALOU) {
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
-                players[target].getCardsInHand().remove(0); //removes the left most card in targets hand
-                return true;
+                if(players[target].getCardsInHand().isEmpty())
+                {
+                    return true;
+                }
+                else
+                {
+                    players[target].getCardsInHand().remove(0); //removes the left most card in targets hand
+                    return true;
+                }
             }
         }
         return false;

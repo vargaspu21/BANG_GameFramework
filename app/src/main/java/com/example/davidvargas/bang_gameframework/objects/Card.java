@@ -107,8 +107,28 @@ public class Card {
                 break;
             case DUEL:
                 name = "Duel";
-                description = "The player playing this card challenges any other player (at any distance) staring him in the eyes.\n";
+                description = "The true showdown. Players exchange BANG! back and forth until one no longer has any, getting shot.";
                 resourceId = R.drawable.duel_card;
+                break;
+            case PANIC:
+                name = "Panic";
+                description = "Quick! Grabs 1 card from player while they're not looking.";
+                resourceId = R.drawable.panic;
+                break;
+            case CATBALOU:
+                name = "Catbalou";
+                description = "Meow. Disposes 1 card from selected player.";
+                resourceId = R.drawable.cat_balou;
+                break;
+            case WELLSFARGO:
+                name = "Wells Fargo";
+                description = "Go far in life! Draw 3 cards.";
+                resourceId = R.drawable.wells_fargo;
+                break;
+            case STAGECOACH:
+                name = "Stagecoach";
+                description = "Nothing like a free ride! Draw 2 cards.";
+                resourceId = R.drawable.stagecoach;
                 break;
         }
     }
