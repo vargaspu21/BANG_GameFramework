@@ -8,6 +8,8 @@ import static org.junit.Assert.*;
 
 /**
  * Example test, will primarily test on game state BANGState
+ * It is known that deck sometimes does not initialize correctly. There exists commented unit test functions because of it.
+ * Furthermore, entire game seldom does not initialize at all, making unit test all fail.
  *
  * @author David Vargas
  * @author Johnny Huang
