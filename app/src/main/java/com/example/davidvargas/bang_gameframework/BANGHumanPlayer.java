@@ -217,7 +217,6 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             topText.invalidate();
         }
         else if(v.getId() == chooseTarget.getId()){
-
             /*
              External Citation
              Date: 23 November 2018
@@ -236,6 +235,10 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
                             target = 1;
                             break;
                         case R.id.player3:
+                            if(state.players[0].getRange() < state.distanceBetween(0, 2)) {
+                                Toast.makeText(myActivity, "Cannot reach this player, try again.", Toast.LENGTH_SHORT).show();
+                                break;
+                            }
                             target = 2;
                             break;
                         case R.id.player4:
@@ -274,11 +277,6 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
 
                 //need to send action if card was valid
             }
-
-        }
-        //if target clicked
-        {
-            //send new game action withn target and this.cardLastClicked
         }
     }
 
