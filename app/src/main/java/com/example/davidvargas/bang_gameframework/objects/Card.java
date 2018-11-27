@@ -14,9 +14,9 @@ import com.example.davidvargas.bang_gameframework.R;
  * @see RoleCard
  */
 
-public class Card {
-    //initializes variables:
-    //constant for playablecards, will all be added for copy constructor soon
+public class Card
+{
+    //constants to describe all possible card in game:
     public final int SCHOFIELD = 0;
     public final int REVCARBINE = 1;
     public final int WINCHESTER = 2;
@@ -42,7 +42,7 @@ public class Card {
     protected String name, description;
     protected int resourceId;
 
-    //constructor for Card object
+    //constructor for creation of new general Card
     public Card()
     {
         name = null;
@@ -50,14 +50,15 @@ public class Card {
         resourceId = -1;
     }
 
-    //copy constructor for Card object:
-    public Card(Card c){
+    //Card copy constructor
+    public Card(Card c)
+    {
         name = c.name;
         description = c.description;
         resourceId = c.resourceId;
     }
 
-    //received from playablecard constructor, will change name and description as suited
+    //received from PlayableCard constructor, will change name and description as suited
     public Card(int cardNum)
     {
         switch(cardNum)
@@ -169,11 +170,12 @@ public class Card {
         return description;
     }
 
+    //gets resource id of drawable associated with Card
     public int getResourceId(){
         return resourceId;
     }
 
-    //toStriing method:
+    //prints out general information about Card
     public String toString()
     {
         return "\t\t\t\tName of Card: "+name+"\n"+"\t\t\t\t\t\tDescription: "+description+"\n";

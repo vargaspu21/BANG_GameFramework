@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * @see com.example.davidvargas.bang_gameframework.BANGState
  */
 
-public class PlayerInfo {
-
+public class PlayerInfo
+{
     public int health, range;
     protected int maxHealth;
     protected RoleCard role;
@@ -20,7 +20,6 @@ public class PlayerInfo {
     protected ArrayList<PlayableCard> activeCards;
     protected ArrayList<PlayableCard> cardsInHand;
     protected int name;
-
 
     //constructor for the Player Info object
     public PlayerInfo()
@@ -67,6 +66,7 @@ public class PlayerInfo {
         this.maxHealth = pi.maxHealth;
         this.role = pi.role;
         this.character = pi.character;
+
         //following lines creates a copy for each of the cards in the different array lists:
         activeCards = new ArrayList<PlayableCard>();
         for(PlayableCard c: pi.activeCards) this.activeCards.add(new PlayableCard(c));
@@ -109,13 +109,14 @@ public class PlayerInfo {
 
     public ArrayList<PlayableCard> getCardsInHand() { return cardsInHand; } //getter method for player's hand
 
+    //setter method for player's health'
     public void setHealth(int health)
     {
         if(health > this.getMaxHealth())
             this.health = this.getMaxHealth();
         else
             this.health = health;
-    } //setter method for player's health'
+    }
 
     public void setRange(int range){ this.range = range; } //setter method for player's range
 
@@ -128,28 +129,37 @@ public class PlayerInfo {
 
     public void setCharacter(CharacterCard character) { this.character = character; } //setter method for player's character
 
+    //setter method for list of player's active blue cards
     public void setActiveCards(PlayableCard c)
     {
         activeCards.add(c);
-    } //setter method for list of player's active blue cards
+    }
 
+    //setter method for list of player's hand
     public void setCardsInHand(PlayableCard c)
     {
         cardsInHand.add(c);
-    } //setter method for list of player's hand
+    }
 
     //toString method for Player's Information:
     public String toString()
     {
-        String s = "\t\tPlayer " + String.valueOf(name) + ":\n"; //concatenates the string of the name
+        //concatenates the string of the name
+        String s = "\t\tPlayer " + String.valueOf(name) + ":\n";
         s+= "\t\t\tActive Cards:\n";
-        for(PlayableCard p: activeCards) s+= "\t\t\t\t" + p.toString(); //concatenates strings of active cards
+
+        //concatenates strings of active cards
+        for(PlayableCard p: activeCards) s+= "\t\t\t\t" + p.toString();
         s+= "\t\t\tCards in hand:\n";
-        for(PlayableCard p: cardsInHand) s+=  p.toString(); //concatenates strings of cards in hand
-        s+= "\t\t\tHealth: "+health+"\n"+"\t\t\tRange: "+range+"\n"+"\t\t\tMax Health: "+maxHealth+"\n"; //concatenates health and max health strings
-        s+= "\t\t\tRole:\n"+role.toString() +"\t\t\tCharacter:\n"+ character.toString(); //concatenates role and character strings
+
+        //concatenates strings of cards in hand
+        for(PlayableCard p: cardsInHand) s+=  p.toString();
+
+        //concatenates health and max health strings
+        s+= "\t\t\tHealth: "+health+"\n"+"\t\t\tRange: "+range+"\n"+"\t\t\tMax Health: "+maxHealth+"\n";
+
+        //concatenates role and character strings
+        s+= "\t\t\tRole:\n"+role.toString() +"\t\t\tCharacter:\n"+ character.toString();
         return s;
-
     }
-
 }

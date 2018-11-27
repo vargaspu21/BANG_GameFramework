@@ -8,7 +8,8 @@ package com.example.davidvargas.bang_gameframework.objects;
  * @version November 2018
  */
 
-public class CharacterCard extends Card {
+public class CharacterCard extends Card
+{
 
     //initialize variables
     int baseHealth;

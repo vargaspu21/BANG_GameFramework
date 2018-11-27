@@ -10,9 +10,10 @@ import com.example.davidvargas.bang_gameframework.R;
  * @version November 2018
  */
 
-public class RoleCard extends Card {
-
-    public int role; //0: Sheriff, 1: Outlaw, 2: Renegade
+public class RoleCard extends Card
+{
+    //0: Sheriff, 1: Outlaw, 2: Renegade
+    public int role;
 
     public final int SHERIFF = 0;
     public final int OUTLAW = 2;
@@ -39,12 +40,12 @@ public class RoleCard extends Card {
                 description = "The goal is to kill the Sheriff.\n";
                 resourceId= R.drawable.outlaw;
                 break;
-
         }
     }
 
     //copy constructor for RoleCard object:
-    public RoleCard(RoleCard c){
+    public RoleCard(RoleCard c)
+    {
         super(c);
         role = c.role;
     }
@@ -68,6 +69,5 @@ public class RoleCard extends Card {
         if(role == SHERIFF) return "\t\t\t\tThe role is a Sheriff\n";
         else if(role == RENEGADE) return "\t\t\t\tThe role is an Outlaw\n";
         else return "\t\t\t\tThe role is a Renegade\n";
-
     }
 }
