@@ -53,13 +53,14 @@ public class BANGComputerPlayer extends GameComputerPlayer
         //if info is GameState info
         if(info instanceof BANGState)
         {
+            /*
             //cast info as BANGState
             state = (BANGState) info;
             int player = ((BANGLocalGame)game).getPlayerNum(this);
             if(state.playerTurn != player)
                 return;
             sleep(1000);
-           //game.sendAction(new BANGEndTurn(this));
+            //game.sendAction(new BANGEndTurn(this));
 
 
             Random rand = new Random();
@@ -91,6 +92,7 @@ public class BANGComputerPlayer extends GameComputerPlayer
                     break;
             }
             game.sendAction(new BANGMoveAction(this, target, cardNum ));
+            */
             game.sendAction(new BANGEndTurn(this));
 
             /*

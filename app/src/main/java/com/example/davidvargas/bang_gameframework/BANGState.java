@@ -913,7 +913,7 @@ public class BANGState extends GameState{
         return false;
     }
 
-    private boolean playPanic(int player, int target)
+    public boolean playPanic(int player, int target)
     {
         if(distanceBetween(player, target) == 1)
         {
@@ -938,7 +938,7 @@ public class BANGState extends GameState{
     /*target player discards a card,
     however currently the card is prechosen, this could be changed lated to allow for target to choose, or attacker to choose.
      */
-    private boolean playCatBalou(int player, int target)
+    public boolean playCatBalou(int player, int target)
     {
         for(PlayableCard p: players[player].getCardsInHand()) {
             if (p.getCardNum() == CATBALOU) {
@@ -978,7 +978,7 @@ public class BANGState extends GameState{
     }
 
     //used when playing saloon card; called from playCard; heals everyone 1 health. heals the user an additional one health.
-    private boolean playSaloon(int player) {
+    public boolean playSaloon(int player) {
         for(PlayableCard p: players[player].getCardsInHand()){
             if(p.getCardNum() == SALOON){
                 players[player].getCardsInHand().remove(p);
