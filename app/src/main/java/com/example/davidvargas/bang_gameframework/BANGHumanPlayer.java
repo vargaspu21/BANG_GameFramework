@@ -162,10 +162,13 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
 
      //Callback method, called when player gets a message
     @Override
-    public void receiveInfo(GameInfo info) {
-
-        if(info instanceof BANGState){
+    public void receiveInfo(GameInfo info)
+    {
+        if(info instanceof BANGState)
+        {
             this.state = (BANGState)info;
+            topText.setText(state.getToTextView());
+            topText.invalidate();
            render();
         }
 

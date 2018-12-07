@@ -5,6 +5,7 @@ import com.example.davidvargas.bang_gameframework.game.GamePlayer;
 import com.example.davidvargas.bang_gameframework.game.actionMsg.GameAction;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.NotYourTurnInfo;
+import com.example.davidvargas.bang_gameframework.objects.PlayableCard;
 
 import java.util.Random;
 
@@ -19,6 +20,7 @@ import java.util.Random;
 public class BANGComputerPlayer extends GameComputerPlayer
 {
     protected int playerNum;
+    protected Random rand = new Random();
 
     //constructor for the BANGComputerPlayer class:
     public BANGComputerPlayer(String name)
@@ -59,8 +61,16 @@ public class BANGComputerPlayer extends GameComputerPlayer
             int player = ((BANGLocalGame)game).getPlayerNum(this);
             if(state.playerTurn != player)
                 return;
+            //if jailed, skipped
+            if(state.players[player].getActiveCard().getCardNum() == BANGState.JAIL)
+            {
+                if(rand.nextInt(4)!=0)
+                {
+                    state.players[player].setActiveCard(new PlayableCard());
+                    game.sendAction(new BANGEndTurn(this));
+                }
+            }
             sleep(1000);
-            Random rand = new Random();
             int size = state.players[player].getCardsInHand().size();
             if(size != 0){
                 int random = rand.nextInt(size);

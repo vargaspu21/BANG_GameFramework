@@ -7,6 +7,7 @@ import com.example.davidvargas.bang_gameframework.game.GamePlayer;
 import com.example.davidvargas.bang_gameframework.game.LocalGame;
 import com.example.davidvargas.bang_gameframework.game.actionMsg.GameAction;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.IllegalMoveInfo;
+import com.example.davidvargas.bang_gameframework.objects.PlayableCard;
 
 /**
  * Receives actions from all players, changes game state accordingly. Only allows for actions to affect state if within regulations.
@@ -113,26 +114,34 @@ public class BANGLocalGame extends LocalGame{
         //finally, actually make action by changing game state
 
         Log.i("Make move", "checking action type...");
-        if(action instanceof BANGEndTurn){ //if action is End Turn,
+        if(action instanceof BANGEndTurn)
+        { //if action is End Turn,
+            state.setToTextView("Player " + (state.playerTurn+1) + "ends turn");
             state.endTurn(); //call endTurn action
             return true;
         }
 
-        else if(action instanceof BANGQuitGame){ //if action is quit game,
+        else if(action instanceof BANGQuitGame)
+        { //if action is quit game,
+            state.setToTextView("Quitting game...");
             state.quitGame(); //call quit game action
             return true;
         }
-        else if(action instanceof  BANGMoveAction){
+        else if(action instanceof  BANGMoveAction)
+        {
             BANGMoveAction moveAction = (BANGMoveAction) action;
             int cardNum = moveAction.getCardNum();
             int target = moveAction.getTarget();
             Log.i("Make move", "Playing card "+cardNum+" with target "+target);
+            state.setToTextView("Playing" + (new PlayableCard(false,cardNum)).getName());
             state.playCard(player, target, cardNum);
             return true;
         }
-        else if(action instanceof BANGMissedAction){
+        else if(action instanceof BANGMissedAction)
+        {
             BANGMissedAction missedAction = (BANGMissedAction) action;
             boolean missedCard = missedAction.getMissedCard();
+            state.setToTextView("Missed card triggered!");
             state.setMissedCard(missedCard);
             return true;
         }

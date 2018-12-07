@@ -1,5 +1,7 @@
 package com.example.davidvargas.bang_gameframework;
 
+import android.widget.TextView;
+
 import com.example.davidvargas.bang_gameframework.game.infoMsg.GameState;
 import com.example.davidvargas.bang_gameframework.objects.Card;
 import com.example.davidvargas.bang_gameframework.objects.PlayableCard;
@@ -97,10 +99,12 @@ public class BANGState extends GameState{
     protected PlayerInfo[] players;
     public static Random rand = new Random ();
     protected boolean missedCard;
+    public String toTextView;
 
     //constructor for gameState, used to make a new one:
     public BANGState()
     {
+        toTextView = "";
         drawPile = new ArrayList<PlayableCard>();
         drawPile = initDeck(drawPile);
         discardPile = new ArrayList<PlayableCard>();
@@ -146,6 +150,7 @@ public class BANGState extends GameState{
     //copy constructor - used to replicate two gameStates:
     public BANGState(BANGState bs)
     {
+        toTextView = "";
         //creates a deep copy of each card in the array list:
         drawPile = new ArrayList<PlayableCard>();
         for(PlayableCard c: bs.drawPile) this.drawPile.add(new PlayableCard(c.getIsActive(),c.getCardNum()));
@@ -1068,32 +1073,11 @@ public class BANGState extends GameState{
         }
     }
 
-    //function to endTurn
-    public boolean endTurn(){ //ends the turn, determines next player
-        //TODO: allow player to choose the cards discarded
-        //TODO: fix out of bounds array
-        for(int i = players[playerTurn].getCardsInHand().size()-1; i >= players[playerTurn].getHealth();i--){
-            players[playerTurn].getCardsInHand().remove(i);
-        }
-        if(playerTurn != 3) playerTurn ++;
-        else playerTurn = 0;
-
-        drawTwo(playerTurn);
-        bangsPlayed = 0;
-        return true;
-    }
-
     //method to examine card(name and description):
     public boolean examineCard(Card card)
     {
         System.out.println(card.toString());//for now: prototype
         return true;
-    }
-
-    //exists program, for now;prototype
-    public void quitGame()
-    {
-        System.exit(0);
     }
 
     //getter method for missed card
@@ -1106,7 +1090,15 @@ public class BANGState extends GameState{
         return missedCard;
     }
 
+    public String getToTextView()
+    {
+        return toTextView;
+    }
 
+    public void setToTextView(String t)
+    {
+        this.toTextView = t;
+    }
 
     //toString method:
     public String toString()
@@ -1122,5 +1114,24 @@ public class BANGState extends GameState{
         string += "\t\tBANGs played: "+bangsPlayed+"\n"; //concatenates current BANGs played
         return string;
 
+    }
+
+    //function to endTurn
+    public boolean endTurn(){ //ends the turn, determines next player
+        for(int i = players[playerTurn].getCardsInHand().size()-1; i >= players[playerTurn].getHealth();i--){
+            players[playerTurn].getCardsInHand().remove(i);
+        }
+        if(playerTurn != 3) playerTurn ++;
+        else playerTurn = 0;
+
+        drawTwo(playerTurn);
+        bangsPlayed = 0;
+        return true;
+    }
+
+    //exists program, for now;prototype
+    public void quitGame()
+    {
+        System.exit(0);
     }
 }
