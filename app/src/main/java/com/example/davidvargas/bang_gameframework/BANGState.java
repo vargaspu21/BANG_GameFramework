@@ -27,46 +27,46 @@ public class BANGState extends GameState{
     private int playerToMove;
 
     //Character Card Constants
-    public final int PAULREGRET = 0;
-    public final int JOURDONNAIS = 1;
-    public final int BLACKJACK = 2;
-    public final int SLABTHEKILLER = 3;
-    public final int ELGRINGO = 4;
-    public final int JESSEJONES = 5;
-    public final int SUZYLAFAYETTE = 6;
-    public final int WILLYTHEKID = 7;
-    public final int ROSEDOOLAN = 8;
-    public final int BARTCASSIDY = 9;
-    public final int PEDRORAMIREZ = 10;
-    public final int SIDKETCHUM = 11;
-    public final int LUCKYDUKE = 12;
-    public final int VULTURESAM = 13;
-    public final int CALAMITYJANET = 14;
-    public final int KITCARLSON = 15;
+    public static final int PAULREGRET = 0;
+    public static final int JOURDONNAIS = 1;
+    public static final int BLACKJACK = 2;
+    public static final int SLABTHEKILLER = 3;
+    public static final int ELGRINGO = 4;
+    public static final int JESSEJONES = 5;
+    public static final int SUZYLAFAYETTE = 6;
+    public static final int WILLYTHEKID = 7;
+    public static final int ROSEDOOLAN = 8;
+    public static final int BARTCASSIDY = 9;
+    public static final int PEDRORAMIREZ = 10;
+    public static final int SIDKETCHUM = 11;
+    public static final int LUCKYDUKE = 12;
+    public static final int VULTURESAM = 13;
+    public static final int CALAMITYJANET = 14;
+    public static final int KITCARLSON = 15;
 
     //Playable Card Constants
-    public final int SCHOFIELD = 0;
-    public final int REVCARBINE = 1;
-    public final int WINCHESTER = 2;
-    public final int VOLCANIC = 3;
-    public final int REMINGTON = 4;
-    public final int BANG = 5;
-    public final int MISSED = 6;
-    public final int BEER = 7;
-    public final int PANIC = 8;
-    public final int CATBALOU = 9;
-    public final int STAGECOACH = 10;
-    public final int WELLSFARGO = 11;
-    public final int GATLING = 12;
-    public final int DUEL = 13;
-    public final int INDIANS = 14;
-    public final int GENERALSTORE = 15;
-    public final int SALOON = 16;
-    public final int JAIL = 17;
-    public final int DYNAMITE = 18;
-    public final int BARREL = 19;
-    public final int SCOPE = 20;
-    public final int MUSTANG = 21;
+    public static final int SCHOFIELD = 0;
+    public static final int REVCARBINE = 1;
+    public static final int WINCHESTER = 2;
+    public static final int VOLCANIC = 3;
+    public static final int REMINGTON = 4;
+    public static final int BANG = 5;
+    public static final int MISSED = 6;
+    public static final int BEER = 7;
+    public static final int PANIC = 8;
+    public static final int CATBALOU = 9;
+    public static final int STAGECOACH = 10;
+    public static final int WELLSFARGO = 11;
+    public static final int GATLING = 12;
+    public static final int DUEL = 13;
+    public static final int INDIANS = 14;
+    public static final int GENERALSTORE = 15;
+    public static final int SALOON = 16;
+    public static final int JAIL = 17;
+    public static final int DYNAMITE = 18;
+    public static final int BARREL = 19;
+    public static final int SCOPE = 20;
+    public static final int MUSTANG = 21;
 
     //Amount of cards in starting deck constants
     public final int NUMSCHOFIELD = 3;
@@ -177,11 +177,11 @@ public class BANGState extends GameState{
     {
         //adds cards based on the Constant amounts (for-loops);
         int i;
-        //for(i=0; i<NUMSCHOFIELD; i++) deck.add(new PlayableCard(true, SCHOFIELD));
-        //deck.add(new PlayableCard(true, REVCARBINE));
-        //deck.add(new PlayableCard(true, WINCHESTER));
-        //for(i=0; i<NUMVOLCANIC; i++) deck.add(new PlayableCard(true, VOLCANIC));
-        //deck.add(new PlayableCard(true, REMINGTON));
+        for(i=0; i<NUMSCHOFIELD; i++) deck.add(new PlayableCard(true, SCHOFIELD));
+        deck.add(new PlayableCard(true, REVCARBINE));
+        deck.add(new PlayableCard(true, WINCHESTER));
+        for(i=0; i<NUMVOLCANIC; i++) deck.add(new PlayableCard(true, VOLCANIC));
+        deck.add(new PlayableCard(true, REMINGTON));
         for(i=0; i<NUMBANG; i++) deck.add(new PlayableCard(false, BANG));
         for(i=0; i<NUMMISSED; i++) deck.add(new PlayableCard(false, MISSED));
         for(i=0; i<NUMBEER; i++) deck.add(new PlayableCard(false, BEER));
@@ -194,7 +194,7 @@ public class BANGState extends GameState{
         for(i=0; i<NUMINDIANS; i++) deck.add(new PlayableCard(false, INDIANS));
         //for(i=0; i<NUMGENERALSTORE; i++) deck.add(new PlayableCard(false, GENERALSTORE));
         deck.add(new PlayableCard(false, SALOON));
-        //for(i=0; i<NUMJAIL; i++) deck.add(new PlayableCard (true, JAIL));
+        for(i=0; i<NUMJAIL; i++) deck.add(new PlayableCard (true, JAIL));
         //deck.add(new PlayableCard(true, DYNAMITE));
         //for(i=0; i<NUMBARREL; i++) deck.add(new PlayableCard(true, BARREL));
         //deck.add(new PlayableCard(true, SCOPE));
@@ -299,8 +299,6 @@ public class BANGState extends GameState{
             return false;
         }
         checkVultureSam(player); //checks for Vulture Sam
-        for(PlayableCard p : players[player].getActiveCards())
-        {
             /*if(p.getCardNum() == JAIL)
             {
                 if(!drawExclamation(player, SPADES)) {
@@ -333,7 +331,6 @@ public class BANGState extends GameState{
                         players[0].setActiveCards(new PlayableCard(true, DYNAMITE));
                 }
             }*/
-        }
         if(players[player].getCharacter().getCardNum()==JESSEJONES) //if player is Jesse Jones, first card drawn is from a random player
         {
             return checkJesseJones(player);
@@ -377,12 +374,10 @@ public class BANGState extends GameState{
         Then checks if the target has a mustang, if player does then adds one to distance
         These abilities can stack
          */
-        if(players[target].getCharacter().getCardNum() == PAULREGRET)
+        if(this.players[target].getCharacter().getCardNum() == PAULREGRET)
             distance ++;
-        for(PlayableCard p : players[target].getActiveCards()) {
-            if(p.getCardNum() == MUSTANG)
-                distance ++;
-        }
+        if(this.players[attacker].getActiveCard().getCardNum() == MUSTANG)
+            distance ++;
         if(attacker == 0 ){
             if(target == 1 || target == 3)
                 return distance;
@@ -466,6 +461,7 @@ public class BANGState extends GameState{
             if(p.getCardNum() == SCHOFIELD){
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
+                players[player].setWeapon(new PlayableCard(false,SCHOFIELD));
                 players[player].setRange((players[player].getRange()) + 2);
                 return true;
             }
@@ -478,6 +474,7 @@ public class BANGState extends GameState{
             if(p.getCardNum() == REVCARBINE){
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
+                players[player].setWeapon(new PlayableCard(false, REVCARBINE));
                 players[player].setRange((players[player].getRange()) + 4);
                 return true;
             }
@@ -490,6 +487,7 @@ public class BANGState extends GameState{
             if(p.getCardNum() == WINCHESTER){
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
+                players[player].setWeapon(new PlayableCard(false, WINCHESTER));
                 players[player].setRange((players[player].getRange()) + 5);
                 return true;
             }
@@ -502,6 +500,7 @@ public class BANGState extends GameState{
             if(p.getCardNum() == VOLCANIC){
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
+                players[player].setWeapon(new PlayableCard(false, VOLCANIC));
                 players[player].setRange((players[player].getRange()) + 1);
                 return true;
             }
@@ -514,6 +513,7 @@ public class BANGState extends GameState{
             if(p.getCardNum() == REMINGTON){
                 players[player].getCardsInHand().remove(p);
                 discardPile.add(p);
+                players[player].setWeapon(new PlayableCard(false, REMINGTON));
                 players[player].setRange((players[player].getRange()) + 3);
                 return true;
 
@@ -605,7 +605,8 @@ public class BANGState extends GameState{
                      return true;
 
                 case JAIL:
-                    playActiveCard(player, target, cardNum);
+                    playJail(player,target);
+                    //playActiveCard(player, target, cardNum);
                     return true;
                 //start of turn check for jail, if players has then skip turn
                 //implemented in drawTwo method as that signals start of turn
@@ -632,6 +633,20 @@ public class BANGState extends GameState{
         }
     }
 
+    public boolean playJail(int player,int target)
+    {
+        for (PlayableCard p : players[player].getCardsInHand())//iterates through entire hand of player
+        {
+            if (p.getCardNum() == JAIL) {
+                players[player].getCardsInHand().remove(p);
+                discardPile.add(p);
+                this.players[target].setActiveCard(new PlayableCard(true,JAIL));
+                return true;
+            }
+        }
+        return false;
+    }
+
     //playing a card
     //for now this just removes the card from person playing its hand
     //as well as add it to the targets active cards
@@ -639,11 +654,9 @@ public class BANGState extends GameState{
         boolean flag = false;
         for(PlayableCard p : players[player].getCardsInHand()) { //checks to see if it is possible to play this card
             if(p.getCardNum() == card) { //checks players hand
-                for(PlayableCard c : players[target].getActiveCards()) {
-                    if(c.getCardNum() == card) { //checks targets Active cards
-                        players[player].getCardsInHand().remove(p);
-                        flag = true;
-                    }
+                if(this.players[player].getActiveCard().getCardNum() == card) { //checks targets Active cards
+                    players[player].getCardsInHand().remove(p);
+                    flag = true;
                 }
             }
         }
@@ -651,24 +664,25 @@ public class BANGState extends GameState{
         {
             if(card == JAIL) {
                 if(players[target].getRole().getRole() != SHERIFF) {
-                    players[target].setActiveCards(new PlayableCard(true, JAIL));
+                    players[target].setActiveCard(new PlayableCard(true, JAIL));
                     return true;
                 }
+                return false;
             }
             else if(card == BARREL) {
-                players[target].setActiveCards(new PlayableCard(true,BARREL));
+                players[target].setActiveCard(new PlayableCard(true,BARREL));
                 return true;
             }
             else if(card == SCOPE) {
-                players[target].setActiveCards(new PlayableCard(true, SCOPE));
+                players[target].setActiveCard(new PlayableCard(true, SCOPE));
                 return true;
             }
             else if(card == MUSTANG) {
-                players[target].setActiveCards(new PlayableCard(true, MUSTANG));
+                players[target].setActiveCard(new PlayableCard(true, MUSTANG));
                 return true;
             }
             else if(card == DYNAMITE) {
-                players[target].setActiveCards(new PlayableCard(true, DYNAMITE));
+                players[target].setActiveCard(new PlayableCard(true, DYNAMITE));
                 return true;
             }
         }
@@ -691,9 +705,7 @@ public class BANGState extends GameState{
                     bangsPlayed++; //increases the count of bangsPlayed by 1
                     players[attacker].getCardsInHand().remove(p);//removes bang card
                     discardPile.add(p);
-                    for (PlayableCard r : players[target].getActiveCards()) //searches through targets blue cards for barrel
-                    {
-                        if (r.getCardNum() == BARREL) { //if they have a barrel try for miss
+                        if (this.players[attacker].getActiveCard().getCardNum() == BARREL) { //if they have a barrel try for miss
                             //if (drawExclamation(target, SPADES)) //CHANGE TO HEARTS WHEN SUIT IS FULLY IMPLEMENTED
                             {
                                 return true; //if the draw! is successful then it exits without the target taking damage
@@ -706,7 +718,6 @@ public class BANGState extends GameState{
                                 return true;
                             }
                         }
-                    }
                     for (PlayableCard q : players[target].getCardsInHand()) {
                         if (q.getCardNum() == MISSED) {//if there exists a missed card in the attacked player's hand
                             players[target].getCardsInHand().remove(q);//check if it works - removes missed card if one exists in the attacked player
@@ -725,10 +736,8 @@ public class BANGState extends GameState{
             {
                 bangsPlayed++; //increases the count of bangsPlayed by 1
                 players[attacker].getCardsInHand().remove(p);//removes bang card
-                discardPile.add(p);
-                for(PlayableCard r : players[target].getActiveCards()) //searches through targets blue cards for barrel
-                {
-                    if(r.getCardNum() == BARREL) { //if
+                discardPile.add(p);//searches through targets blue cards for barrel
+                    if(this.players[attacker].getActiveCard().getCardNum() == BARREL) { //if
                        // if(drawExclamation(target, SPADES)) //this should actually check for hearts but the default suit is hearts so i made it spades
                         {
                             return true; //if the draw! is successful then it exits without the target taking damage
@@ -741,7 +750,6 @@ public class BANGState extends GameState{
                             return true;
                         }
                     }
-                }
                 for(PlayableCard q: players[target].getCardsInHand())
                 {
                     if(players[target].getCharacter().getCardNum() == CALAMITYJANET)
@@ -1006,7 +1014,7 @@ public class BANGState extends GameState{
                     //COMPLETED, happens during drawTwo
 
                 case SUZYLAFAYETTE: //suzy lafayette - soon as there are no cards in hand, draws new one
-                    if (players[player].getActiveCards().isEmpty())
+                    if (players[player].getCardsInHand().isEmpty())
                     {
                         draw(player);
                     }

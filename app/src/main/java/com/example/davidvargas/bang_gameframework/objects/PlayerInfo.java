@@ -17,8 +17,10 @@ public class PlayerInfo
     protected int maxHealth;
     protected RoleCard role;
     protected CharacterCard character;
-    protected ArrayList<PlayableCard> activeCards;
+    //12-06-18 ~ Active Card will only be one at a time, not enough time to make it handle multiple, nor be able to represent multiple
+    protected PlayableCard activeCard;
     protected ArrayList<PlayableCard> cardsInHand;
+    protected PlayableCard weapon;
     protected int name;
 
     //constructor for the Player Info object
@@ -29,8 +31,9 @@ public class PlayerInfo
         maxHealth = 4;
         role = new RoleCard(0); //maybe find a default role to change into?
         character = new CharacterCard(); //default character too?
-        activeCards = new ArrayList<PlayableCard>(); //filler/default cards in hand?
+        activeCard = new PlayableCard(); //filler/default cards in hand?
         cardsInHand = new ArrayList<PlayableCard>();
+        weapon = new PlayableCard();
 
     }
 
@@ -42,9 +45,10 @@ public class PlayerInfo
         maxHealth = 4;
         role = new RoleCard(0); //maybe find a default role to change into?
         character = new CharacterCard(); //default character too?
-        activeCards = new ArrayList<PlayableCard>(); //filler/default cards in hand?
+        activeCard = new PlayableCard(); //filler/default cards in hand?
         cardsInHand = new ArrayList<PlayableCard>();
         name = i;
+        weapon = new PlayableCard();
     }
 
     //constructor for Player object that passes in the role and character, initializing them
@@ -68,8 +72,8 @@ public class PlayerInfo
         this.character = pi.character;
 
         //following lines creates a copy for each of the cards in the different array lists:
-        activeCards = new ArrayList<PlayableCard>();
-        for(PlayableCard c: pi.activeCards) this.activeCards.add(new PlayableCard(c));
+        this.weapon  = new PlayableCard(pi.getWeapon());
+        this.activeCard = new PlayableCard(pi.getActiveCard());
         cardsInHand = new ArrayList<PlayableCard>();
         for(PlayableCard c: pi.cardsInHand) this.cardsInHand.add(new PlayableCard(c));
     }
@@ -105,7 +109,9 @@ public class PlayerInfo
 
     public CharacterCard getCharacter() { return character; } //getter method for the player's character
 
-    public ArrayList<PlayableCard> getActiveCards() { return activeCards; } //getter method for "active" blue cards
+    public PlayableCard getActiveCard() { return activeCard; } //getter method for "active" blue cards
+
+    public PlayableCard getWeapon() { return weapon; }
 
     public ArrayList<PlayableCard> getCardsInHand() { return cardsInHand; } //getter method for player's hand
 
@@ -130,9 +136,14 @@ public class PlayerInfo
     public void setCharacter(CharacterCard character) { this.character = character; } //setter method for player's character
 
     //setter method for list of player's active blue cards
-    public void setActiveCards(PlayableCard c)
+    public void setActiveCard(PlayableCard c)
     {
-        activeCards.add(c);
+        activeCard = c;
+    }
+
+    public void setWeapon(PlayableCard c)
+    {
+        weapon = c;
     }
 
     //setter method for list of player's hand
@@ -149,8 +160,7 @@ public class PlayerInfo
         s+= "\t\t\tActive Cards:\n";
 
         //concatenates strings of active cards
-        for(PlayableCard p: activeCards) s+= "\t\t\t\t" + p.toString();
-        s+= "\t\t\tCards in hand:\n";
+        s+= "\t\t\tActive Card:\n" + activeCard.toString();
 
         //concatenates strings of cards in hand
         for(PlayableCard p: cardsInHand) s+=  p.toString();

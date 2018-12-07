@@ -1,6 +1,7 @@
 package com.example.davidvargas.bang_gameframework;
 
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.davidvargas.bang_gameframework.game.GamePlayer;
 import com.example.davidvargas.bang_gameframework.game.LocalGame;
@@ -19,6 +20,7 @@ import com.example.davidvargas.bang_gameframework.game.infoMsg.IllegalMoveInfo;
 public class BANGLocalGame extends LocalGame{
 
     public BANGState state; //the game state
+    public TextView topText; //along with BANGHumanPlayer, will have ability to display text on very top of screen
 
 
     public BANGLocalGame(){
@@ -110,7 +112,7 @@ public class BANGLocalGame extends LocalGame{
         //if game state doesnt check, check if move is valid
         //finally, actually make action by changing game state
 
-        Log.i("Make move", "checking ation type...");
+        Log.i("Make move", "checking action type...");
         if(action instanceof BANGEndTurn){ //if action is End Turn,
             state.endTurn(); //call endTurn action
             return true;

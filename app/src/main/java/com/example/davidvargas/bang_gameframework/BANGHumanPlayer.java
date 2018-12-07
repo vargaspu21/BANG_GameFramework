@@ -3,6 +3,7 @@ package com.example.davidvargas.bang_gameframework;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.util.Log;
 import android.view.MenuItem;
@@ -23,8 +24,10 @@ import com.example.davidvargas.bang_gameframework.game.infoMsg.GameInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.IllegalMoveInfo;
 import com.example.davidvargas.bang_gameframework.game.infoMsg.NotYourTurnInfo;
 import com.example.davidvargas.bang_gameframework.objects.PlayableCard;
+import com.example.davidvargas.bang_gameframework.objects.RoleCard;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Main player as well as containing the main layout when playing. Actions are sent from this class.
@@ -63,6 +66,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
     private ArrayList<LinearLayout> playerLayouts;
     // the ID for the layout to use
     private int layoutId;
+    private Random rng = new Random();
 
 
     //constructor
@@ -178,6 +182,22 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             Log.i("ButtonInfo","null view clicked on?");
             return;
         }
+        if(state.players[0].getActiveCard().getCardNum() == BANGState.JAIL)
+        {
+            if(rng.nextInt(4)==0)
+            {
+                topText.setText("You broke out of jail! Continue turn");
+                state.players[0].setActiveCard(new PlayableCard());
+                return;
+            }
+            else
+            {
+                topText.setText("You failed to break out of jail! Turn skipped");
+                state.players[0].setActiveCard(new PlayableCard());
+                gameAction = new BANGEndTurn(this);
+                game.sendAction(gameAction);
+            }
+        }
         if(v.getId() == endTurn.getId()){ //if end turn button is clicked
             Log.i("ButtonInfo","Ending turn");
             gameAction = new BANGEndTurn(this);
@@ -190,8 +210,12 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         }
         else if(v.getId() == drawPile.getId()) //when draw pile clicked, demonstrates the amount in pile
         {
-            Log.i("ButtonInfo","Drawing two cards");
             topText.setText("Number of cards in deck: " + ((BANGLocalGame)game).state.drawPile.size());
+            topText.invalidate();
+        }
+        else if(v.getId() == discardPile.getId())
+        {
+            topText.setText("Number of cards in discard pile: " + ((BANGLocalGame)game).state.discardPile.size());
             topText.invalidate();
         }
         else if(v.getId() == player2cards.getId()) //gets the amount
@@ -209,25 +233,94 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
             topText.setText("Number of cards in player 4's hand: " + ((BANGLocalGame)game).state.players[3].getCardsInHand().size());
             topText.invalidate();
         }
-        //11-26-18 ~ used for debugging
+        //11-26-18 ~ NOW assumed that health (bullet) pictures behave correctly
         else if(v.getId() == roles.get(0).getId())
         {
-            topText.setText(""+state.players[0].getHealth());
-            topText.invalidate();
+            //display role
+            if(roles.get(0).getTag().equals((Object)(0)))
+            {
+                if(state.players[0].getCharacter().getResourceId()==R.drawable.card_flipped)
+                {
+                    topText.setText("No character equipped");
+                }
+                else
+                {
+                    topText.setText(state.players[0].getCharacter().getDescription());
+                }
+                topText.invalidate();
+                roles.get(0).setImageResource(state.players[0].getCharacter().getResourceId());
+                roles.get(0).invalidate();
+                roles.get(0).setTag(1);
+                Log.i("NOTES","character viewed");
+
+            }
+            //display character
+            else if(roles.get(0).getTag().equals((Object)(1)))
+            {
+                if(state.players[0].getWeapon().getResourceId()==R.drawable.card_flipped)
+                {
+                    topText.setText("No weapon equipped");
+                }
+                else
+                {
+                    topText.setText(state.players[0].getWeapon().getDescription());
+                }
+                topText.invalidate();
+                roles.get(0).setImageResource(state.players[0].getWeapon().getResourceId());
+                roles.get(0).invalidate();
+                roles.get(0).setTag(2);
+                Log.i("NOTES","weapon viewed");
+            }
+            //display weapon
+            else if(roles.get(0).getTag().equals((Object)(2)))
+            {
+                if(state.players[0].getActiveCard().getResourceId()==R.drawable.card_flipped)
+                {
+                    topText.setText("No active card equipped");
+                }
+                else
+                {
+                    topText.setText(state.players[0].getActiveCard().getDescription());
+                }
+                topText.invalidate();
+                roles.get(0).setImageResource(state.players[0].getActiveCard().getResourceId());
+                roles.get(0).invalidate();
+                roles.get(0).setTag(3);
+                Log.i("NOTES","active card viewed");
+            }
+            //display active card
+            else
+            {
+                if(state.players[0].getRole().getResourceId()==R.drawable.card_flipped)
+                {
+                    topText.setText("No role equipped");
+                }
+                else
+                {
+                    topText.setText(state.players[0].getRole().getDescription());
+                }
+                topText.invalidate();
+                roles.get(0).setImageResource(state.players[0].getRole().getResourceId());
+                roles.get(0).invalidate();
+                roles.get(0).setTag(0);
+                Log.i("NOTES","role viewed");
+            }
         }
         else if(v.getId() == roles.get(1).getId())
         {
-            topText.setText(""+state.players[1].getHealth());
+            topText.setText("Player 2 is a " + state.players[1].getRole().getRole());
             topText.invalidate();
         }
         else if(v.getId() == roles.get(2).getId())
         {
-            topText.setText(""+state.players[2].getHealth());
+           // topText.setText("Remaining health of Player 3: "+state.players[2].getHealth());
+            topText.setText("Player 3 is a " + state.players[2].getRole().getRole());
             topText.invalidate();
         }
         else if(v.getId() == roles.get(3).getId())
         {
-            topText.setText(""+state.bangsPlayed);
+           // topText.setText("Remaining health of Player 4: "+state.players[3].getHealth());
+            topText.setText("Player 4 is a " + state.players[3].getRole().getRole());
             topText.invalidate();
         }
         else if(v.getId() == chooseTarget.getId()){
@@ -358,7 +451,8 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         this.missed = (Button) myActivity.findViewById(R.id.missed);
 
 
-        this.drawPile = (ImageView) myActivity.findViewById(R.id.drawPile);
+        //this.drawPile = (ImageView) myActivity.findViewById(R.id.drawPile);
+        //this.discardPile = (ImageView) myActivity.findViewById(R.id.discardPile);
 
         this.player2cards = (ImageView) myActivity.findViewById(R.id.p2c);
         player2cards.setOnClickListener(this);
@@ -381,6 +475,8 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
 
 
         this.roles.add((ImageView) myActivity.findViewById(R.id.p1role));
+        this.roles.get(0).setTag(0);
+
         this.roles.add((ImageView) myActivity.findViewById(R.id.p2role));
         this.roles.add((ImageView) myActivity.findViewById(R.id.p3role));
         this.roles.add((ImageView) myActivity.findViewById(R.id.p4role));
@@ -394,6 +490,7 @@ public class BANGHumanPlayer extends GameHumanPlayer implements  View.OnClickLis
         drawPile.setOnClickListener(this);
 
         this.discardPile = (ImageView) myActivity.findViewById(R.id.discardPile);
+        discardPile.setOnClickListener(this);
 
         //TO-DO: make this like hand cards above
         //this.active1 = (ImageView) activity.findViewById(R.id.p1a1);

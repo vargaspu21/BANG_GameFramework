@@ -15,9 +15,9 @@ public class RoleCard extends Card
     //0: Sheriff, 1: Outlaw, 2: Renegade
     public int role;
 
-    public final int SHERIFF = 0;
-    public final int OUTLAW = 2;
-    public final int RENEGADE = 1;
+    public static final int SHERIFF = 0;
+    public static final int OUTLAW = 1;
+    public static final int RENEGADE = 2;
 
     //constructor:
     public RoleCard(int roleNum)
@@ -27,17 +27,17 @@ public class RoleCard extends Card
         switch (roleNum){
             case SHERIFF:
                 name = "Sheriff";
-                description = "The goal is to eliminate all the Outlaws and the Renegade, to protect law and order.\n";
-                resourceId = R.drawable.sheriff;
+                description = "Goal: Eliminate all outlaws and renegades!\n";
+                resourceId = R.drawable.sheriff_copy;
                 break;
             case RENEGADE:
                 name = "Renegade";
-                description = "The goal is to be the last character in play.\n";
+                description = "Goal: Be the last player standing!\n";
                 resourceId = R.drawable.renegade;
                 break;
             case OUTLAW:
                 name = "Outlaw";
-                description = "The goal is to kill the Sheriff.\n";
+                description = "Goal: Eliminate the sheriff!\n";
                 resourceId= R.drawable.outlaw;
                 break;
         }

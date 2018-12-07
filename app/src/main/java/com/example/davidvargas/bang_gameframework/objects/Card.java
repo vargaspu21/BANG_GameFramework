@@ -45,9 +45,9 @@ public class Card
     //constructor for creation of new general Card
     public Card()
     {
-        name = null;
-        description = null;
-        resourceId = -1;
+        name = "Unused Card";
+        description = "Not a valid used card";
+        resourceId = R.drawable.card_flipped;
     }
 
     //Card copy constructor
@@ -80,7 +80,7 @@ public class Card
                 break;
             case VOLCANIC:
                 name = "Volcanic";
-                description = "Pompeii. Unlimited uses of BANG. Range+1\n";
+                description = "Unlimited uses of BANG. Range+1\n";
                 resourceId = R.drawable.volcanic;
                 break;
             case REMINGTON:
@@ -142,6 +142,11 @@ public class Card
                 name = "Stagecoach";
                 description = "Nothing like a free ride! Draw 2 cards.";
                 resourceId = R.drawable.stagecoach;
+                break;
+            case JAIL:
+                name = "Jail";
+                description = "You're jailed! Quarter chance to get out this turn";
+                resourceId = R.drawable.jail;
                 break;
         }
     }
